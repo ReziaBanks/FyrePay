@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:green_apple_pay/Screens/Auth/sign_up_page.dart';
+import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,9 +31,10 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+    // setState(() {
+    //   _counter++;
+    // });
+    AppFunctions.navigate(context, SignUpPage());
   }
 
   @override
@@ -57,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(Icons.arrow_forward),
       ),
     );
   }

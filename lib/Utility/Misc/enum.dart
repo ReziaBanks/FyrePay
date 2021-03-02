@@ -1,0 +1,4 @@
+enum AppButtonType {
+  Bold,
+  Light,
+}
