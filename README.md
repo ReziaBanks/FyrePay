@@ -1,6 +1,6 @@
 # green_apple_pay
 
-A new Flutter application.
+A new Flutter app.
 
 ## Getting Started
 
