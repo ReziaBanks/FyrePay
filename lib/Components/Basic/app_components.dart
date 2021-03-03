@@ -97,3 +97,45 @@ class AppButton extends StatelessWidget {
     );
   }
 }
+
+class AppContentTile extends StatelessWidget {
+  final String title;
+  final Function onPressed;
+  final Color titleColor;
+  final double height;
+  final Widget trailingWidget;
+
+  AppContentTile({
+    @required this.title,
+    @required this.onPressed,
+    this.titleColor = const Color(0xFF4D4D4D),
+    this.height = 63,
+    this.trailingWidget =
+    const Icon(Icons.arrow_forward_ios_outlined, color: Color(0xFF4D4D4D)),
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        height: height,
+        color: Color(0xFFECECEC),
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '$title',
+              style: TextStyle(
+                color: titleColor,
+                fontSize: 16,
+              ),
+            ),
+            trailingWidget,
+          ],
+        ),
+      ),
+    );
+  }
+}

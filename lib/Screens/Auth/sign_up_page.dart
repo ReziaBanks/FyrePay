@@ -27,6 +27,12 @@ class _SignUpPageState extends State<SignUpPage> {
                   textInputAction: null,
                 ),
                 SizedBox(height: 15),
+                AppContentTile(
+                  title: 'Manage Membership',
+                  onPressed: () {
+                  },
+                ),
+                SizedBox(height: 15),
                 AppTextField(
                   hintText: 'Enter Your Email Address',
                   controller: null,
