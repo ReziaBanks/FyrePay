@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Screens/Auth/sign_up_page.dart';
+import 'package:green_apple_pay/Screens/Settings/settings_page.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 
 void main() {
@@ -54,6 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            AppButton(title: "Settings", onPressed: () => AppFunctions.navigate(context, SettingsPage()))
           ],
         ),
       ),
