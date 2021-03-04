@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
+import 'package:green_apple_pay/Screens/Settings/account_security_page.dart';
+import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -33,7 +35,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
           AppContentTile(
             title: 'Security',
-            onPressed: () {},
+            onPressed: () {
+              AppFunctions.navigate(context, AccountSecurityPage());
+            },
           ),
           SizedBox(height: 35),
 
