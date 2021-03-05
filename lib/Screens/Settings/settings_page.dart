@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
+import 'package:green_apple_pay/Screens/Settings/account_details_page.dart';
 import 'package:green_apple_pay/Screens/Settings/account_security_page.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 
@@ -28,7 +29,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
           AppContentTile(
             title: 'Change Email',
-            onPressed: () {},
+            onPressed: () {
+              AppFunctions.navigate(context, AccountDetailsPage());
+            },
           ),
 
           SizedBox(height: 15),
