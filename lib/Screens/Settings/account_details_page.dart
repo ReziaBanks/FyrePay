@@ -13,7 +13,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account Security'),
+        title: Text('Account Details'),
       ),
       body: ListView(
         padding: EdgeInsets.only(top: 25, left: 50, right: 50, bottom: 50),
