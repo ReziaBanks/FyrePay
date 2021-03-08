@@ -2,35 +2,35 @@ import 'package:green_apple_pay/models/bank.dart';
 import 'package:green_apple_pay/models/organization.dart';
 
 class User {
-  String _email;
-  String _password;
-  List<Organization> _organizations;
-  List<Bank> _bankInstitutions;
+  String email;
+  String password;
+  List<Organization> organizations;
+  List<Bank> bankInstitutions;
 
-  User(this._email, this._password);
+  User({this.email, this.password, this.organizations, this.bankInstitutions});
 
-  String get email => _email;
-  String get password => _password;
-  List get organizations => _organizations;
-  List get bankInstitutions => _bankInstitutions;
+  String get getEmail => email;
+  String get getPassword => password;
+  List get getOrganizations => organizations;
+  List get getBankInstitutions => bankInstitutions;
 
-  set setEmail(String newEmail) => _email = newEmail;
+  set setEmail(String newEmail) => email = newEmail;
 
-  set setPassword(String newPassword) => _password = newPassword;
+  set setPassword(String newPassword) => password = newPassword;
 
-  set addOrganization(Organization org) => _organizations.add(org);
+  set addOrganization(Organization org) => organizations.add(org);
 
-  set addBankInstitution(Bank account) => _bankInstitutions.add(account);
+  set addBankInstitution(Bank account) => bankInstitutions.add(account);
 
   set deleteOrganization(Organization org) {
-    if (_organizations.isNotEmpty && _organizations.contains(org)) {
-      _organizations.remove(org);
+    if (organizations.isNotEmpty && organizations.contains(org)) {
+      organizations.remove(org);
     }
   }
 
   set deleteBankInstitution(Bank bank) {
-    if (_bankInstitutions.isNotEmpty && _bankInstitutions.contains(bank)) {
-      _bankInstitutions.remove(bank);
+    if (bankInstitutions.isNotEmpty && bankInstitutions.contains(bank)) {
+      bankInstitutions.remove(bank);
     }
   }
 }

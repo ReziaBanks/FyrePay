@@ -1,15 +1,15 @@
 class Account {
-  double _roundUpAmount;
-  double _monthlyAddOn;
-  double _maxMonthlyAddOn;
+  double roundUpAmount;
+  double monthlyAddOn;
+  double maxMonthlyAddOn;
 
-  Account(this._roundUpAmount, this._monthlyAddOn, this._maxMonthlyAddOn);
+  Account({this.roundUpAmount, this.monthlyAddOn, this.maxMonthlyAddOn});
 
-  double get roundUpAmount => _roundUpAmount;
-  double get monthlyAddOn => _monthlyAddOn;
-  double get maxMonthlyAddOn => _maxMonthlyAddOn;
+  double get getRoundUpAmount => roundUpAmount;
+  double get getMonthlyAddOn => monthlyAddOn;
+  double get getMaxMonthlyAddOn => maxMonthlyAddOn;
 
-  set setRoundUpAmount(double amount) => _roundUpAmount = amount;
-  set setMonthlyAddOn(double amount) => _monthlyAddOn = amount;
-  set setMaxMonthlyAddOn(double amount) => _maxMonthlyAddOn = amount;
+  set setRoundUpAmount(double amount) => roundUpAmount = amount;
+  set setMonthlyAddOn(double amount) => monthlyAddOn = amount;
+  set setMaxMonthlyAddOn(double amount) => maxMonthlyAddOn = amount;
 }

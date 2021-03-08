@@ -1,9 +1,9 @@
 class Bank {
-  String _institutionName;
-  int _accountNumber;
+  String institutionName;
+  int accountNumber;
 
-  Bank(this._institutionName, this._accountNumber);
+  Bank({this.institutionName, this.accountNumber});
 
-  String get institutionName => _institutionName;
-  int get accountNumber => _accountNumber;
+  String get getInstitutionName => institutionName;
+  int get getAccountNumber => accountNumber;
 }

@@ -1,43 +1,43 @@
 class Organization {
-  int _orgId;
-  String _name;
-  String _email;
-  String _description;
-  String _website;
-  String _streetAddress;
-  String _city;
-  String _province;
-  String _postalCode;
-  int _allocation;
-  bool _isActive;
-  double _lifeTimeDonation;
+  int orgId;
+  String name;
+  String email;
+  String description;
+  String website;
+  String streetAddress;
+  String city;
+  String province;
+  String postalCode;
+  int allocation;
+  bool isActive;
+  double lifeTimeDonation;
 
   Organization(
-      this._orgId,
-      this._name,
-      this._email,
-      this._description,
-      this._website,
-      this._streetAddress,
-      this._city,
-      this._province,
-      this._postalCode,
-      this._allocation,
-      this._isActive,
-      this._lifeTimeDonation);
+      {this.orgId,
+      this.name,
+      this.email,
+      this.description,
+      this.website,
+      this.streetAddress,
+      this.city,
+      this.province,
+      this.postalCode,
+      this.allocation,
+      this.isActive,
+      this.lifeTimeDonation});
 
-  int get orgId => _orgId;
-  String get name => _name;
-  String get email => _email;
-  String get description => _description;
-  String get website => _website;
-  String get streetAddress => _streetAddress;
-  String get city => _city;
-  String get province => _province;
-  String get postalCode => _postalCode;
-  int get allocation => _allocation;
-  bool get isActive => _isActive;
-  double get lifeTimeDonation => _lifeTimeDonation;
+  int get getOrgId => orgId;
+  String get getName => name;
+  String get getEmail => email;
+  String get getDescription => description;
+  String get getWebsite => website;
+  String get getStreetAddress => streetAddress;
+  String get getCity => city;
+  String get getProvince => province;
+  String get getPostalCode => postalCode;
+  int get getAllocation => allocation;
+  bool get getIsActive => isActive;
+  double get getLifeTimeDonation => lifeTimeDonation;
 
-  set setAllocation(int allocation) => _allocation = allocation;
+  set setAllocation(int allocation) => this.allocation = allocation;
 }
