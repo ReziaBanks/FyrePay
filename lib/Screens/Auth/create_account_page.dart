@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Screens/Auth/login_to_account_page.dart';
+import 'package:green_apple_pay/Screens/Connection/connect_bank_account_page.dart';
 import 'package:green_apple_pay/Screens/Home/tab_page.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
@@ -139,7 +140,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         onPressed: () {
                           // if(_hasAgreed == true){
                           // }
-                          AppFunctions.navigateAndRemove(context, TabPage());
+                          AppFunctions.navigateAndRemove(context, ConnectBankAccountPage());
                         },
                       ),
                     ],
