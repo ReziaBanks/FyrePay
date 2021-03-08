@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/enum.dart';
 
@@ -14,8 +16,8 @@ class AppTextField extends StatelessWidget {
   AppTextField({
     @required this.hintText,
     @required this.controller,
-    @required this.node,
     @required this.textInputAction,
+    this.node,
     this.obscureText = false,
     this.keyboardType,
     this.onEditingComplete,
@@ -24,12 +26,12 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFFDEDEDE),
+      color: kLightGrayECColor,
       height: 55,
       padding: EdgeInsets.only(left: 15),
       child: TextField(
         style: TextStyle(
-          color: Color(0xFF858586),
+          color: kGray4DColor,
           fontSize: 16,
         ),
         textAlignVertical: TextAlignVertical.center,
@@ -43,7 +45,7 @@ class AppTextField extends StatelessWidget {
         decoration: InputDecoration(
           hintText: '$hintText',
           hintStyle: TextStyle(
-            color: Color(0xFFDEDEDE),
+            color: kGray85Color,
             fontSize: 16,
           ),
           border: InputBorder.none,
@@ -107,11 +109,11 @@ class AppContentTile extends StatelessWidget {
 
   AppContentTile({
     @required this.title,
-    @required this.onPressed,
+    this.onPressed,
     this.titleColor = const Color(0xFF4D4D4D),
     this.height = 63,
     this.trailingWidget =
-    const Icon(Icons.arrow_forward_ios_outlined, color: Color(0xFF4D4D4D)),
+    const Icon(Ionicons.chevron_forward, color: Color(0xFF4D4D4D)),
   });
 
   @override
@@ -120,7 +122,7 @@ class AppContentTile extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         height: height,
-        color: Color(0xFFECECEC),
+        color: kLightGrayECColor,
         padding: EdgeInsets.symmetric(horizontal: 15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -136,6 +138,16 @@ class AppContentTile extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class AppProgressIndicator extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return CupertinoActivityIndicator(
+      // color: Colors.grey,
+      // size: 40.0,
     );
   }
 }

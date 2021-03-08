@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
+import 'package:green_apple_pay/Utility/Misc/constants.dart';
 
 class AccountDetailsPage extends StatefulWidget {
   @override
@@ -7,68 +8,52 @@ class AccountDetailsPage extends StatefulWidget {
 }
 
 class _AccountDetailsPageState extends State<AccountDetailsPage> {
-  String _newEmail;
+  TextEditingController _newEmailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account Details'),
+        title: Text('Account Details', style: kAppBarLightTextStyle),
       ),
       body: ListView(
-        padding: EdgeInsets.only(top: 25, left: 50, right: 50, bottom: 50),
+        physics: ClampingScrollPhysics(),
+        padding: kAppPadding,
         children: [
           //Current Email
-        InkWell(
-            child: Container(
-              height: 60,
-              color: Color(0xFFECECEC),
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Current Email',
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                  Text(
-                    'example@gmail.com',
-                    style: TextStyle(
-                      fontSize: 14,
-                      letterSpacing: 1,
-                      fontStyle: FontStyle.italic,
-                    )
-                  ),
-                ],
+          AppContentTile(
+            title: 'Current Email',
+            height: 55,
+            trailingWidget: Text(
+              'example@email.com',
+              style: TextStyle(
+                fontSize: 15,
+                color: kGray85Color,
+                fontWeight: FontWeight.w300,
               ),
             ),
           ),
-
           SizedBox(height: 15),
-
-          //New Password
-          TextFormField(
-            obscureText: true,
-            style: TextStyle(fontSize: 18),
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: "Enter New Email Address",
-              filled: true,
-              fillColor: Color.fromARGB(255, 234, 234, 234),
-            ),
-            onSaved: (String v) {
-              _newEmail = v;
-            },
+          AppTextField(
+            hintText: 'Enter Current Password',
+            controller: _passwordController,
+            textInputAction: TextInputAction.next,
           ),
-
           SizedBox(height: 15),
-
+          //New Password
+          AppTextField(
+            hintText: 'Enter New Email Address',
+            controller: _newEmailController,
+            textInputAction: TextInputAction.go,
+          ),
+          SizedBox(height: 15),
           //Confirm button
-          AppButton(title: "Update Now", onPressed: () {
-            //Send email change request
-          })
+          AppButton(
+              title: "Update Now",
+              onPressed: () {
+                // Send email change request
+              })
         ],
       ),
     );

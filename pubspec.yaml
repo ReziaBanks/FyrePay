@@ -8,6 +8,9 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  splashscreen: ^1.3.5
+  flutter_vector_icons: ^1.0.0
+
   flutter:
     sdk: flutter
 
@@ -20,3 +23,25 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: fonts/inter/Inter-Black.ttf
+        - asset: fonts/inter/Inter-BlackItalic.ttf
+        - asset: fonts/inter/Inter-Bold.ttf
+        - asset: fonts/inter/Inter-BoldItalic.ttf
+        - asset: fonts/inter/Inter-ExtraBold.ttf
+        - asset: fonts/inter/Inter-ExtraBoldItalic.ttf
+        - asset: fonts/inter/Inter-ExtraLight.ttf
+        - asset: fonts/inter/Inter-ExtraLightItalic.ttf
+        - asset: fonts/inter/Inter-Italic.ttf
+        - asset: fonts/inter/Inter-Light.ttf
+        - asset: fonts/inter/Inter-LightItalic.ttf
+        - asset: fonts/inter/Inter-Medium.ttf
+        - asset: fonts/inter/Inter-MediumItalic.ttf
+        - asset: fonts/inter/Inter-Regular.ttf
+        - asset: fonts/inter/Inter-SemiBold.ttf
+        - asset: fonts/inter/Inter-SemiBoldItalic.ttf
+        - asset: fonts/inter/Inter-Thin.ttf
+        - asset: fonts/inter/Inter-ThinItalic.ttf

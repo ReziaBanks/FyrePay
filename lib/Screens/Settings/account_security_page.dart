@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
+import 'package:green_apple_pay/Utility/Misc/constants.dart';
 
 class AccountSecurityPage extends StatefulWidget {
   @override
@@ -7,74 +8,48 @@ class AccountSecurityPage extends StatefulWidget {
 }
 
 class _AccountSecurityPageState extends State<AccountSecurityPage> {
-  String _currentPass;
-  String _newPass;
-  String _newPass2;
+  TextEditingController _currentPasswordController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _repeatPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account Security'),
+        title: Text('Account Security', style: kAppBarLightTextStyle),
       ),
       body: ListView(
-        padding: EdgeInsets.only(top: 25, left: 50, right: 50, bottom: 50),
+        padding: kAppPadding,
+        physics: ClampingScrollPhysics(),
         children: [
           //Current Password
-          TextFormField(
-            obscureText: true,
-            style: TextStyle(fontSize: 18),
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: "Enter Current Password",
-              filled: true,
-              fillColor: Color.fromARGB(255, 234, 234, 234),
-            ),
-            onSaved: (String v) {
-              _currentPass = v;
-            },
+          AppTextField(
+            hintText: 'Enter Current Password',
+            controller: _currentPasswordController,
+            textInputAction: TextInputAction.next,
           ),
-
           SizedBox(height: 15),
-
           //New Password
-          TextFormField(
-            obscureText: true,
-            style: TextStyle(fontSize: 18),
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: "Enter New Password",
-              filled: true,
-              fillColor: Color.fromARGB(255, 234, 234, 234),
-            ),
-            onSaved: (String v) {
-              _newPass = v;
-            },
+          AppTextField(
+            hintText: 'Enter New Password',
+            controller: _passwordController,
+            textInputAction: TextInputAction.next,
           ),
-
           SizedBox(height: 15),
-
           //Repeat New Password
-          TextFormField(
-            obscureText: true,
-            style: TextStyle(fontSize: 18),
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: "Repeat New Password",
-              filled: true,
-              fillColor: Color.fromARGB(255, 234, 234, 234),
-            ),
-            onSaved: (String v) {
-              _newPass2 = v;
-            },
+          AppTextField(
+            hintText: 'Repeat New Password',
+            controller: _repeatPasswordController,
+            textInputAction: TextInputAction.go,
           ),
-
           SizedBox(height: 15),
-          
           //Confirm button
-          AppButton(title: "Update Now", onPressed: () {
-            //Hash & send password change request
-          })
+          AppButton(
+            title: "Update Now",
+            onPressed: () {
+              //Hash & send password change request
+            },
+          )
         ],
       ),
     );

@@ -3,6 +3,7 @@ import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Screens/Settings/account_details_page.dart';
 import 'package:green_apple_pay/Screens/Settings/account_security_page.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
+import 'package:green_apple_pay/Utility/Misc/constants.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -10,20 +11,31 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  TextStyle _basicStyle = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: Text('Settings', style: kAppBarHeavyTextStyle),
+        centerTitle: false,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.more_vert),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: ListView(
-        padding: EdgeInsets.only(top: 25, left: 25, right: 25, bottom: 50),
+        padding: kAppPadding,
         children: [
           //Account Details
           Text(
             'Account Details',
-            style: (Theme.of(context).textTheme.bodyText1)
-                .merge(TextStyle(fontWeight: FontWeight.bold)),
+            style: _basicStyle,
           ),
           SizedBox(height: 15),
 
@@ -47,8 +59,7 @@ class _SettingsPageState extends State<SettingsPage> {
           //Connection
           Text(
             'Connection',
-            style: (Theme.of(context).textTheme.bodyText1)
-                .merge(TextStyle(fontWeight: FontWeight.bold)),
+            style: _basicStyle,
           ),
           SizedBox(height: 15),
 
@@ -65,13 +76,10 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           //About
           SizedBox(height: 35),
-          Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'About Green Apple Pay',
-                style: (Theme.of(context).textTheme.bodyText1)
-                    .merge(TextStyle(fontWeight: FontWeight.bold)),
-              )),
+          Text(
+            'About Green Apple Pay',
+            style: _basicStyle,
+          ),
           SizedBox(height: 15),
 
           AppContentTile(

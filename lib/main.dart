@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:green_apple_pay/Components/Basic/app_components.dart';
-import 'package:green_apple_pay/Screens/Auth/sign_up_page.dart';
-import 'package:green_apple_pay/Screens/Settings/settings_page.dart';
-import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
+import 'package:green_apple_pay/Screens/Splash/app_splash_screen.dart';
+import 'package:green_apple_pay/Utility/Misc/constants.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,59 +10,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Green Apple Pay',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Green Apple Pay'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    // setState(() {
-    //   _counter++;
-    // });
-    AppFunctions.navigate(context, SignUpPage());
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+        fontFamily: 'Inter',
+        scaffoldBackgroundColor: kWhiteColor,
+        appBarTheme: AppBarTheme(
+            color: kWhiteColor,
+            titleSpacing: 25,
+            iconTheme: IconThemeData(
+              color: kBlackColor,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            AppButton(title: "Settings", onPressed: () => AppFunctions.navigate(context, SettingsPage()))
-          ],
+            // brightness: Brightness.dark,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.arrow_forward),
-      ),
+      home: AppSplashScreen(),
     );
   }
 }
