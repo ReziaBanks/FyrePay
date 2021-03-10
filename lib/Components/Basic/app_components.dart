@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:green_apple_pay/Screens/Organization/organization_page.dart';
+import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
+import 'package:green_apple_pay/Utility/Misc/data.dart';
 import 'package:green_apple_pay/Utility/Misc/enum.dart';
 
 class AppTextField extends StatelessWidget {
@@ -202,6 +205,126 @@ class AppBarTextButton extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class AppMiniOrganizationCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: (){
+        AppFunctions.navigate(context, OrganizationPage());
+      },
+      child: Row(
+        children: [
+          Container(
+            width: 120,
+            height: 100,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage('${AppData.organizationImageUrl2}'),
+                  fit: BoxFit.cover,
+                )
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(left: 12),
+              color: kLightGrayECColor,
+              height: 100,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Canadian Cancer Society'),
+                  SizedBox(height: 5),
+                  Text('Total Donations: \$23.24'),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AppOrganizationCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: (){
+        AppFunctions.navigate(context, OrganizationPage());
+      },
+      child: Column(children: [
+        Container(
+          height: 250,
+          // width: 364,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(5),
+                topRight: Radius.circular(5),
+              ),
+              image: DecorationImage(
+                image: NetworkImage('${AppData.organizationImageUrl1}'),
+                fit: BoxFit.cover,
+              )
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+              color: kLightGrayECColor,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(5),
+                bottomRight: Radius.circular(5),
+              )
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Wounded Warriors'),
+              Text('View')
+            ],
+          ),
+        ),
+      ],),
+    );
+  }
+}
+
+class AppListTile extends StatelessWidget {
+  final String text;
+  final IconData iconData;
+  final Color textColor;
+  final double iconSize;
+
+  AppListTile({
+    @required this.text,
+    this.iconData = Feather.check,
+    this.textColor = kBlackColor,
+    this.iconSize = 24,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(iconData, color: kPrimaryColor, size: iconSize),
+        SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            '$text',
+            style: TextStyle(
+              color: textColor,
+              fontSize: 16,
+              height: 150 / 100,
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        )
+      ],
     );
   }
 }
