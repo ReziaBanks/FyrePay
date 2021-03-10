@@ -1,11 +1,11 @@
 class Donation {
-  double _totalAmountDonated;
-  double _amountDonatedToOrg;
+  double totalAmountDonated;
+  double amountDonatedToOrg;
   int orgId;
 
-  Donation(this._totalAmountDonated, this._amountDonatedToOrg, this.orgId);
+  Donation({this.totalAmountDonated, this.amountDonatedToOrg, this.orgId});
 
-  double get totalAmountDonated => _totalAmountDonated;
+  double get getTotalAmountDonated => totalAmountDonated;
 
-  double get amountDonatedToOrg => _amountDonatedToOrg;
+  double get getAmountDonatedToOrg => amountDonatedToOrg;
 }

@@ -1,16 +1,16 @@
 class Transaction {
-  DateTime _transactionDate;
-  String _description;
-  double _price;
-  double _roundUpAmount;
+  DateTime transactionDate;
+  String description;
+  double price;
+  double roundUpAmount;
 
-  Transaction(this._transactionDate, this._description, this._price,
-      this._roundUpAmount);
+  Transaction(
+      {this.transactionDate, this.description, this.price, this.roundUpAmount});
 
-  DateTime get transactionDate => _transactionDate;
-  String get description => _description;
-  double get price => _price;
-  double get roundUpAmount => _roundUpAmount;
+  DateTime get getTransactionDate => transactionDate;
+  String get getDescription => description;
+  double get getPrice => price;
+  double get getRoundUpAmount => roundUpAmount;
 
-  set addRoundUpAmountToOrg(double value) => _roundUpAmount = value;
+  set addRoundUpAmountToOrg(double value) => roundUpAmount = value;
 }
