@@ -4,7 +4,7 @@ import 'package:green_apple_pay/models/organization.dart';
 class User {
   String email;
   String password;
-  List<Organization> organizations;
+  List<AppOrganization> organizations;
   List<Bank> bankInstitutions;
 
   User({this.email, this.password, this.organizations, this.bankInstitutions});
@@ -18,11 +18,11 @@ class User {
 
   set setPassword(String newPassword) => password = newPassword;
 
-  set addOrganization(Organization org) => organizations.add(org);
+  set addOrganization(AppOrganization org) => organizations.add(org);
 
   set addBankInstitution(Bank account) => bankInstitutions.add(account);
 
-  set deleteOrganization(Organization org) {
+  set deleteOrganization(AppOrganization org) {
     if (organizations.isNotEmpty && organizations.contains(org)) {
       organizations.remove(org);
     }
