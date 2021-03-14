@@ -31,7 +31,7 @@ class AppData {
   static Bank bank =
   Bank(institutionName: 'TD CANADA TRUST', accountNumber: 000789892);
 
-  static Organization org1 = Organization(
+  static AppOrganization org1 = AppOrganization(
       orgId: 1,
       name: 'The Children\'s Aid Society',
       email: 'test@hamiltoncas.com',
@@ -44,9 +44,10 @@ class AppData {
       postalCode: 'L8M 1A1',
       allocation: 0,
       isActive: false,
-      lifeTimeDonation: 20.0);
+      lifeTimeDonation: 20.0,
+      imageURL: organizationImageUrl1);
 
-  static Organization org2 = Organization(
+  static AppOrganization org2 = AppOrganization(
       orgId: 2,
       name: 'Sick Kids Foundation',
       email: 'test@test.com',
@@ -59,7 +60,8 @@ class AppData {
       postalCode: 'L8M 3A3',
       allocation: 0,
       isActive: false,
-      lifeTimeDonation: 30.0);
+      lifeTimeDonation: 30.0,
+      imageURL: organizationImageUrl2);
 
   static Transaction transaction = Transaction(
       transactionDate: DateTime.now(),
@@ -67,7 +69,7 @@ class AppData {
       price: 23.34,
       roundUpAmount: 66);
 
-  static List<Organization> orgs = [org1, org2];
+  static List<AppOrganization> orgs = [org1, org2];
   static List<Bank> banks = [bank];
 
   User testUser = User(

@@ -6,6 +6,7 @@ import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/data.dart';
 import 'package:green_apple_pay/Utility/Misc/enum.dart';
+import 'package:green_apple_pay/models/organization.dart';
 
 class AppTextField extends StatelessWidget {
   final String hintText;
@@ -251,11 +252,14 @@ class AppMiniOrganizationCard extends StatelessWidget {
 }
 
 class AppOrganizationCard extends StatelessWidget {
+  final AppOrganization organization;
+  AppOrganizationCard({@required this.organization});
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        AppFunctions.navigate(context, OrganizationPage());
+        AppFunctions.navigate(context, OrganizationPage(organization: organization));
       },
       child: Column(children: [
         Container(
@@ -267,7 +271,7 @@ class AppOrganizationCard extends StatelessWidget {
                 topRight: Radius.circular(5),
               ),
               image: DecorationImage(
-                image: NetworkImage('${AppData.organizationImageUrl1}'),
+                image: NetworkImage('${organization.imageURL}'),
                 fit: BoxFit.cover,
               )
           ),
@@ -284,7 +288,7 @@ class AppOrganizationCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Wounded Warriors'),
+              Text('${organization?.name}'),
               Text('View')
             ],
           ),
