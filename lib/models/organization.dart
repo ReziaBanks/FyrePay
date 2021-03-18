@@ -1,4 +1,4 @@
-class Organization {
+class AppOrganization {
   int orgId;
   String name;
   String email;
@@ -11,8 +11,9 @@ class Organization {
   int allocation;
   bool isActive;
   double lifeTimeDonation;
+  String imageURL;
 
-  Organization(
+  AppOrganization(
       {this.orgId,
       this.name,
       this.email,
@@ -24,7 +25,8 @@ class Organization {
       this.postalCode,
       this.allocation,
       this.isActive,
-      this.lifeTimeDonation});
+      this.lifeTimeDonation,
+      this.imageURL});
 
   int get getOrgId => orgId;
   String get getName => name;
@@ -38,6 +40,7 @@ class Organization {
   int get getAllocation => allocation;
   bool get getIsActive => isActive;
   double get getLifeTimeDonation => lifeTimeDonation;
+
 
   set setAllocation(int allocation) => this.allocation = allocation;
 }

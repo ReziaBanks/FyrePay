@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/data.dart';
+import 'package:green_apple_pay/models/organization.dart';
 
 class OrganizationPage extends StatefulWidget {
+  final AppOrganization organization;
+  OrganizationPage({@required this.organization});
+
   @override
   _OrganizationPageState createState() => _OrganizationPageState();
 }
@@ -21,12 +25,12 @@ class _OrganizationPageState extends State<OrganizationPage> {
     double imageHeight = phoneWidth * (3 / 4);
       return Scaffold(
         appBar: AppBar(
-          title: Text('Wounded Warriors', style: kAppBarLightTextStyle,),
+          title: Text('${widget?.organization?.name}', style: kAppBarLightTextStyle,),
         ),
         body: ListView(
           children: [
             CachedNetworkImage(
-              imageUrl: '${AppData.organizationImageUrl3}',
+              imageUrl: '${widget?.organization?.imageURL}',
               fit: BoxFit.cover,
               width: phoneWidth,
               height: imageHeight,
@@ -40,20 +44,20 @@ class _OrganizationPageState extends State<OrganizationPage> {
                   Text('Organization Details', style: _basicTextStyle),
                   SizedBox(height: 15),
                   AppListTile(
-                    text: 'Name: Wounded Warriors',
+                    text: 'Name: ${widget?.organization?.name}',
                     iconData: Icons.fiber_manual_record,
                     iconSize: 15,
                   ),
                   SizedBox(height: 15),
                   AppListTile(
-                    text: 'Website: www.woundedwarriorproject.org',
+                    text: 'Website: ${widget.organization.website}',
                     iconData: Icons.fiber_manual_record,
                     iconSize: 15,
                   ),
                   SizedBox(height: 15),
                   AppListTile(
                     text:
-                    'Email: info@wondedwarriors.ca',
+                    'Email: ${widget.organization.email}',
                     iconData: Icons.fiber_manual_record,
                     iconSize: 15,
                   ),
@@ -61,7 +65,7 @@ class _OrganizationPageState extends State<OrganizationPage> {
                   Text('About Us', style: _basicTextStyle),
                   SizedBox(height: 10),
                   Text(
-                    '${AppData.organizationDescr1}',
+                    '${widget.organization.description}',
                     style: TextStyle(
                       fontSize: 16,
                       height: 170 / 100,
@@ -72,7 +76,7 @@ class _OrganizationPageState extends State<OrganizationPage> {
                   Text('Address', style: _basicTextStyle),
                   SizedBox(height: 10),
                   Text(
-                    '${AppData.organizationAddress1}',
+                    '${widget.organization.streetAddress}',
                     style: TextStyle(
                       fontSize: 16,
                       height: 170 / 100,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/data.dart';
+import 'package:green_apple_pay/models/organization.dart';
 
 class OrganizationListPage extends StatefulWidget {
   @override
@@ -10,6 +11,8 @@ class OrganizationListPage extends StatefulWidget {
 }
 
 class _OrganizationListPageState extends State<OrganizationListPage> {
+  List<AppOrganization> organizations = [AppData.org1, AppData.org2];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,10 +28,10 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
       ),
       body: ListView.separated(
         padding: kAppPadding,
-        itemCount: 5,
+        itemCount: organizations.length,
         separatorBuilder: (context, index)=> SizedBox(height: 15),
         itemBuilder: (context, index){
-          return AppOrganizationCard();
+          return AppOrganizationCard(organization: organizations[index]);
         },
       ),
     );
