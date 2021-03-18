@@ -12,7 +12,7 @@ class AppData {
   static String passwordResetText =
       'Enter your email address below, we’ll send you a verification code.';
 
-  static String organizationDescr1 = 'Wonded Warriors Canada is a national mental health service provider utilizing clinical best practices and evidence-based care to create an environment of compassion, resiliency and hope for Canada’s Veterans, First Responders and their families.';
+  static String organizationDescr1 = 'Wounded Warriors Canada is a national mental health service provider utilizing clinical best practices and evidence-based care to create an environment of compassion, resiliency and hope for Canada’s Veterans, First Responders and their families.';
   static String organizationAddress1 = '310 Byron Street South, Suite 4 Whitby, Ontario L1N 4P8';
 
   static String organizationImageUrl1 =
