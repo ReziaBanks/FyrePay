@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
+import 'package:green_apple_pay/Screens/Auth/login_to_account_page.dart';
 import 'package:green_apple_pay/Screens/Settings/account_details_page.dart';
 import 'package:green_apple_pay/Screens/Settings/account_security_page.dart';
+import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 
@@ -15,6 +17,11 @@ class _SettingsPageState extends State<SettingsPage> {
     fontWeight: FontWeight.w600,
     fontSize: 16,
   );
+
+  void logout() async{
+    AppFunctions.navigateAndRemove(context, LoginToAccount());
+    await FirebaseApi().logOutUser();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +106,9 @@ class _SettingsPageState extends State<SettingsPage> {
           AppContentTile(
             title: 'Logout',
             titleColor: Color.fromARGB(150, 255, 0, 0),
-            onPressed: () {},
+            onPressed: () {
+              logout();
+            },
           ),
         ],
       ),

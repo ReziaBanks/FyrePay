@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "549653962434",
+    "project_id": "green-apple-pay",
+    "storage_bucket": "green-apple-pay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:549653962434:android:352d26d707239f2342655b",
+        "android_client_info": {
+          "package_name": "com.reziamedia.green_apple_pay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "549653962434-16pd3rfr5v93cj3e5nkkshvl8kmqn7oh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtR8IhEB9ZXQAsnutrAxhfqB1VGRG3ykQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "549653962434-16pd3rfr5v93cj3e5nkkshvl8kmqn7oh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "549653962434-lqcssq7ll0bk9bf48fvapbuj8265k3mb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.reziamedia.greenApplePay"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -25,3 +25,6 @@ const kAppBarLightTextStyle = TextStyle(
 
 // EdgeInsets
 const kAppPadding = EdgeInsets.only(top: 25, left: 25, right: 25, bottom: 50);
+
+// Strings
+const kOrganizationId = 'Organizations';

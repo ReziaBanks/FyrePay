@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>549653962434-lqcssq7ll0bk9bf48fvapbuj8265k3mb.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.549653962434-lqcssq7ll0bk9bf48fvapbuj8265k3mb</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDwhP_EgthELd0j8hNjQt_4Q1NPRPRuJrI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>549653962434</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.reziamedia.greenApplePay</string>
+	<key>PROJECT_ID</key>
+	<string>green-apple-pay</string>
+	<key>STORAGE_BUCKET</key>
+	<string>green-apple-pay.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:549653962434:ios:ca55de289b2f4fa642655b</string>
+</dict>
+</plist>

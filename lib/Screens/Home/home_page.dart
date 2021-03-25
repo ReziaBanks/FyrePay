@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
+import 'package:green_apple_pay/Utility/Classes/organization.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
+import 'package:green_apple_pay/Utility/Misc/data.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -8,6 +10,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<AppOrganization> organizations = [AppData.org1, AppData.org2];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,10 +35,11 @@ class _HomePageState extends State<HomePage> {
           ListView.separated(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
-            itemCount: 6,
+            itemCount: organizations.length,
             separatorBuilder: (context, index) => SizedBox(height: 15),
             itemBuilder: (context, index){
-              return AppMiniOrganizationCard();
+              AppOrganization organization = organizations[index];
+              return AppMiniOrganizationCard(organization: organization);
             }
           ),
         ],

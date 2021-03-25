@@ -6,7 +6,7 @@ import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/data.dart';
 import 'package:green_apple_pay/Utility/Misc/enum.dart';
-import 'package:green_apple_pay/models/organization.dart';
+import 'package:green_apple_pay/Utility/Classes/organization.dart';
 
 class AppTextField extends StatelessWidget {
   final String hintText;
@@ -67,7 +67,7 @@ class AppButton extends StatelessWidget {
 
   AppButton({
     @required this.title,
-    @required this.onPressed,
+    this.onPressed,
     this.buttonType = AppButtonType.Bold,
     this.color = kPrimaryColor,
   });
@@ -211,11 +211,17 @@ class AppBarTextButton extends StatelessWidget {
 }
 
 class AppMiniOrganizationCard extends StatelessWidget {
+  final AppOrganization organization;
+
+  AppMiniOrganizationCard({
+    @required this.organization,
+});
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        AppFunctions.navigate(context, OrganizationPage());
+        AppFunctions.navigate(context, OrganizationPage(organization: organization));
       },
       child: Row(
         children: [
@@ -224,7 +230,7 @@ class AppMiniOrganizationCard extends StatelessWidget {
             height: 100,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage('${AppData.organizationImageUrl2}'),
+                  image: NetworkImage('${organization?.imageURL}'),
                   fit: BoxFit.cover,
                 )
             ),
@@ -238,7 +244,7 @@ class AppMiniOrganizationCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Canadian Cancer Society'),
+                  Text('${organization?.name}'),
                   SizedBox(height: 5),
                   Text('Total Donations: \$23.24'),
                 ],

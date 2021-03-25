@@ -2,8 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
-import 'package:green_apple_pay/Utility/Misc/data.dart';
-import 'package:green_apple_pay/models/organization.dart';
+import 'package:green_apple_pay/Utility/Classes/organization.dart';
 
 class OrganizationPage extends StatefulWidget {
   final AppOrganization organization;
@@ -65,7 +64,7 @@ class _OrganizationPageState extends State<OrganizationPage> {
                   Text('About Us', style: _basicTextStyle),
                   SizedBox(height: 10),
                   Text(
-                    '${widget.organization.description}',
+                    '${widget.organization.about}',
                     style: TextStyle(
                       fontSize: 16,
                       height: 170 / 100,
@@ -76,7 +75,7 @@ class _OrganizationPageState extends State<OrganizationPage> {
                   Text('Address', style: _basicTextStyle),
                   SizedBox(height: 10),
                   Text(
-                    '${widget.organization.streetAddress}',
+                    '${widget.organization.address}',
                     style: TextStyle(
                       fontSize: 16,
                       height: 170 / 100,
