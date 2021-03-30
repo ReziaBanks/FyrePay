@@ -22,8 +22,8 @@ class AppData {
   static String organizationImageUrl3 =
       'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1490&q=80';
 
-  static AppDonation donation =
-  AppDonation(totalAmountDonated: 100.00, amountDonatedToOrg: 50, orgId: 1);
+  static AppDonationV2 donation =
+  AppDonationV2(totalAmountDonated: 100.00, amountDonatedToOrg: 50, orgId: 1);
 
   static AppAccount account =
   AppAccount(roundUpAmount: 1.0, monthlyAddOn: 20.0, maxMonthlyAddOn: 30.0);

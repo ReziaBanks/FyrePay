@@ -88,8 +88,10 @@ class FirebaseApi {
     return storyDocument;
   }
 
-  Future<List<DocumentSnapshot>> getDocumentsByIDFilteredByStatus(String collectionId) async {
-    QuerySnapshot snapshot = await _firebaseFirestore.collection('$collectionId').where('status', isEqualTo: 'active').get();
+  Future<List<DocumentSnapshot>> getDocumentsByID(String collectionId) async {
+    QuerySnapshot snapshot = await _firebaseFirestore.collection('$collectionId')
+        // .where('status', isEqualTo: 'active')
+        .get();
     List<QueryDocumentSnapshot> documents = snapshot.docs;
     return documents;
   }

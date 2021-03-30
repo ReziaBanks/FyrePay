@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:green_apple_pay/Screens/Organization/organization_page.dart';
+import 'package:green_apple_pay/Utility/Classes/donation.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/data.dart';
@@ -211,14 +212,15 @@ class AppBarTextButton extends StatelessWidget {
 }
 
 class AppMiniOrganizationCard extends StatelessWidget {
-  final AppOrganization organization;
+  final AppOrganizationDonation organizationDonation;
 
   AppMiniOrganizationCard({
-    @required this.organization,
-});
+    @required this.organizationDonation,
+  });
 
   @override
   Widget build(BuildContext context) {
+    AppOrganization organization = organizationDonation?.organization;
     return InkWell(
       onTap: (){
         AppFunctions.navigate(context, OrganizationPage(organization: organization));
@@ -244,9 +246,14 @@ class AppMiniOrganizationCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${organization?.name}'),
+                  Text('${organization?.name}', style: TextStyle(
+                    fontSize: 17,
+                  ),),
                   SizedBox(height: 5),
-                  Text('Total Donations: \$23.24'),
+                  Text('Total Donations: \$${organizationDonation?.totalDonation}', style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w300,
+                  ),),
                 ],
               ),
             ),
@@ -294,8 +301,15 @@ class AppOrganizationCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('${organization?.name}'),
-              Text('View')
+              Text('${organization?.name}', style: TextStyle(
+                fontSize: 16,
+                color: kGray4DColor,
+              ),),
+              Text('View', style: TextStyle(
+                color: kPrimaryColor,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),)
             ],
           ),
         ),

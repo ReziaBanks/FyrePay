@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:green_apple_pay/Utility/Classes/donation.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 
 class FirebaseDocumentToClass {
@@ -155,5 +156,30 @@ class FirebaseDocumentToClass {
         imageURL: imageURL,
     );
     return organization;
+  }
+
+  AppDonation getDonation(DocumentSnapshot donationSnapshot){
+    String uid = donationSnapshot.id;
+    Map<String, dynamic> donationMap = donationSnapshot.data();
+
+    String userId = donationMap['user_id'];
+    String organizationId = donationMap['organization_id'];
+    double cost = donationMap['cost'];
+    double roundUp = donationMap['round_up'];
+    String description = donationMap['description'];
+    Timestamp dateCreatedAsTimestamp = donationMap['date_created'];
+
+    DateTime dateCreated = dateCreatedAsTimestamp.toDate();
+
+    AppDonation donation = AppDonation(
+      uid: uid,
+      userId: userId,
+      organizationId: organizationId,
+      cost: cost,
+      roundUp: roundUp,
+      description: description,
+      dateCreated: dateCreated,
+    );
+    return donation;
   }
 }

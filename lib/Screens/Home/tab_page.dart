@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Screens/Home/home_page.dart';
 import 'package:green_apple_pay/Screens/Home/organization_list_page.dart';
 import 'package:green_apple_pay/Screens/Home/settings_page.dart';
+import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
+import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
+import 'package:provider/provider.dart';
 
 class TabPage extends StatefulWidget {
   @override
@@ -11,6 +14,14 @@ class TabPage extends StatefulWidget {
 }
 
 class _TabPageState extends State<TabPage> {
+
+  void didChangeDependencies() {
+    AppProvider appProvider = Provider.of<AppProvider>(context, listen: false);
+    AppActions.getOrganizations(appProvider);
+    AppActions.getDonations(appProvider);
+    super.didChangeDependencies();
+  }
+
   List<Widget> tabPages = [HomePage(), OrganizationListPage(), SettingsPage()];
 
   int _pageIndex = 0;

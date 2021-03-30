@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
+import 'package:green_apple_pay/Screens/Home/all_donations_page.dart';
+import 'package:green_apple_pay/Utility/Classes/donation.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
+import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
-import 'package:green_apple_pay/Utility/Misc/data.dart';
+import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,40 +14,83 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<AppOrganization> organizations = [AppData.org1, AppData.org2];
+
+  List<AppOrganizationDonation> getOrganizationDonation(AppProvider appProvider){
+    try {
+      List<AppOrganizationDonation> organizationDonationList = [];
+      List<AppDonation> donationList = appProvider.donationList;
+      List<AppOrganization> organizationList = appProvider.organizationList;
+
+      for (AppOrganization organization in organizationList) {
+        List<AppDonation> selectedDonations = [];
+        for (AppDonation donation in donationList) {
+          if (donation.organizationId == organization.uid) {
+            selectedDonations.add(donation);
+          }
+        }
+        if (selectedDonations.isNotEmpty) {
+          AppOrganizationDonation organizationDonation = AppOrganizationDonation(
+            organization: organization,
+            donations: selectedDonations,
+          );
+          if (organizationDonation != null) {
+            organizationDonationList.add(organizationDonation);
+          }
+        }
+      }
+
+      return organizationDonationList;
+    }
+    catch(e){
+      print(e);
+      return [];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Green Apple Pay', style: kAppBarHeavyTextStyle),
-        centerTitle: false,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.more_vert),
-            onPressed: () {},
+    return Consumer<AppProvider>(
+      builder: (context, appProvider, child) {
+        List<AppDonation> donationList = appProvider.donationList;
+        List<AppOrganization> organizationList = appProvider.organizationList;
+        List<AppOrganizationDonation> organizationDonationList = getOrganizationDonation(appProvider);
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Green Apple Pay', style: kAppBarHeavyTextStyle),
+            centerTitle: false,
+            actions: [
+              IconButton(
+                icon: Icon(Icons.receipt),
+                onPressed: () {
+                  AppFunctions.navigate(context, AllDonationsPage());
+                },
+              ),
+            ],
           ),
-        ],
-      ),
-      body: ListView(
-        padding: kAppPadding,
-        children: [
-          AppButton(
-            title: 'Life Time Donations: \$38.73',
-          ),
-          SizedBox(height: 20),
-          ListView.separated(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: organizations.length,
-            separatorBuilder: (context, index) => SizedBox(height: 15),
-            itemBuilder: (context, index){
-              AppOrganization organization = organizations[index];
-              return AppMiniOrganizationCard(organization: organization);
-            }
-          ),
-        ],
-      ),
+          body: donationList != null && organizationList != null
+              ? ListView(
+            padding: kAppPadding,
+            children: [
+              AppButton(
+                title: 'Life Time Donations: \$38.73',
+              ),
+              SizedBox(height: 20),
+              ListView.separated(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: organizationDonationList.length,
+                  separatorBuilder: (context, index) => SizedBox(height: 15),
+                  itemBuilder: (context, index) {
+                    AppOrganizationDonation organizationDonation = organizationDonationList[index];
+                    return AppMiniOrganizationCard(
+                        organizationDonation: organizationDonation);
+                  }
+              ),
+            ],
+          )
+              : Center(child: AppProgressIndicator(),),
+        );
+      }
     );
   }
 }

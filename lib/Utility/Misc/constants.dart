@@ -6,6 +6,7 @@ const kDarkPrimaryColor = Color(0xFF0a423c);
 const kLightGrayECColor = Color(0xFFECECEC);
 const kGray85Color = Color(0xFF858586);
 const kGray4DColor = Color(0xFF4D4D4D);
+const kGray76Color = Color(0xFF767676);
 const kWhiteColor = Color(0xFFFFFFFF);
 const kBlackColor = Color(0xFF000000);
 const kBottomNavBarColor = Color(0xFFF6F6F6);
@@ -28,3 +29,4 @@ const kAppPadding = EdgeInsets.only(top: 25, left: 25, right: 25, bottom: 50);
 
 // Strings
 const kOrganizationId = 'Organizations';
+const kDonationId = 'Donations';
