@@ -5,6 +5,11 @@ class FirebaseApi {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
+  User getCurrentUser() {
+    User currentUser = _firebaseAuth.currentUser;
+    return currentUser;
+  }
+
   // Firebase Auth
   Future<User> signUpWithEmailAndPassword(
       {String email, String password}) async {
@@ -33,11 +38,6 @@ class FirebaseApi {
       return null;
   }
 
-  User getCurrentUser() {
-    User currentUser = _firebaseAuth.currentUser;
-    return currentUser;
-  }
-
   Future<void> logOutUser() async {
     await _firebaseAuth.signOut();
   }
@@ -46,28 +46,43 @@ class FirebaseApi {
     await _firebaseAuth.sendPasswordResetEmail(email: '$email');
   }
 
-  Future<void> updateEmail(String email) async{
+  Future<void> updateEmail(String email) async {
     User currentUser = _firebaseAuth.currentUser;
-    if(currentUser != null) {
+    if (currentUser != null) {
       await currentUser.updateEmail('$email');
     }
   }
 
-  Future<void> updatePassword(String newPassword) async{
-    User currentUser = _firebaseAuth.currentUser;
-    if(currentUser != null){
+  Future<void> updatePassword(String newPassword) async {
+    User currentUser = getCurrentUser();
+    if (currentUser != null) {
       await currentUser.updatePassword(newPassword);
     }
   }
 
-  Future<void> sendVerificationEmail() async{
+  Future<bool> validatePassword(String password) async {
     User currentUser = _firebaseAuth.currentUser;
-    if(currentUser != null){
+
+    var authCredentials = EmailAuthProvider.credential(
+        email: currentUser.email, password: password);
+    try {
+      var authResult =
+          await currentUser.reauthenticateWithCredential(authCredentials);
+      return authResult.user != null;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<void> sendVerificationEmail() async {
+    User currentUser = _firebaseAuth.currentUser;
+    if (currentUser != null) {
       await currentUser.sendEmailVerification();
     }
   }
 
-  void listenToUserChanges(Function action) async{
+  void listenToUserChanges(Function action) async {
     _firebaseAuth.userChanges().listen((User user) {
       action(user);
     });
@@ -88,14 +103,21 @@ class FirebaseApi {
     return storyDocument;
   }
 
-  Future<List<DocumentSnapshot>> getDocumentsByIDFilteredByStatus(String collectionId) async {
-    QuerySnapshot snapshot = await _firebaseFirestore.collection('$collectionId').where('status', isEqualTo: 'active').get();
+  Future<List<DocumentSnapshot>> getDocumentsByIDFilteredByStatus(
+      String collectionId) async {
+    QuerySnapshot snapshot = await _firebaseFirestore
+        .collection('$collectionId')
+        .where('status', isEqualTo: 'active')
+        .get();
     List<QueryDocumentSnapshot> documents = snapshot.docs;
     return documents;
   }
 
   Future<List<DocumentSnapshot>> getAllDocumentsById(String id) async {
-    QuerySnapshot storySnapshot = await _firebaseFirestore.collection('$id').where('status', isEqualTo: 'active').get();
+    QuerySnapshot storySnapshot = await _firebaseFirestore
+        .collection('$id')
+        .where('status', isEqualTo: 'active')
+        .get();
     List<QueryDocumentSnapshot> storyDocuments = storySnapshot.docs;
     return storyDocuments;
   }
@@ -199,5 +221,4 @@ class FirebaseApi {
         .doc('$id')
         .delete();
   }
-
 }
