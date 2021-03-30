@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
 class FirebaseApi {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -54,7 +55,7 @@ class FirebaseApi {
   }
 
   Future<void> updatePassword(String newPassword) async {
-    User currentUser = getCurrentUser();
+    User currentUser = _firebaseAuth.currentUser;
     if (currentUser != null) {
       await currentUser.updatePassword(newPassword);
     }
@@ -69,6 +70,10 @@ class FirebaseApi {
       var authResult =
           await currentUser.reauthenticateWithCredential(authCredentials);
       return authResult.user != null;
+    } on PlatformException catch (err) {
+      // Handle err
+      print(err);
+      return false;
     } catch (e) {
       print(e);
       return false;
