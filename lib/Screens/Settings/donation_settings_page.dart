@@ -1,7 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
+import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
+import 'package:green_apple_pay/Utility/Classes/user.dart';
+import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
+import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 class DonationSettingsPage extends StatefulWidget {
   @override
@@ -10,10 +18,11 @@ class DonationSettingsPage extends StatefulWidget {
 
 class _DonationSettingsPageState extends State<DonationSettingsPage> {
   TextEditingController _donationController = TextEditingController();
-  List<int> _roundUpOptions = [null, 1, 2, 5, 10, 25];
-  List<int> _addOnOptions = [null, 10, 20, 30, 40, 50];
-  int _addOnValue;
-  int _roundUpValue = 1;
+  List<double> _roundUpOptions = [null, 1, 2, 5, 10, 25];
+  List<double> _addOnOptions = [null, 10, 20, 30, 40, 50];
+  bool _showSpinner = false;
+  double _monthlyAddOn;
+  double _roundUpAmount;
   TextStyle _style = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
@@ -21,96 +30,164 @@ class _DonationSettingsPageState extends State<DonationSettingsPage> {
   );
 
   @override
+  void didChangeDependencies() {
+    AppProvider appProvider = Provider.of<AppProvider>(context, listen: false);
+    updateContent(appProvider);
+    super.didChangeDependencies();
+  }
+
+  void updateDonationSettings(AppProvider appProvider) async{
+    User user = FirebaseApi().getCurrentUser();
+    String maxDonationText = _donationController.text;
+    double maxDonation = double.tryParse(maxDonationText);
+
+    if(maxDonation == null && maxDonationText.isNotEmpty){
+      Toast.show('Max Monthly Donation is badly formatted', context);
+      return;
+    }
+
+    if(user == null){
+      Toast.show('User does not exist', context);
+      return;
+    }
+
+    setState(() {
+      _showSpinner = true;
+    });
+
+    try {
+      Map<String, dynamic> data = {
+        'round_up_amount': _roundUpAmount,
+        'monthly_add_on': _monthlyAddOn,
+        'max_monthly_donation': maxDonation,
+      };
+
+      await FirebaseApi().updateUserDocument('${user?.uid}', data);
+      Toast.show('Donation Settings Updated', context);
+      AppActions.getUser(appProvider);
+    }
+    catch(e){
+      Toast.show('${e?.message}', context);
+      print(e);
+    }
+    setState(() {
+      _showSpinner = false;
+    });
+  }
+
+  void updateContent(AppProvider appProvider){
+    AppUser user = appProvider.appUser;
+    if(user != null){
+      _monthlyAddOn = user?.settings?.monthlyAddOn;
+      _roundUpAmount = user?.settings?.roundUpAmount;
+      double maxMonthlyDonation = user?.settings?.maxMonthlyDonation;
+      if(maxMonthlyDonation != null){
+        _donationController.text = '$maxMonthlyDonation';
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        AppFunctions.unFocusPage(context);
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Donation Settings',
-            style: kAppBarLightTextStyle,
+    return Consumer<AppProvider>(
+      builder: (context, appProvider, children) {
+        return ModalProgressHUD(
+          inAsyncCall: _showSpinner,
+          progressIndicator: AppProgressIndicator(),
+          child: GestureDetector(
+            onTap: () {
+              AppFunctions.unFocusPage(context);
+            },
+            child: Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  'Donation Settings',
+                  style: kAppBarLightTextStyle,
+                ),
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.check),
+                    onPressed: () {
+                      updateDonationSettings(appProvider);
+                    },
+                    color: kPrimaryColor,
+                  ),
+                ],
+              ),
+              body: ListView(
+                padding: kAppPadding,
+                children: [
+                  Text('Round Up', style: _style),
+                  SizedBox(height: 20),
+                  ListView.separated(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: _roundUpOptions.length,
+                    separatorBuilder: (context, index) => SizedBox(height: 15),
+                    itemBuilder: (context, index) {
+                      double value = _roundUpOptions[index];
+                      return AppRadioTile<double>(
+                        getTitle: (double value) {
+                          if (value != null) {
+                            return '\$$value';
+                          } else {
+                            return 'Off';
+                          }
+                        },
+                        onPressed: (double value) {
+                          setState(() {
+                            _roundUpAmount = value;
+                          });
+                        },
+                        value: value,
+                        groupValue: _roundUpAmount,
+                      );
+                    },
+                  ),
+                  SizedBox(height: 30),
+                  Text('Monthly Add On', style: _style),
+                  SizedBox(height: 20),
+                  ListView.separated(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: _addOnOptions.length,
+                    separatorBuilder: (context, index) => SizedBox(height: 15),
+                    itemBuilder: (context, index) {
+                      double value = _addOnOptions[index];
+                      return AppRadioTile<double>(
+                        getTitle: (double value) {
+                          if (value != null) {
+                            return '\$$value';
+                          } else {
+                            return 'Off';
+                          }
+                        },
+                        onPressed: (double value) {
+                          setState(() {
+                            _monthlyAddOn = value;
+                          });
+                        },
+                        value: value,
+                        groupValue: _monthlyAddOn,
+                      );
+                    },
+                  ),
+                  SizedBox(height: 30),
+                  Text('Max Monthly Donation', style: _style),
+                  SizedBox(height: 20),
+                  AppTextField(
+                    hintText: 'Enter Max Monthly Donation',
+                    controller: _donationController,
+                    keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  ),
+                ],
+              ),
+            ),
           ),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.check),
-              onPressed: () {},
-              color: kPrimaryColor,
-            ),
-          ],
-        ),
-        body: ListView(
-          padding: kAppPadding,
-          children: [
-            Text('Round Up', style: _style),
-            SizedBox(height: 20),
-            ListView.separated(
-              shrinkWrap: true,
-              padding: EdgeInsets.zero,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: _roundUpOptions.length,
-              separatorBuilder: (context, index) => SizedBox(height: 15),
-              itemBuilder: (context, index) {
-                int value = _roundUpOptions[index];
-                return AppRadioTile<int>(
-                  getTitle: (int value) {
-                    if (value != null) {
-                      return '\$$value';
-                    } else {
-                      return 'Off';
-                    }
-                  },
-                  onPressed: (int value){
-                    setState(() {
-                      _roundUpValue = value;
-                    });
-                  },
-                  value: value,
-                  groupValue: _roundUpValue,
-                );
-              },
-            ),
-            SizedBox(height: 30),
-            Text('Monthly Add On', style: _style),
-            SizedBox(height: 20),
-            ListView.separated(
-              shrinkWrap: true,
-              padding: EdgeInsets.zero,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: _addOnOptions.length,
-              separatorBuilder: (context, index) => SizedBox(height: 15),
-              itemBuilder: (context, index) {
-                int value = _addOnOptions[index];
-                return AppRadioTile<int>(
-                  getTitle: (int value) {
-                    if (value != null) {
-                      return '\$$value';
-                    } else {
-                      return 'Off';
-                    }
-                  },
-                  onPressed: (int value){
-                    setState(() {
-                      _addOnValue = value;
-                    });
-                  },
-                  value: value,
-                  groupValue: _addOnValue,
-                );
-              },
-            ),
-            SizedBox(height: 30),
-            Text('Max Monthly Donation', style: _style),
-            SizedBox(height: 20),
-            AppTextField(
-              hintText: 'Enter Max Monthly Donation',
-              controller: _donationController,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
-            ),
-          ],
-        ),
-      ),
+        );
+      }
     );
   }
 }

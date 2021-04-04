@@ -1,140 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:green_apple_pay/Utility/Classes/donation.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
+import 'package:green_apple_pay/Utility/Classes/user.dart';
 
 class FirebaseDocumentToClass {
-  // AppStory getStory(DocumentSnapshot storySnapshot, List<DocumentSnapshot> sceneSnapshotList) {
-  //   String id = storySnapshot.id;
-  //   Map<String, dynamic> storyMap = storySnapshot.data();
-  //
-  //   String title = storyMap['title'];
-  //   String description = storyMap['description'];
-  //   List<String> keywords = List<String>.from(storyMap['keywords']);
-  //   String categoryAsString = storyMap['category'];
-  //   AppStoryCategory category = AppFunctions.convertStringToAppCategory('$categoryAsString');
-  //
-  //   Map<String, dynamic> imageMap = storyMap['image'];
-  //   Map<String, dynamic> featuredImageMap = storyMap['featured_image'];
-  //
-  //   AppMediaContent image = AppMediaContent(
-  //     url: '${imageMap['url']}',
-  //     location: '${imageMap['location']}',
-  //   );
-  //
-  //   AppMediaContent featuredImage = AppMediaContent(
-  //     url: '${featuredImageMap['url']}',
-  //     location: '${featuredImageMap['location']}',
-  //   );
-  //
-  //   List<AppStoryScene> scenes = [];
-  //   for (DocumentSnapshot snapshot in sceneSnapshotList) {
-  //     AppStoryScene scene = getStoryScene(snapshot);
-  //     scenes.add(scene);
-  //   }
-  //
-  //   AppStory story = AppStory(
-  //     id: id,
-  //     title: title,
-  //     image: image,
-  //     featuredImage: featuredImage,
-  //     description: description,
-  //     category: category,
-  //     scenes: scenes,
-  //     keywords: keywords,
-  //   );
-  //   if(scenes.isNotEmpty){
-  //     return story;
-  //   }
-  //   else{
-  //     return null;
-  //   }
-  // }
-  //
-  // AppStoryScene getStoryScene(DocumentSnapshot sceneSnapshot) {
-  //   String sceneId = sceneSnapshot.id;
-  //   Map<String, dynamic> sceneMap = sceneSnapshot.data();
-  //
-  //   Map<String, dynamic> text = sceneMap['text'];
-  //   Map<String, dynamic> audio = sceneMap['audio'];
-  //
-  //   String textUrl = text['url'];
-  //   String textLocation = text['location'];
-  //   String audioUrl = audio['url'];
-  //   String audioLocation = audio['location'];
-  //
-  //   AppMediaContent sceneText = AppMediaContent(
-  //     url: '$textUrl',
-  //     location: '$textLocation',
-  //   );
-  //
-  //   AppMediaContent sceneAudio = AppMediaContent(
-  //     url: '$audioUrl',
-  //     location: '$audioLocation',
-  //   );
-  //
-  //   AppStoryScene scene = AppStoryScene(
-  //     id: '$sceneId',
-  //     sceneText: sceneText,
-  //     sceneAudio: sceneAudio,
-  //   );
-  //
-  //   return scene;
-  // }
-  //
-  // AppPlayList getPlayList(DocumentSnapshot playListSnapshot, List<DocumentSnapshot> storiesSnapshotList, List<DocumentSnapshot> scenesSnapshotList){
-  //   String uid = playListSnapshot.id;
-  //   Map<String, dynamic> playListMap = playListSnapshot.data();
-  //
-  //   if(playListMap != null){
-  //     String title = playListMap['title'];
-  //     Timestamp dateCreatedStamp = playListMap['date_created'];
-  //     Timestamp dateModifiedStamp = playListMap['date_modified'];
-  //     String statusString = playListMap['status'];
-  //     String typeString = playListMap['type'];
-  //     bool isFeatured = playListMap['is_featured'];
-  //     List<dynamic> storyIdList = playListMap['story_list'];
-  //     List<AppStory> stories = [];
-  //     List<DocumentSnapshot> filteredStoriesSnapshotList = storiesSnapshotList.where((storySnapshot) => storyIdList.contains(storySnapshot.id)).toList();
-  //
-  //     for(DocumentSnapshot storySnapshot in filteredStoriesSnapshotList){
-  //       Map<String, dynamic> storyMap = storySnapshot.data();
-  //       if(storyMap != null) {
-  //         List<dynamic> sceneIdList = storyMap['scenes'];
-  //         List<DocumentSnapshot> filteredSceneSnapshotList = scenesSnapshotList.where((sceneSnapshot) => sceneIdList.contains(sceneSnapshot.id)).toList();
-  //         AppStory story = getStory(storySnapshot, filteredSceneSnapshotList);
-  //         if(story != null){
-  //           stories.add(story);
-  //         }
-  //       }
-  //     }
-  //
-  //     AppStatus status = AppFunctions.convertStringToStatus(statusString);
-  //     AppPlayListType type = AppFunctions.convertStringToPlayListType(typeString);
-  //
-  //     if(status != null) {
-  //       AppManualPlayList playList = AppManualPlayList(
-  //         uid: uid,
-  //         title: title,
-  //         status: status,
-  //         dateCreated: dateCreatedStamp.toDate(),
-  //         dateModified: dateModifiedStamp.toDate(),
-  //         isFeatured: isFeatured != null ? isFeatured : false,
-  //         storyList: stories,
-  //       );
-  //       if(playList?.storyList?.isNotEmpty == true){
-  //         return playList;
-  //       }
-  //       else{
-  //         return null;
-  //       }
-  //     }
-  //     else return null;
-  //   }
-  //   else{
-  //     return null;
-  //   }
-  // }
-
   AppOrganization getOrganization(DocumentSnapshot organizationSnapshot) {
     String uid = organizationSnapshot.id;
     Map<String, dynamic> organizationMap = organizationSnapshot.data();
@@ -146,7 +15,7 @@ class FirebaseDocumentToClass {
     String address = organizationMap['address'];
     String imageURL = organizationMap['image'];
 
-    AppOrganization organization =AppOrganization(
+    AppOrganization organization = AppOrganization(
         uid: uid,
         name: name,
         email: email,
@@ -158,24 +27,74 @@ class FirebaseDocumentToClass {
     return organization;
   }
 
-  AppDonation getDonation(DocumentSnapshot donationSnapshot){
+  AppUser getUser(DocumentSnapshot userSnapshot){
+    String uid = userSnapshot.id;
+    Map<String, dynamic> userMap = userSnapshot.data();
+
+    String email = userMap['email'];
+    dynamic roundUpAmount = userMap['round_up_amount'];
+    dynamic monthlyAddOn = userMap['monthly_add_on'];
+    dynamic maxMonthlyDonation = userMap['max_monthly_donation'];
+
+    AppUserSettings settings = AppUserSettings(
+      roundUpAmount: roundUpAmount?.toDouble(),
+      monthlyAddOn: monthlyAddOn?.toDouble(),
+      maxMonthlyDonation: maxMonthlyDonation?.toDouble(),
+    );
+
+    AppUser user = AppUser(
+      uid: uid,
+      email: email,
+      settings: settings,
+    );
+    return user;
+  }
+
+  AppManagedOrganization getManagedOrganization(DocumentSnapshot managedOrganizationSnapshot, List<AppOrganization> organizationList){
+    String uid = managedOrganizationSnapshot.id;
+    Map<String, dynamic> managedOrganizationMap = managedOrganizationSnapshot.data();
+
+    bool status = managedOrganizationMap['status'];
+    String organizationId = managedOrganizationMap['organization_id'];
+    double percent = managedOrganizationMap['percent'].toDouble();
+
+    AppOrganization organization = organizationList.firstWhere((organization) => organization.uid == organizationId, orElse: () => null);
+    if(organization == null){
+      print('Organization Is Empty');
+      return null;
+    }
+
+    AppManagedOrganization managedOrganization = AppManagedOrganization(
+      uid: uid,
+      organization: organization,
+      status: status,
+      percent: percent,
+    );
+    return managedOrganization;
+  }
+
+  AppDonation getDonation(DocumentSnapshot donationSnapshot, DocumentSnapshot organizationSnapshot){
     String uid = donationSnapshot.id;
     Map<String, dynamic> donationMap = donationSnapshot.data();
 
     String userId = donationMap['user_id'];
     String organizationId = donationMap['organization_id'];
-    double cost = donationMap['cost'];
-    double roundUp = donationMap['round_up'];
+    double cost = donationMap['cost']?.toDouble();
+    double roundUp = donationMap['round_up']?.toDouble();
     String description = donationMap['description'];
     Timestamp dateCreatedAsTimestamp = donationMap['date_created'];
-
     DateTime dateCreated = dateCreatedAsTimestamp.toDate();
+
+    AppOrganization organization = getOrganization(organizationSnapshot);
+
+    // Todo: Ensure no null value exist
 
     AppDonation donation = AppDonation(
       uid: uid,
       userId: userId,
       organizationId: organizationId,
       cost: cost,
+      organization: organization,
       roundUp: roundUp,
       description: description,
       dateCreated: dateCreated,

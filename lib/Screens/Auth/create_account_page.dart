@@ -86,6 +86,7 @@ class _CreateAccountState extends State<CreateAccount> {
   Widget build(BuildContext context) {
     return ModalProgressHUD(
       inAsyncCall: _showSpinner,
+      progressIndicator: AppProgressIndicator(),
       child: GestureDetector(
         onTap: () {
           // AppFunctions.unFocusPage(context);
@@ -132,68 +133,47 @@ class _CreateAccountState extends State<CreateAccount> {
                         // },
                       ),
                       SizedBox(height: 15),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          AppCheckBox(
-                            value: _hasAgreed,
-                            onChanged: (bool value) {
-                              setState(() {
-                                _hasAgreed = value;
-                              });
-                            },
+                      RichText(
+                        text: TextSpan(
+                          text: "By creating an account you're agreeing to our ",
+                          style: TextStyle(
+                            fontFamily: 'Josefin Sans',
+                            fontSize: 17,
+                            height: 150 / 100,
+                            color: kBlackColor,
+                            fontWeight: FontWeight.w300,
                           ),
-                          SizedBox(width: 15),
-                          Expanded(
-                            child: RichText(
-                              text: TextSpan(
-                                text: 'I agree to Green Apple Pay’s ',
-                                style: TextStyle(
-                                  fontFamily: 'Josefin Sans',
-                                  fontSize: 17,
-                                  height: 150 / 100,
-                                  color: kBlackColor,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () async {
-                                        launchUrl('${AppData.defaultUrl}');
-                                      },
-                                    text: 'Privacy Policy',
-                                    style: TextStyle(
-                                      color: kPrimaryColor,
-                                    ),
-                                  ),
-                                  TextSpan(text: ' and '),
-                                  TextSpan(
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () async {
-                                        launchUrl('${AppData.defaultUrl}');
-                                      },
-                                    text: 'Terms Of Condition.',
-                                    style: TextStyle(
-                                      //fontWeight: FontWeight.w600,
-                                      color: kPrimaryColor,
-                                    ),
-                                  ),
-                                ],
+                          children: <TextSpan>[
+                            TextSpan(
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () async {
+                                  launchUrl('${AppData.defaultUrl}');
+                                },
+                              text: 'Privacy Policy',
+                              style: TextStyle(
+                                color: kPrimaryColor,
                               ),
                             ),
-                          ),
-                        ],
+                            TextSpan(text: ' and '),
+                            TextSpan(
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () async {
+                                  launchUrl('${AppData.defaultUrl}');
+                                },
+                              text: 'Terms Of Condition.',
+                              style: TextStyle(
+                                //fontWeight: FontWeight.w600,
+                                color: kPrimaryColor,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      SizedBox(height: 15),
+                      SizedBox(height: 20),
                       AppButton(
                         title: 'Register',
                         onPressed: () {
-                          if(_hasAgreed == true){
-                            spinnerUpdate();
-                          }
-                          else{
-                            Toast.show('Agree To Terms', context);
-                          }
+                          spinnerUpdate();
                         },
                       ),
                     ],

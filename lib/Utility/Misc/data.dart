@@ -6,7 +6,7 @@ import 'package:green_apple_pay/Utility/Classes/organization.dart';
 import 'package:green_apple_pay/Utility/Classes/transaction.dart';
 
 class AppData {
-  static String defaultUrl = 'https://www.theverge.com/tech';
+  static String defaultUrl = 'https://www.greenapplepay.com/terms-of-use/';
   static String bankConnectionText =
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit vel in cursus volutpat.';
   static String passwordResetText =
@@ -72,9 +72,20 @@ class AppData {
   static List<AppOrganization> orgs = [org1, org2];
   static List<AppBank> banks = [bank];
 
-  AppUser testUser = AppUser(
-      uid: 'skansjansikoanslajksa',
-      email: 'test@test.com',
-      organizations: orgs,
-      bankInstitutions: banks);
+  // AppUser testUser = AppUser(
+  //     uid: 'skansjansikoanslajksa',
+  //     email: 'test@test.com',
+  //     organizations: orgs,
+  //     bankInstitutions: banks);
+  static List<String> descrList = [
+    'Uber Eats',
+    'Amazon',
+    'Google Ads',
+    'Uber',
+    'Lyft',
+    'Best Buy',
+    'Playstation',
+    'Fiverr',
+    'Upwork'
+  ];
 }

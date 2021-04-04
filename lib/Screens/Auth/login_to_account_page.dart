@@ -66,6 +66,7 @@ class _LoginToAccountState extends State<LoginToAccount> {
   Widget build(BuildContext context) {
     return ModalProgressHUD(
       inAsyncCall: _showSpinner,
+      progressIndicator: AppProgressIndicator(),
       child: GestureDetector(
         onTap: () {
           AppFunctions.unFocusPage(context);

@@ -50,6 +50,7 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
   Widget build(BuildContext context) {
     return ModalProgressHUD(
       inAsyncCall: _showSpinner,
+      progressIndicator: AppProgressIndicator(),
       child: GestureDetector(
         onTap: () {
           AppFunctions.unFocusPage(context);

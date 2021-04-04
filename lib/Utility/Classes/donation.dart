@@ -21,6 +21,7 @@ class AppDonation {
   final String uid;
   final String userId;
   final String organizationId;
+  final AppOrganization organization;
   final double cost;
   final double roundUp;
   final String description;
@@ -34,6 +35,7 @@ class AppDonation {
     @required this.roundUp,
     @required this.description,
     @required this.dateCreated,
+    @required this.organization,
   });
 
   AppOrganization getOrganization(List<AppOrganization> organizationList) {

@@ -8,6 +8,9 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  intl: ^0.17.0
+  shimmer: ^1.1.2
+  flutter_slidable: ^0.5.7
   provider: ^5.0.0
   toast: ^0.1.5
   cloud_firestore: ^1.0.2

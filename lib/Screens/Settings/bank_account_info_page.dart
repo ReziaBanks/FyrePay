@@ -12,14 +12,9 @@ class _BankAccountInfoPageState extends State<BankAccountInfoPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Bank Account Info', style: kAppBarLightTextStyle),
-        actions: [
-          IconButton(icon: Icon(Icons.add), onPressed: (){}, color: kPrimaryColor,),
-        ],
       ),
-      body: ListView(
-        children: [
-
-        ],
+      body: Center(
+        child: Text('Feature Not Supported'),
       ),
     );
   }

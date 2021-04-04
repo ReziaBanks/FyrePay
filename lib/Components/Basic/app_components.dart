@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:green_apple_pay/Screens/Organization/organization_page.dart';
 import 'package:green_apple_pay/Utility/Classes/donation.dart';
+import 'package:green_apple_pay/Utility/Classes/user.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
-import 'package:green_apple_pay/Utility/Misc/data.dart';
 import 'package:green_apple_pay/Utility/Misc/enum.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 
@@ -21,7 +21,7 @@ class AppTextField extends StatelessWidget {
   AppTextField({
     @required this.hintText,
     @required this.controller,
-    @required this.textInputAction,
+    this.textInputAction = TextInputAction.next,
     this.node,
     this.obscureText = false,
     this.keyboardType,
@@ -76,18 +76,16 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: buttonType == AppButtonType.Light
-          ? kWhiteColor
-          : color,
+      color: buttonType == AppButtonType.Light ? kWhiteColor : color,
       child: InkWell(
         onTap: onPressed,
         child: Container(
           decoration: BoxDecoration(
             border: buttonType == AppButtonType.Light
                 ? Border.all(
-              color: color,
-              width: 1.5,
-            )
+                    color: color,
+                    width: 1.5,
+                  )
                 : null,
           ),
           height: 55,
@@ -97,9 +95,7 @@ class AppButton extends StatelessWidget {
               '$title',
               style: TextStyle(
                 fontSize: 17,
-                color: buttonType == AppButtonType.Light
-                    ? color
-                    : kWhiteColor,
+                color: buttonType == AppButtonType.Light ? color : kWhiteColor,
               ),
             ),
           ),
@@ -122,7 +118,7 @@ class AppContentTile extends StatelessWidget {
     this.titleColor = const Color(0xFF4D4D4D),
     this.height = 63,
     this.trailingWidget =
-    const Icon(Ionicons.chevron_forward, color: Color(0xFF4D4D4D)),
+        const Icon(Ionicons.chevron_forward, color: Color(0xFF4D4D4D)),
   });
 
   @override
@@ -155,9 +151,9 @@ class AppProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoActivityIndicator(
-      // color: Colors.grey,
-      // size: 40.0,
-    );
+        // color: Colors.grey,
+        // size: 40.0,
+        );
   }
 }
 
@@ -222,8 +218,9 @@ class AppMiniOrganizationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     AppOrganization organization = organizationDonation?.organization;
     return InkWell(
-      onTap: (){
-        AppFunctions.navigate(context, OrganizationPage(organization: organization));
+      onTap: () {
+        AppFunctions.navigate(
+            context, OrganizationPage(organization: organization));
       },
       child: Row(
         children: [
@@ -232,10 +229,9 @@ class AppMiniOrganizationCard extends StatelessWidget {
             height: 100,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage('${organization?.imageURL}'),
-                  fit: BoxFit.cover,
-                )
-            ),
+              image: NetworkImage('${organization?.imageURL}'),
+              fit: BoxFit.cover,
+            )),
           ),
           Expanded(
             child: Container(
@@ -246,14 +242,20 @@ class AppMiniOrganizationCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${organization?.name}', style: TextStyle(
-                    fontSize: 17,
-                  ),),
+                  Text(
+                    '${organization?.name}',
+                    style: TextStyle(
+                      fontSize: 17,
+                    ),
+                  ),
                   SizedBox(height: 5),
-                  Text('Total Donations: \$${organizationDonation?.totalDonation}', style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w300,
-                  ),),
+                  Text(
+                    'Total Donations: \$${organizationDonation?.totalDonation}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -271,49 +273,56 @@ class AppOrganizationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        AppFunctions.navigate(context, OrganizationPage(organization: organization));
+      onTap: () {
+        AppFunctions.navigate(
+            context, OrganizationPage(organization: organization));
       },
-      child: Column(children: [
-        Container(
-          height: 250,
-          // width: 364,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(5),
-                topRight: Radius.circular(5),
-              ),
-              image: DecorationImage(
-                image: NetworkImage('${organization.imageURL}'),
-                fit: BoxFit.cover,
-              )
+      child: Column(
+        children: [
+          Container(
+            height: 250,
+            // width: 364,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(5),
+                  topRight: Radius.circular(5),
+                ),
+                image: DecorationImage(
+                  image: NetworkImage('${organization.imageURL}'),
+                  fit: BoxFit.cover,
+                )),
           ),
-        ),
-        Container(
-          padding: EdgeInsets.all(15),
-          decoration: BoxDecoration(
-              color: kLightGrayECColor,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(5),
-                bottomRight: Radius.circular(5),
-              )
+          Container(
+            padding: EdgeInsets.all(15),
+            decoration: BoxDecoration(
+                color: kLightGrayECColor,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(5),
+                  bottomRight: Radius.circular(5),
+                )),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '${organization?.name}',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: kGray4DColor,
+                  ),
+                ),
+                Text(
+                  'View',
+                  style: TextStyle(
+                    color: kPrimaryColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                )
+              ],
+            ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('${organization?.name}', style: TextStyle(
-                fontSize: 16,
-                color: kGray4DColor,
-              ),),
-              Text('View', style: TextStyle(
-                color: kPrimaryColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),)
-            ],
-          ),
-        ),
-      ],),
+        ],
+      ),
     );
   }
 }
@@ -349,6 +358,86 @@ class AppListTile extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+class AppDialogBox extends StatelessWidget {
+  final AppManagedOrganization managedOrganization;
+  final TextEditingController textEditingController;
+  final Function(double) onPressed;
+  AppDialogBox({
+    @required this.managedOrganization,
+    @required this.textEditingController,
+    @required this.onPressed,
+  });
+
+  void onClicked(BuildContext context){
+    String percentText = textEditingController.text;
+    double percent = double.tryParse(percentText);
+    if(percent != null) {
+      onPressed(percent);
+      Navigator.pop(context);
+    }
+    else{
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(
+              '${managedOrganization?.organization?.name}',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Center(
+              child: TextField(
+                textAlign: TextAlign.center,
+                controller: textEditingController,
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Enter Percentage',
+                ),
+              ),
+            ),
+            SizedBox(height: 5),
+            Material(
+              borderRadius: BorderRadius.circular(12.25),
+              color: kPrimaryColor,
+              child: InkWell(
+                onTap: () {
+                  onClicked(context);
+                },
+                child: Container(
+                  height: 40,
+                  width: 160,
+                  child: Center(
+                    child: Text(
+                      'Update',
+                      style: TextStyle(
+                        color: kWhiteColor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

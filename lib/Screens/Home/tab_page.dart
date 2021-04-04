@@ -17,8 +17,10 @@ class _TabPageState extends State<TabPage> {
 
   void didChangeDependencies() {
     AppProvider appProvider = Provider.of<AppProvider>(context, listen: false);
+    AppActions.getUser(appProvider);
     AppActions.getOrganizations(appProvider);
     AppActions.getDonations(appProvider);
+    AppActions.getManagedOrganizations(appProvider);
     super.didChangeDependencies();
   }
 

@@ -15,7 +15,6 @@ class _AppSplashScreenState extends State<AppSplashScreen> {
 
   Future<Widget> navigateTo() async{
     await Future.delayed(Duration(seconds: 3), (){
-      print('Done');
     });
     User user = FirebaseApi().getCurrentUser();
     if(user != null){

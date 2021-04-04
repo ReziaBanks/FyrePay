@@ -68,11 +68,12 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           body: donationList != null && organizationList != null
-              ? ListView(
+              ? getOrganizationDonation(appProvider).isNotEmpty
+                ? ListView(
             padding: kAppPadding,
             children: [
               AppButton(
-                title: 'Life Time Donations: \$38.73',
+                title: 'Life Time Donations: \$${appProvider?.totalDonation}',
               ),
               SizedBox(height: 20),
               ListView.separated(
@@ -88,6 +89,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           )
+                : Center(child: Text('No Available Donation'))
               : Center(child: AppProgressIndicator(),),
         );
       }

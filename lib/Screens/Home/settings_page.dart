@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Screens/Auth/login_to_account_page.dart';
@@ -6,9 +9,15 @@ import 'package:green_apple_pay/Screens/Settings/account_security_page.dart';
 import 'package:green_apple_pay/Screens/Settings/bank_account_info_page.dart';
 import 'package:green_apple_pay/Screens/Settings/donation_settings_page.dart';
 import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
+import 'package:green_apple_pay/Utility/Classes/organization.dart';
+import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/data.dart';
+import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -20,6 +29,7 @@ class _SettingsPageState extends State<SettingsPage> {
     fontWeight: FontWeight.w600,
     fontSize: 16,
   );
+  bool _showSpinner = false;
 
   void logout() async{
     AppFunctions.navigateAndRemove(context, LoginToAccount());
@@ -33,98 +43,147 @@ class _SettingsPageState extends State<SettingsPage> {
       print(e);
     }
   }
+  
+  void generateDonations(AppProvider appProvider) async{
+    User user = FirebaseApi().getCurrentUser();
+    List<AppOrganization> orgList = appProvider.organizationList;
+
+    if(user == null){
+      print('Empty User');
+      return;
+    }
+
+    if(orgList.isEmpty){
+      Toast.show('No Available Organization', context);
+      return;
+    }
+
+    setState(() {
+      _showSpinner = true;
+    });
+    try{
+      String userId = user.uid;
+      int count = Random().nextInt(3);
+      while(count > 0){
+        String orgId = (orgList..shuffle()).first.uid;
+        Map<String, dynamic> data = AppFunctions.generateRandomDonation(orgId, userId);
+        await FirebaseApi().addDonation(data);
+        count -= 1;
+      }
+      AppActions.getDonations(appProvider);
+      Toast.show('Donation Added', context);
+    }
+    catch(e){
+      print(e);
+      Toast.show('An Error Occurred', context);
+    }
+    setState(() {
+      _showSpinner = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Settings', style: kAppBarHeavyTextStyle),
-        centerTitle: false,
-      ),
-      body: ListView(
-        padding: kAppPadding,
-        children: [
-          //Account Details
-          Text(
-            'Account Details',
-            style: _basicStyle,
+    return Consumer<AppProvider>(
+      builder: (context, appProvider, child) {
+        return ModalProgressHUD(
+          inAsyncCall: _showSpinner,
+          progressIndicator: AppProgressIndicator(),
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text('Settings', style: kAppBarHeavyTextStyle),
+              centerTitle: false,
+            ),
+            body: ListView(
+              padding: kAppPadding,
+              children: [
+                //Account Details
+                Text(
+                  'Account Details',
+                  style: _basicStyle,
+                ),
+                SizedBox(height: 15),
+
+                AppContentTile(
+                  title: 'Change Email',
+                  onPressed: () {
+                    AppFunctions.navigate(context, AccountDetailsPage());
+                  },
+                ),
+
+                SizedBox(height: 15),
+
+                AppContentTile(
+                  title: 'Security',
+                  onPressed: () {
+                    AppFunctions.navigate(context, AccountSecurityPage());
+                  },
+                ),
+                SizedBox(height: 35),
+
+                //Connection
+                Text(
+                  'Connection',
+                  style: _basicStyle,
+                ),
+                SizedBox(height: 15),
+
+                AppContentTile(
+                  title: 'Bank Account Info',
+                  onPressed: () {
+                    AppFunctions.navigate(context, BankAccountInfoPage());
+                  },
+                ),
+
+                SizedBox(height: 15),
+
+                AppContentTile(
+                  title: 'Donation Settings',
+                  onPressed: () {
+                    AppFunctions.navigate(context, DonationSettingsPage());
+                  },
+                ),
+                //About
+                SizedBox(height: 35),
+                Text(
+                  'About Green Apple Pay',
+                  style: _basicStyle,
+                ),
+                SizedBox(height: 15),
+
+                AppContentTile(
+                  title: 'Privacy Policy',
+                  onPressed: () {
+                    launchUrl('${AppData.defaultUrl}');
+                  },
+                ),
+                SizedBox(height: 15),
+                AppContentTile(
+                  title: 'Terms Of Service',
+                  onPressed: () {
+                    launchUrl('${AppData.defaultUrl}');
+                  },
+                ),
+                SizedBox(height: 15),
+                AppContentTile(
+                  title: 'Generate Donations',
+                  onPressed: () {
+                    generateDonations(appProvider);
+                  },
+                ),
+                SizedBox(height: 15),
+                AppContentTile(
+                  title: 'Logout',
+                  titleColor: Color.fromARGB(150, 255, 0, 0),
+                  onPressed: () {
+                    logout();
+                  },
+                ),
+              ],
+            ),
           ),
-          SizedBox(height: 15),
-
-          AppContentTile(
-            title: 'Change Email',
-            onPressed: () {
-              AppFunctions.navigate(context, AccountDetailsPage());
-            },
-          ),
-
-          SizedBox(height: 15),
-
-          AppContentTile(
-            title: 'Security',
-            onPressed: () {
-              AppFunctions.navigate(context, AccountSecurityPage());
-            },
-          ),
-          SizedBox(height: 35),
-
-          //Connection
-          Text(
-            'Connection',
-            style: _basicStyle,
-          ),
-          SizedBox(height: 15),
-
-          AppContentTile(
-            title: 'Bank Account Info',
-            onPressed: (){
-              AppFunctions.navigate(context, BankAccountInfoPage());
-            },
-          ),
-
-          SizedBox(height: 15),
-
-          AppContentTile(
-            title: 'Donation Settings',
-            onPressed: () {
-              AppFunctions.navigate(context, DonationSettingsPage());
-            },
-          ),
-          //About
-          SizedBox(height: 35),
-          Text(
-            'About Green Apple Pay',
-            style: _basicStyle,
-          ),
-          SizedBox(height: 15),
-
-          AppContentTile(
-            title: 'Privacy Policy',
-            onPressed: () {
-              launchUrl('${AppData.defaultUrl}');
-            },
-          ),
-
-          SizedBox(height: 15),
-
-          AppContentTile(
-            title: 'Terms Of Service',
-            onPressed: () {
-              launchUrl('${AppData.defaultUrl}');
-            },
-          ),
-
-          SizedBox(height: 15),
-
-          AppContentTile(
-            title: 'Logout',
-            titleColor: Color.fromARGB(150, 255, 0, 0),
-            onPressed: () {
-              logout();
-            },
-          ),
-        ],
-      ),
+        );
+      }
     );
   }
 }
