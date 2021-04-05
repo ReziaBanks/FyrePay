@@ -7,16 +7,16 @@ import 'package:green_apple_pay/Utility/Misc/enum.dart';
 
 class AppTextField extends StatelessWidget {
   final String hintText;
-  final FocusNode node;
+  final FocusNode? node;
   final TextEditingController controller;
   final bool obscureText;
   final TextInputAction textInputAction;
-  final Function onEditingComplete;
-  final TextInputType keyboardType;
+  final Function? onEditingComplete;
+  final TextInputType? keyboardType;
 
   AppTextField({
-    @required this.hintText,
-    @required this.controller,
+    required this.hintText,
+    required this.controller,
     this.textInputAction = TextInputAction.next,
     this.node,
     this.obscureText = false,
@@ -41,7 +41,7 @@ class AppTextField extends StatelessWidget {
         cursorColor: Color(0xFF19A495),
         obscureText: obscureText,
         focusNode: node,
-        onEditingComplete: onEditingComplete,
+        onEditingComplete: onEditingComplete as void Function()?,
         controller: controller,
         decoration: InputDecoration(
           hintText: '$hintText',
@@ -58,12 +58,12 @@ class AppTextField extends StatelessWidget {
 
 class AppButton extends StatelessWidget {
   final String title;
-  final Function onPressed;
+  final Function? onPressed;
   final AppButtonType buttonType;
   final Color color;
 
   AppButton({
-    @required this.title,
+    required this.title,
     this.onPressed,
     this.buttonType = AppButtonType.Bold,
     this.color = kPrimaryColor,
@@ -74,7 +74,7 @@ class AppButton extends StatelessWidget {
     return Material(
       color: buttonType == AppButtonType.Light ? kWhiteColor : color,
       child: InkWell(
-        onTap: onPressed,
+        onTap: onPressed as void Function()?,
         child: Container(
           decoration: BoxDecoration(
             border: buttonType == AppButtonType.Light
@@ -103,13 +103,13 @@ class AppButton extends StatelessWidget {
 
 class AppContentTile extends StatelessWidget {
   final String title;
-  final Function onPressed;
+  final Function? onPressed;
   final Color titleColor;
   final double height;
   final Widget trailingWidget;
 
   AppContentTile({
-    @required this.title,
+    required this.title,
     this.onPressed,
     this.titleColor = const Color(0xFF4D4D4D),
     this.height = 63,
@@ -120,7 +120,7 @@ class AppContentTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed,
+      onTap: onPressed as void Function()?,
       child: Container(
         height: height,
         color: kLightGrayECColor,
@@ -157,8 +157,8 @@ class AppBarTextButton extends StatelessWidget {
   final Function onPressed;
   final String title;
   AppBarTextButton({
-    @required this.title,
-    @required this.onPressed,
+    required this.title,
+    required this.onPressed,
   });
   @override
   Widget build(BuildContext context) {
@@ -166,7 +166,7 @@ class AppBarTextButton extends StatelessWidget {
       padding: EdgeInsets.only(right: 25.0),
       child: Center(
         child: GestureDetector(
-          onTap: onPressed,
+          onTap: onPressed as void Function()?,
           child: Text(
             '$title',
             style: TextStyle(
@@ -188,7 +188,7 @@ class AppListTile extends StatelessWidget {
   final double iconSize;
 
   AppListTile({
-    @required this.text,
+    required this.text,
     this.iconData = Feather.check,
     this.textColor = kBlackColor,
     this.iconSize = 24,
@@ -221,14 +221,14 @@ class AppDialogBox extends StatelessWidget {
   final TextEditingController textEditingController;
   final Function(double) onPressed;
   AppDialogBox({
-    @required this.managedOrganization,
-    @required this.textEditingController,
-    @required this.onPressed,
+    required this.managedOrganization,
+    required this.textEditingController,
+    required this.onPressed,
   });
 
   void onClicked(BuildContext context){
     String percentText = textEditingController.text;
-    double percent = double.tryParse(percentText);
+    double? percent = double.tryParse(percentText);
     if(percent != null) {
       onPressed(percent);
       Navigator.pop(context);
@@ -247,7 +247,7 @@ class AppDialogBox extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              '${managedOrganization?.organization?.name}',
+              '${managedOrganization.organization.name}',
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
             ),

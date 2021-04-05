@@ -14,10 +14,10 @@ class AppOrganizationManagementTile extends StatelessWidget {
   final Function() onStatusToggle;
 
   AppOrganizationManagementTile({
-    @required this.managedOrganization,
-    @required this.onPressed,
-    @required this.onRemove,
-    @required this.onStatusToggle,
+    required this.managedOrganization,
+    required this.onPressed,
+    required this.onRemove,
+    required this.onStatusToggle,
   });
 
   @override
@@ -31,9 +31,9 @@ class AppOrganizationManagementTile extends StatelessWidget {
           actionExtentRatio: 0.2,
           secondaryActions: <Widget>[
             IconSlideAction(
-              caption: managedOrganization?.status == true ? 'OFF' : 'ON',
+              caption: managedOrganization.status == true ? 'OFF' : 'ON',
               color: Colors.black45,
-              icon: managedOrganization?.status == true ? Icons.toggle_off : Icons.toggle_on,
+              icon: managedOrganization.status == true ? Icons.toggle_off : Icons.toggle_on,
               onTap: onStatusToggle,
             ),
             IconSlideAction(
@@ -54,13 +54,13 @@ class AppOrganizationManagementTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${managedOrganization?.organization?.name}',
+                  '${managedOrganization.organization.name}',
                   style: TextStyle(
                     fontSize: 15,
                   ),
                 ),
                 Text(
-                  '${managedOrganization?.percent}%',
+                  '${managedOrganization.percent}%',
                   style: TextStyle(
                     fontSize: 15,
                   ),
@@ -78,12 +78,12 @@ class AppMiniOrganizationCard extends StatelessWidget {
   final AppOrganizationDonation organizationDonation;
 
   AppMiniOrganizationCard({
-    @required this.organizationDonation,
+    required this.organizationDonation,
   });
 
   @override
   Widget build(BuildContext context) {
-    AppOrganization organization = organizationDonation?.organization;
+    AppOrganization organization = organizationDonation.organization;
     return InkWell(
       onTap: () {
         AppFunctions.navigate(
@@ -96,7 +96,7 @@ class AppMiniOrganizationCard extends StatelessWidget {
             height: 100,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage('${organization?.imageURL}'),
+                  image: NetworkImage('${organization.imageURL}'),
                   fit: BoxFit.cover,
                 )),
           ),
@@ -110,14 +110,14 @@ class AppMiniOrganizationCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${organization?.name}',
+                    '${organization.name}',
                     style: TextStyle(
                       fontSize: 17,
                     ),
                   ),
                   SizedBox(height: 5),
                   Text(
-                    'Total Donations: \$${organizationDonation?.totalDonation}',
+                    'Total Donations: \$${organizationDonation.totalDonation}',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w300,
@@ -135,7 +135,7 @@ class AppMiniOrganizationCard extends StatelessWidget {
 
 class AppOrganizationCard extends StatelessWidget {
   final AppOrganization organization;
-  AppOrganizationCard({@required this.organization});
+  AppOrganizationCard({required this.organization});
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +171,7 @@ class AppOrganizationCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${organization?.name}',
+                  '${organization.name}',
                   style: TextStyle(
                     fontSize: 16,
                     color: kGray4DColor,

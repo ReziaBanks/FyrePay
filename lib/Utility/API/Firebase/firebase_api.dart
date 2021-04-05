@@ -8,38 +8,32 @@ class FirebaseApi {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
-  User getCurrentUser() {
-    User currentUser = _firebaseAuth.currentUser;
+  User? getCurrentUser() {
+    User? currentUser = _firebaseAuth.currentUser;
     return currentUser;
   }
 
   // Firebase Auth
-  Future<User> signUpWithEmailAndPassword(
-      {String email, String password}) async {
+  Future<User?> signUpWithEmailAndPassword(
+      {required String email, required String password}) async {
     UserCredential userCredentials = await _firebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password);
-    if (userCredentials != null) {
-      await _firebaseFirestore
-          .collection('Users')
-          .doc('${userCredentials.user.uid}')
-          .set({
-        'email_address': userCredentials.user.email,
-        'uid': userCredentials.user.uid,
-        'round_up_amount': 1,
-      }, SetOptions(merge: true));
-      return userCredentials.user;
-    } else
-      return null;
+    await _firebaseFirestore
+        .collection('Users')
+        .doc('${userCredentials.user!.uid}')
+        .set({
+      'email_address': userCredentials.user!.email,
+      'uid': userCredentials.user!.uid,
+      'round_up_amount': 1,
+    }, SetOptions(merge: true));
+    return userCredentials.user;
   }
 
-  Future<User> signInWithEmailAndPassword(
-      {String email, String password}) async {
+  Future<User?> signInWithEmailAndPassword(
+      {required String email, required String password}) async {
     UserCredential userCredentials = await _firebaseAuth
         .signInWithEmailAndPassword(email: email, password: password);
-    if (userCredentials != null) {
-      return userCredentials.user;
-    } else
-      return null;
+    return userCredentials.user;
   }
 
   Future<void> logOutUser() async {
@@ -51,24 +45,24 @@ class FirebaseApi {
   }
 
   Future<void> updateEmail(String email) async {
-    User currentUser = _firebaseAuth.currentUser;
+    User? currentUser = _firebaseAuth.currentUser;
     if (currentUser != null) {
       await currentUser.updateEmail('$email');
     }
   }
 
   Future<void> updatePassword(String newPassword) async {
-    User currentUser = _firebaseAuth.currentUser;
+    User? currentUser = _firebaseAuth.currentUser;
     if (currentUser != null) {
       await currentUser.updatePassword(newPassword);
     }
   }
 
   Future<bool> validatePassword(String password) async {
-    User currentUser = _firebaseAuth.currentUser;
+    User currentUser = _firebaseAuth.currentUser!;
 
     var authCredentials = EmailAuthProvider.credential(
-        email: currentUser.email, password: password);
+        email: currentUser.email!, password: password);
     try {
       var authResult =
           await currentUser.reauthenticateWithCredential(authCredentials);
@@ -84,14 +78,14 @@ class FirebaseApi {
   }
 
   Future<void> sendVerificationEmail() async {
-    User currentUser = _firebaseAuth.currentUser;
+    User? currentUser = _firebaseAuth.currentUser;
     if (currentUser != null) {
       await currentUser.sendEmailVerification();
     }
   }
 
   void listenToUserChanges(Function action) async {
-    _firebaseAuth.userChanges().listen((User user) {
+    _firebaseAuth.userChanges().listen((User? user) {
       action(user);
     });
   }
@@ -127,7 +121,7 @@ class FirebaseApi {
   }
 
   Future<DocumentSnapshot> getDocumentByID(
-      String collectionId, String documentId) async {
+      String collectionId, String? documentId) async {
     DocumentSnapshot snapshot = await _firebaseFirestore
         .collection('$collectionId')
         .doc('$documentId')

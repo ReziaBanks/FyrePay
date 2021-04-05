@@ -45,7 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
   
   void generateDonations(AppProvider appProvider) async{
-    User user = FirebaseApi().getCurrentUser();
+    User? user = FirebaseApi().getCurrentUser();
     List<AppOrganization> orgList = appProvider.organizationList;
 
     if(user == null){

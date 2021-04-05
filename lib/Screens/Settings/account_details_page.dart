@@ -11,7 +11,7 @@ class AccountDetailsPage extends StatefulWidget {
 }
 
 class _AccountDetailsPageState extends State<AccountDetailsPage> {
-  String _currentEmail = FirebaseApi().getCurrentUser().email;
+  String? _currentEmail = FirebaseApi().getCurrentUser()!.email;
   TextEditingController _newEmailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
@@ -30,7 +30,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
             title: 'Current Email',
             height: 55,
             trailingWidget: Text(
-              _currentEmail,
+              _currentEmail!,
               style: TextStyle(
                 fontSize: 15,
                 color: kGray85Color,
@@ -54,33 +54,35 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
           SizedBox(height: 15),
           //Confirm button
           AppButton(
-              title: "Update Now",
-              onPressed: () async {
-                try {
-                  FirebaseApi _firebaseApi = FirebaseApi();
+            title: "Update Now",
+            onPressed: () async {
+              try {
+                FirebaseApi _firebaseApi = FirebaseApi();
 
-                  User user = await _firebaseApi.signInWithEmailAndPassword(email: _firebaseApi.getCurrentUser().email, password: _passwordController.value.text);
-                  if (user != null) {
-                    //Update user email
-                    await _firebaseApi.updateEmail(_newEmailController.value.text);
-                    //Update email text
-                    setState(() {
-                      _currentEmail = FirebaseApi().getCurrentUser().email;
-                    });
+                User? user = await _firebaseApi.signInWithEmailAndPassword(
+                    email: _firebaseApi.getCurrentUser()!.email!,
+                    password: _passwordController.value.text);
+                if (user != null) {
+                  //Update user email
+                  await _firebaseApi
+                      .updateEmail(_newEmailController.value.text);
+                  //Update email text
+                  setState(() {
+                    _currentEmail = FirebaseApi().getCurrentUser()!.email;
+                  });
 
-                    Fluttertoast.showToast(msg: "Successfully updated email");
-                  }
-                  else {
-                    Fluttertoast.showToast(msg: 'Error occurred');
-                  }
-                  // Send email change request
-                  await _firebaseApi.updateEmail(_newEmailController.value.text);
-                } catch (e) {
-                  print(e);
-                  Fluttertoast.showToast(msg: '${e.message}', toastLength: Toast.LENGTH_LONG);
+                  Fluttertoast.showToast(msg: "Successfully updated email");
+                } else {
+                  Fluttertoast.showToast(msg: 'Error occurred');
                 }
-
-              })
+                // Send email change request
+                await _firebaseApi.updateEmail(_newEmailController.value.text);
+              } catch (e) {
+                print(e);
+                Fluttertoast.showToast(msg: 'An Error Occurred', toastLength: Toast.LENGTH_LONG);
+              }
+            },
+          )
         ],
       ),
     );

@@ -1,21 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:green_apple_pay/Utility/Classes/donation.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 import 'package:green_apple_pay/Utility/Classes/user.dart';
 
 class FirebaseDocumentToClass {
-  AppOrganization getOrganization(DocumentSnapshot organizationSnapshot) {
+
+  AppOrganization? getOrganization(DocumentSnapshot organizationSnapshot) {
     String uid = organizationSnapshot.id;
-    Map<String, dynamic> organizationMap = organizationSnapshot.data();
+    Map<String, dynamic>? organizationMap = organizationSnapshot.data();
 
-    String name = organizationMap['name'];
-    String email = organizationMap['email'];
-    String about = organizationMap['about'];
-    String website = organizationMap['website'];
-    String address = organizationMap['address'];
-    String imageURL = organizationMap['image'];
+    if(organizationMap != null) {
+      String name = organizationMap['name'];
+      String email = organizationMap['email'];
+      String about = organizationMap['about'];
+      String website = organizationMap['website'];
+      String address = organizationMap['address'];
+      String imageURL = organizationMap['image'];
 
-    AppOrganization organization = AppOrganization(
+      AppOrganization organization = AppOrganization(
         uid: uid,
         name: name,
         email: email,
@@ -23,80 +26,94 @@ class FirebaseDocumentToClass {
         website: website,
         address: address,
         imageURL: imageURL,
-    );
-    return organization;
-  }
-
-  AppUser getUser(DocumentSnapshot userSnapshot){
-    String uid = userSnapshot.id;
-    Map<String, dynamic> userMap = userSnapshot.data();
-
-    String email = userMap['email'];
-    dynamic roundUpAmount = userMap['round_up_amount'];
-    dynamic monthlyAddOn = userMap['monthly_add_on'];
-    dynamic maxMonthlyDonation = userMap['max_monthly_donation'];
-
-    AppUserSettings settings = AppUserSettings(
-      roundUpAmount: roundUpAmount?.toDouble(),
-      monthlyAddOn: monthlyAddOn?.toDouble(),
-      maxMonthlyDonation: maxMonthlyDonation?.toDouble(),
-    );
-
-    AppUser user = AppUser(
-      uid: uid,
-      email: email,
-      settings: settings,
-    );
-    return user;
-  }
-
-  AppManagedOrganization getManagedOrganization(DocumentSnapshot managedOrganizationSnapshot, List<AppOrganization> organizationList){
-    String uid = managedOrganizationSnapshot.id;
-    Map<String, dynamic> managedOrganizationMap = managedOrganizationSnapshot.data();
-
-    bool status = managedOrganizationMap['status'];
-    String organizationId = managedOrganizationMap['organization_id'];
-    double percent = managedOrganizationMap['percent'].toDouble();
-
-    AppOrganization organization = organizationList.firstWhere((organization) => organization.uid == organizationId, orElse: () => null);
-    if(organization == null){
-      print('Organization Is Empty');
-      return null;
+      );
+      return organization;
     }
-
-    AppManagedOrganization managedOrganization = AppManagedOrganization(
-      uid: uid,
-      organization: organization,
-      status: status,
-      percent: percent,
-    );
-    return managedOrganization;
+    else return null;
   }
 
-  AppDonation getDonation(DocumentSnapshot donationSnapshot, DocumentSnapshot organizationSnapshot){
+  AppDonation? getDonation(DocumentSnapshot donationSnapshot, DocumentSnapshot organizationSnapshot){
     String uid = donationSnapshot.id;
-    Map<String, dynamic> donationMap = donationSnapshot.data();
+    Map<String, dynamic>? donationMap = donationSnapshot.data();
 
-    String userId = donationMap['user_id'];
-    double cost = donationMap['cost']?.toDouble();
-    double roundUp = donationMap['round_up']?.toDouble();
-    String description = donationMap['description'];
-    Timestamp dateCreatedAsTimestamp = donationMap['date_created'];
-    DateTime dateCreated = dateCreatedAsTimestamp.toDate();
+    if(donationMap != null) {
+      String userId = donationMap['user_id'];
+      double cost = donationMap['cost'].toDouble();
+      double roundUp = donationMap['round_up'].toDouble();
+      String description = donationMap['description'];
+      Timestamp dateCreatedAsTimestamp = donationMap['date_created'];
+      DateTime dateCreated = dateCreatedAsTimestamp.toDate();
 
-    AppOrganization organization = getOrganization(organizationSnapshot);
+      AppOrganization? organization = getOrganization(organizationSnapshot);
 
-    // Todo: Ensure no null value exist
-
-    AppDonation donation = AppDonation(
-      uid: uid,
-      userId: userId,
-      cost: cost,
-      organization: organization,
-      roundUp: roundUp,
-      description: description,
-      dateCreated: dateCreated,
-    );
-    return donation;
+      if (organization != null) {
+        AppDonation donation = AppDonation(
+          uid: uid,
+          userId: userId,
+          cost: cost,
+          organization: organization,
+          roundUp: roundUp,
+          description: description,
+          dateCreated: dateCreated,
+        );
+        return donation;
+      }
+      else
+        return null;
+    }
+    else return null;
   }
+
+  AppUser? getUser(DocumentSnapshot userSnapshot){
+    String uid = userSnapshot.id;
+    Map<String, dynamic>? userMap = userSnapshot.data();
+
+    if(userMap != null) {
+      String? email = userMap['email'];
+      double roundUpAmount = userMap['round_up_amount'].toDouble();
+      double monthlyAddOn = userMap['monthly_add_on'].toDouble();
+      double maxMonthlyDonation = userMap['max_monthly_donation'].toDouble();
+
+      AppUserSettings settings = AppUserSettings(
+        roundUpAmount: roundUpAmount,
+        monthlyAddOn: monthlyAddOn,
+        maxMonthlyDonation: maxMonthlyDonation,
+      );
+
+      AppUser user = AppUser(
+        uid: uid,
+        email: email,
+        settings: settings,
+      );
+      return user;
+    }
+    else return null;
+  }
+
+  AppManagedOrganization? getManagedOrganization(DocumentSnapshot managedOrganizationSnapshot, List<AppOrganization> organizationList){
+    String uid = managedOrganizationSnapshot.id;
+    Map<String, dynamic>? managedOrganizationMap = managedOrganizationSnapshot.data();
+
+    if(managedOrganizationMap != null) {
+      bool status = managedOrganizationMap['status'];
+      String organizationId = managedOrganizationMap['organization_id'];
+      double percent = managedOrganizationMap['percent'].toDouble();
+
+      AppOrganization? organization = organizationList.firstWhereOrNull((organization) => organization.uid == organizationId);
+
+      if (organization == null) {
+        throw 'Organization not found';
+      }
+
+      AppManagedOrganization managedOrganization = AppManagedOrganization(
+        uid: uid,
+        organization: organization,
+        status: status,
+        percent: percent,
+      );
+      return managedOrganization;
+    }
+    else return null;
+  }
+
 }

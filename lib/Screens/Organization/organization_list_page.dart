@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Components/Organization/organization_component.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
@@ -32,8 +31,7 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
               ),
             ],
           ),
-          body: organizationList != null
-              ? ListView.separated(
+          body: ListView.separated(
             padding: kAppPadding,
             itemCount: organizationList.length,
             separatorBuilder: (context, index) => SizedBox(height: 15),
@@ -41,8 +39,7 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
               AppOrganization organization = organizationList[index];
               return AppOrganizationCard(organization: organization);
             },
-          )
-              : Center(child: AppProgressIndicator(),),
+          ),
         );
       }
     );

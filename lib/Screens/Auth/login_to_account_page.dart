@@ -47,7 +47,7 @@ class _LoginToAccountState extends State<LoginToAccount> {
         return;
       }
 
-      User user = await FirebaseApi().signInWithEmailAndPassword(
+      User? user = await FirebaseApi().signInWithEmailAndPassword(
           email: email, password: password);
       if (user != null) {
         AppFunctions.navigateAndRemove(context, TabPage());
@@ -58,7 +58,7 @@ class _LoginToAccountState extends State<LoginToAccount> {
     }
     catch(e){
       print(e);
-      Fluttertoast.showToast(msg: '${e.message}', toastLength: Toast.LENGTH_LONG);
+      Fluttertoast.showToast(msg: 'An Error Occurred', toastLength: Toast.LENGTH_LONG);
     }
   }
 

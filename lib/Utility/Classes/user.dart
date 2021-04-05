@@ -1,27 +1,26 @@
-import 'package:flutter/cupertino.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 
 class AppUser {
   final String uid;
-  final String email;
+  final String? email;
   final AppUserSettings settings;
 
   AppUser({
-    @required this.uid,
-    @required this.email,
-    @required this.settings,
+    required this.uid,
+    required this.email,
+    required this.settings,
   });
 }
 
 class AppUserSettings {
-  final double roundUpAmount;
-  final double monthlyAddOn;
-  final double maxMonthlyDonation;
+  final double? roundUpAmount;
+  final double? monthlyAddOn;
+  final double? maxMonthlyDonation;
 
   AppUserSettings({
-    @required this.roundUpAmount,
-    @required this.monthlyAddOn,
-    @required this.maxMonthlyDonation,
+    this.roundUpAmount,
+    this.monthlyAddOn,
+    this.maxMonthlyDonation,
   });
 }
 
@@ -32,17 +31,17 @@ class AppManagedOrganization{
   double percent;
 
   AppManagedOrganization({
-    @required this.uid,
-    @required this.organization,
-    @required this.status,
-    @required this.percent,
+    required this.uid,
+    required this.organization,
+    required this.status,
+    required this.percent,
   });
 
   Map<String, dynamic> toMap(){
     return {
       'status': status,
       'percent': percent,
-      'organization_id': organization?.uid,
+      'organization_id': organization.uid,
     };
   }
 
@@ -51,9 +50,7 @@ class AppManagedOrganization{
   }
 
   void updatePercentage(double value){
-    if(value != null){
-      percent = value;
-    }
+    percent = value;
   }
 
   @override

@@ -10,20 +10,27 @@ import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
 
 class AppActions {
 
-  static void getDonations(AppProvider appProvider) async{
+  static Future<void> getDonations(AppProvider appProvider) async{
     List<AppDonation> donationList = [];
-    User user = FirebaseApi().getCurrentUser();
+    User? user = FirebaseApi().getCurrentUser();
+
     if(user == null){
       print('User is empty');
       return;
     }
-    List<DocumentSnapshot> donationDocSnapshot = await FirebaseApi().getDonationFilteredByUserId('${user?.uid}');
+
+    List<DocumentSnapshot> donationDocSnapshot = await FirebaseApi().getDonationFilteredByUserId('${user.uid}');
 
     for(DocumentSnapshot snapshot in donationDocSnapshot){
       try {
-        String organizationId = snapshot.data()['organization_id'];
+        Map<String, dynamic>? donationMap = snapshot.data();
+        if(donationMap == null){
+          print('Null Donation Map');
+          break;
+        }
+        String organizationId = donationMap['organization_id'];
         DocumentSnapshot organizationSnapshot = await FirebaseApi().getDocumentByID(kOrganizationId, organizationId);
-        AppDonation donation = FirebaseDocumentToClass().getDonation(snapshot, organizationSnapshot);
+        AppDonation? donation = FirebaseDocumentToClass().getDonation(snapshot, organizationSnapshot);
         if(donation != null) {
           donationList.add(donation);
         }
@@ -35,14 +42,14 @@ class AppActions {
     appProvider.updateDonationList(donationList);
   }
 
-  static void getUser(AppProvider appProvider) async{
-    AppUser appUser;
-    User user = FirebaseApi().getCurrentUser();
+  static Future<void> getUser(AppProvider appProvider) async{
+    AppUser? appUser;
+    User? user = FirebaseApi().getCurrentUser();
     if(user == null){
       print('User is empty');
       return;
     }
-    DocumentSnapshot userSnapshot = await FirebaseApi().getDocumentByID(kUserId, '${user.uid}');
+    DocumentSnapshot userSnapshot = await FirebaseApi().getDocumentByID(kUserId, user.uid);
     try{
       appUser = FirebaseDocumentToClass().getUser(userSnapshot);
       if(appUser != null){
@@ -63,7 +70,7 @@ class AppActions {
 
     for(DocumentSnapshot snapshot in organizationDocSnapshot){
       try {
-        AppOrganization organization = FirebaseDocumentToClass().getOrganization(snapshot);
+        AppOrganization? organization = FirebaseDocumentToClass().getOrganization(snapshot);
         if(organization != null) {
           organizationList.add(organization);
         }
@@ -75,19 +82,19 @@ class AppActions {
     appProvider.updateOrganizationList(organizationList);
   }
 
-  static void getManagedOrganizations(AppProvider appProvider) async{
+  static Future<void> getManagedOrganizations(AppProvider appProvider) async{
     List<AppManagedOrganization> managedOrganizationList = [];
     await getOrganizations(appProvider);
     List<AppOrganization> organizationList = appProvider.organizationList;
-    User user = FirebaseApi().getCurrentUser();
+    User? user = FirebaseApi().getCurrentUser();
     if(user == null){
       print('User is empty');
       return;
     }
-    List<DocumentSnapshot> managedOrganizationSnapshot = await FirebaseApi().getManagedOrganization('${user?.uid}');
+    List<DocumentSnapshot> managedOrganizationSnapshot = await FirebaseApi().getManagedOrganization('${user.uid}');
     for(DocumentSnapshot snapshot in managedOrganizationSnapshot){
       try {
-        AppManagedOrganization managedOrganization = FirebaseDocumentToClass().getManagedOrganization(snapshot, organizationList);
+        AppManagedOrganization? managedOrganization = FirebaseDocumentToClass().getManagedOrganization(snapshot, organizationList);
         if(managedOrganization != null) {
           managedOrganizationList.add(managedOrganization);
         }

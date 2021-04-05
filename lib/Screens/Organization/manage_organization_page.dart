@@ -18,8 +18,9 @@ class ManageOrganizationPage extends StatefulWidget {
 }
 
 class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
-  List<AppManagedOrganization> _activeManagedOrganizationList = [];
-  List<AppManagedOrganization> _inActiveManagedOrganizationList = [];
+  // List<AppManagedOrganization> _activeManagedOrganizationList = [];
+  // List<AppManagedOrganization> _inActiveManagedOrganizationList = [];
+  List<AppManagedOrganization> _managedOrgList = [];
   bool _showSpinner = false;
 
   @override
@@ -29,46 +30,41 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
     super.didChangeDependencies();
   }
 
-  void submitChanges(AppProvider appProvider) async{
+  void submitChanges(AppProvider appProvider) async {
     double activeTotal = getActivePercentTotal();
     bool factor = activeTotal == 100 || activeTotal == 0;
-    User user = FirebaseApi().getCurrentUser();
+    User? user = FirebaseApi().getCurrentUser();
 
-    if(_activeManagedOrganizationList.isEmpty && _inActiveManagedOrganizationList.isEmpty){
+    if (_managedOrgList.isEmpty) {
       Fluttertoast.showToast(msg: 'Add An Organization');
       return;
     }
 
-    if(user == null){
+    if (user == null) {
       print('User in Empty');
       return;
     }
-    if(!factor){
+    if (!factor) {
       Fluttertoast.showToast(msg: 'Percentage Error');
       return;
     }
     setState(() {
       _showSpinner = true;
     });
-    try{
+    try {
       String userId = user.uid;
       List<AppManagedOrganization> managedOrganizationList = appProvider.managedOrganizationList;
       List<Map<String, dynamic>> dataList = [];
 
-      for(AppManagedOrganization value in _activeManagedOrganizationList){
-        dataList.add(value.toMap());
+      for (AppManagedOrganization value in _managedOrgList) {dataList.add(value.toMap());
       }
 
-      for(AppManagedOrganization value in _inActiveManagedOrganizationList){
-        dataList.add(value.toMap());
-      }
-
-      await FirebaseApi().updateUserManagedOrganization(userId, managedOrganizationList, dataList);
+      await FirebaseApi().updateUserManagedOrganization(
+          userId, managedOrganizationList, dataList);
       // Update AppProvider
       AppActions.getManagedOrganizations(appProvider);
       Fluttertoast.showToast(msg: 'Update Successful');
-    }
-    catch(e){
+    } catch (e) {
       print(e);
     }
     setState(() {
@@ -77,43 +73,33 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
   }
 
   void updateContent(AppProvider appProvider) {
-    List<AppManagedOrganization> managedOrganizationList = appProvider.managedOrganizationList;
-    List<AppManagedOrganization> activeList = [];
-    List<AppManagedOrganization> inActiveList = [];
+    List<AppManagedOrganization> managedOrganizationList =
+        appProvider.managedOrganizationList;
 
-    for(AppManagedOrganization managedOrganization in managedOrganizationList){
-      if(managedOrganization?.status == true){
-        activeList.add(managedOrganization);
-      }
-      else{
-        inActiveList.add(managedOrganization);
-      }
-    }
     setState(() {
-      _activeManagedOrganizationList = [...activeList];
-      _inActiveManagedOrganizationList = [...inActiveList];
+      _managedOrgList = [...managedOrganizationList];
     });
   }
 
   double getActivePercentTotal() {
     double total = 0;
-    for (AppManagedOrganization managedOrganization
-        in _activeManagedOrganizationList) {
-      total = total + managedOrganization?.percent;
+    List<AppManagedOrganization> activeManagedOrgList =  _managedOrgList.where((element) => element.status).toList();
+    for (AppManagedOrganization managedOrganization in activeManagedOrgList) {
+      total = total + managedOrganization.percent;
     }
     return total;
   }
 
   void showDialogBox(AppManagedOrganization managedOrganization) {
     TextEditingController percentController = TextEditingController();
-    percentController.text = '${managedOrganization?.percent}';
+    percentController.text = '${managedOrganization.percent}';
     showCupertinoDialog(
       context: context,
       builder: (BuildContext context) {
         return AppDialogBox(
           managedOrganization: managedOrganization,
           textEditingController: percentController,
-          onPressed: (double value){
+          onPressed: (double value) {
             setState(() {
               managedOrganization.updatePercentage(value);
             });
@@ -125,150 +111,142 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppProvider>(builder: (context, appProvider, child) {
-      List<AppManagedOrganization> managedOrganizationList = appProvider.managedOrganizationList;
-      return ModalProgressHUD(
-        progressIndicator: AppProgressIndicator(),
-        inAsyncCall: _showSpinner,
-        child: Scaffold(
-          backgroundColor: Color(0xFFF3F5F5),
-          appBar: AppBar(
-            title: Text(
-              'Manage Organization',
-              style: kAppBarLightTextStyle,
+    return Consumer<AppProvider>(
+      builder: (context, appProvider, child) {
+        List<AppManagedOrganization> managedOrganizationList = appProvider.managedOrganizationList;
+        List<AppManagedOrganization> activeManagedOrgList = _managedOrgList.where((element) => element.status).toList();
+        List<AppManagedOrganization> inActiveManagedOrgList = _managedOrgList.where((element) => !element.status).toList();
+        return ModalProgressHUD(
+          progressIndicator: AppProgressIndicator(),
+          inAsyncCall: _showSpinner,
+          child: Scaffold(
+            backgroundColor: Color(0xFFF3F5F5),
+            appBar: AppBar(
+              title: Text(
+                'Manage Organization',
+                style: kAppBarLightTextStyle,
+              ),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.check),
+                  color: kPrimaryColor,
+                  onPressed: () {
+                    submitChanges(appProvider);
+                  },
+                ),
+              ],
             ),
-            actions: [
-              IconButton(
-                icon: Icon(Icons.check),
-                color: kPrimaryColor,
-                onPressed: () {
-                  submitChanges(appProvider);
-                },
-              ),
-            ],
-          ),
-          body: managedOrganizationList.isNotEmpty
-              ? ListView(
-            padding: EdgeInsets.only(top: 25, bottom: 50),
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'ACTIVE',
-                          style: TextStyle(
-                            fontSize: 13.5,
-                            fontWeight: FontWeight.w600,
-                            color: kGray4DColor,
+            body: managedOrganizationList.isNotEmpty
+                ? ListView(
+                    padding: EdgeInsets.only(top: 25, bottom: 50),
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 25),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'ACTIVE',
+                                  style: TextStyle(
+                                    fontSize: 13.5,
+                                    fontWeight: FontWeight.w600,
+                                    color: kGray4DColor,
+                                  ),
+                                ),
+                                Text(
+                                  '${getActivePercentTotal()}%',
+                                  textAlign: TextAlign.end,
+                                  style: TextStyle(
+                                    fontSize: 13.5,
+                                    fontWeight: FontWeight.w600,
+                                    color: getActivePercentTotal() == 100
+                                        ? Colors.blue
+                                        : Colors.red,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Text(
-                          '${getActivePercentTotal()}%',
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                            fontSize: 13.5,
-                            fontWeight: FontWeight.w600,
-                            color: getActivePercentTotal() == 100
-                                ? Colors.blue
-                                : Colors.red,
+                          SizedBox(height: 15),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.zero,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: activeManagedOrgList.length,
+                            itemBuilder: (context, index) {
+                              AppManagedOrganization managedOrganization = activeManagedOrgList[index];
+                              return AppOrganizationManagementTile(
+                                managedOrganization: managedOrganization,
+                                onRemove: () {
+                                  setState(() {
+                                    _managedOrgList.remove(managedOrganization);
+                                  });
+                                },
+                                onStatusToggle: () {
+                                  setState(() {
+                                    managedOrganization.updateStatus(!managedOrganization.status);
+                                  });
+                                },
+                                onPressed: () {
+                                  showDialogBox(managedOrganization);
+                                },
+                              );
+                            },
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.zero,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: _activeManagedOrganizationList.length,
-                    itemBuilder: (context, index) {
-                      AppManagedOrganization managedOrganization = _activeManagedOrganizationList[index];
-                      return AppOrganizationManagementTile(
-                        managedOrganization: managedOrganization,
-                        onRemove: () {
-                          setState(() {
-                            _activeManagedOrganizationList
-                                .remove(managedOrganization);
-                          });
-                        },
-                        onStatusToggle: () {
-                          setState(() {
-                            _activeManagedOrganizationList
-                                .remove(managedOrganization);
-                            managedOrganization.updateStatus(!managedOrganization.status);
-                            _inActiveManagedOrganizationList
-                                .add(managedOrganization);
-                          });
-                        },
-                        onPressed: () {
-                          showDialogBox(managedOrganization);
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(height: 25),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
-                    child: Text(
-                      'INACTIVE',
-                      style: TextStyle(
-                        fontSize: 13.5,
-                        fontWeight: FontWeight.w600,
-                        color: kGray4DColor,
+                        ],
                       ),
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.zero,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: _inActiveManagedOrganizationList.length,
-                    itemBuilder: (context, index) {
-                      AppManagedOrganization managedOrganization =
-                          _inActiveManagedOrganizationList[index];
-                      return AppOrganizationManagementTile(
-                        managedOrganization: managedOrganization,
-                        onPressed: () {
-                          showDialogBox(managedOrganization);
-                        },
-                        onRemove: () {
-                          setState(() {
-                            _inActiveManagedOrganizationList
-                                .remove(managedOrganization);
-                          });
-                        },
-                        onStatusToggle: () {
-                          setState(() {
-                            _inActiveManagedOrganizationList
-                                .remove(managedOrganization);
-                            managedOrganization
-                                .updateStatus(!managedOrganization.status);
-                            _activeManagedOrganizationList
-                                .add(managedOrganization);
-                          });
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ],
-          )
-              : Center(child: Text('No Added Organization')),
-        ),
-      );
-    });
+                      SizedBox(height: 25),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 25),
+                            child: Text(
+                              'INACTIVE',
+                              style: TextStyle(
+                                fontSize: 13.5,
+                                fontWeight: FontWeight.w600,
+                                color: kGray4DColor,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 15),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.zero,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: inActiveManagedOrgList.length,
+                            itemBuilder: (context, index) {
+                              AppManagedOrganization managedOrganization = inActiveManagedOrgList[index];
+                              return AppOrganizationManagementTile(
+                                managedOrganization: managedOrganization,
+                                onPressed: () {
+                                  showDialogBox(managedOrganization);
+                                },
+                                onRemove: () {
+                                  setState(() {
+                                    _managedOrgList.remove(managedOrganization);
+                                  });
+                                },
+                                onStatusToggle: () {
+                                  setState(() {
+                                    managedOrganization.updateStatus(!managedOrganization.status);
+                                  });
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                : Center(child: Text('No Added Organization')),
+          ),
+        );
+      },
+    );
   }
 }

@@ -4,7 +4,7 @@ import 'package:green_apple_pay/Utility/Misc/constants.dart';
 
 class AppDonationTile extends StatelessWidget {
   final AppDonation donation;
-  AppDonationTile({@required this.donation});
+  AppDonationTile({required this.donation});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +23,10 @@ class AppDonationTile extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('${donation?.organization?.name} (${donation?.description})', style: TextStyle(
+              Text('${donation.organization.name} (${donation.description})', style: TextStyle(
                 fontSize: 15,
               ),),
-              Text('\$${donation?.roundUp}', style: TextStyle(
+              Text('\$${donation.roundUp}', style: TextStyle(
                 fontSize: 15,
               ),),
             ],

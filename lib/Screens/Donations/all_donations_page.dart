@@ -17,15 +17,12 @@ class _AllDonationsPageState extends State<AllDonationsPage> {
       AppProvider appProvider, DateTime dateTime) {
     List<AppDonation> donationList = appProvider.donationList;
     List<AppDonation> filteredDonationList = [];
-    if (donationList != null) {
-      for (AppDonation donation in donationList) {
-        if (donation.dateCreated.isSameDate(dateTime)) {
-          filteredDonationList.add(donation);
-        }
+    for (AppDonation donation in donationList) {
+      if (donation.dateCreated.isSameDate(dateTime)) {
+        filteredDonationList.add(donation);
       }
-      return filteredDonationList;
-    } else
-      return [];
+    }
+    return filteredDonationList;
   }
 
   @override

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 
 class AppDonation {
@@ -11,13 +10,13 @@ class AppDonation {
   final DateTime dateCreated;
 
   AppDonation({
-    @required this.uid,
-    @required this.userId,
-    @required this.cost,
-    @required this.roundUp,
-    @required this.description,
-    @required this.dateCreated,
-    @required this.organization,
+    required this.uid,
+    required this.userId,
+    required this.cost,
+    required this.roundUp,
+    required this.description,
+    required this.dateCreated,
+    required this.organization,
   });
 }
 
@@ -34,7 +33,7 @@ class AppOrganizationDonation {
   }
 
   AppOrganizationDonation({
-    @required this.organization,
-    @required this.donations
+    required this.organization,
+    required this.donations
 });
 }

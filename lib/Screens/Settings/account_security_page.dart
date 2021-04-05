@@ -37,9 +37,9 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
       _showSpinner = true;
     });
     try {
-      User user = FirebaseApi().getCurrentUser();
+      User? user = FirebaseApi().getCurrentUser();
       if(user != null) {
-        User newUser = await FirebaseApi().signInWithEmailAndPassword(
+        User? newUser = await FirebaseApi().signInWithEmailAndPassword(
           email: '${user.email}', password: currentPassword,);
         if (newUser != null) {
           await FirebaseApi().updatePassword(newPassword);

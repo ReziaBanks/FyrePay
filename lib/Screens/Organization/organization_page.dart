@@ -14,7 +14,7 @@ import 'package:provider/provider.dart';
 
 class OrganizationPage extends StatefulWidget {
   final AppOrganization organization;
-  OrganizationPage({@required this.organization});
+  OrganizationPage({required this.organization});
 
   @override
   _OrganizationPageState createState() => _OrganizationPageState();
@@ -28,7 +28,7 @@ class _OrganizationPageState extends State<OrganizationPage> {
   bool _showSpinner = false;
 
   void toggleAction(AppProvider appProvider) async{
-    User user = FirebaseApi().getCurrentUser();
+    User? user = FirebaseApi().getCurrentUser();
     AppOrganization organization = widget.organization;
     if(user == null){
       print('Empty User');
@@ -68,14 +68,14 @@ class _OrganizationPageState extends State<OrganizationPage> {
           child: Scaffold(
             appBar: AppBar(
               title: Text(
-                '${widget?.organization?.name}',
+                '${widget.organization.name}',
                 style: kAppBarLightTextStyle,
               ),
             ),
             body: ListView(
               children: [
                 CachedNetworkImage(
-                  imageUrl: '${widget?.organization?.imageURL}',
+                  imageUrl: '${widget.organization.imageURL}',
                   fit: BoxFit.cover,
                   width: phoneWidth,
                   height: imageHeight,
@@ -96,7 +96,7 @@ class _OrganizationPageState extends State<OrganizationPage> {
                       Text('Organization Details', style: _basicTextStyle),
                       SizedBox(height: 15),
                       AppListTile(
-                        text: 'Name: ${widget?.organization?.name}',
+                        text: 'Name: ${widget.organization.name}',
                         iconData: Icons.fiber_manual_record,
                         iconSize: 15,
                       ),

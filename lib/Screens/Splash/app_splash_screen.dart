@@ -26,7 +26,7 @@ class _AppSplashScreenState extends State<AppSplashScreen> {
     Widget nextPage = CreateAccount();
     try {
       if (!mounted) return;
-      User currentUser = FirebaseApi().getCurrentUser();
+      User? currentUser = FirebaseApi().getCurrentUser();
       if (currentUser != null) {
         nextPage = TabPage();
       }

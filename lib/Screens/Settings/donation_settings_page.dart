@@ -18,11 +18,11 @@ class DonationSettingsPage extends StatefulWidget {
 
 class _DonationSettingsPageState extends State<DonationSettingsPage> {
   TextEditingController _donationController = TextEditingController();
-  List<double> _roundUpOptions = [null, 1, 2, 5, 10, 25];
-  List<double> _addOnOptions = [null, 10, 20, 30, 40, 50];
+  List<double?> _roundUpOptions = [null, 1, 2, 5, 10, 25];
+  List<double?> _addOnOptions = [null, 10, 20, 30, 40, 50];
   bool _showSpinner = false;
-  double _monthlyAddOn;
-  double _roundUpAmount;
+  double? _monthlyAddOn;
+  double? _roundUpAmount;
   TextStyle _style = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
@@ -37,9 +37,9 @@ class _DonationSettingsPageState extends State<DonationSettingsPage> {
   }
 
   void updateDonationSettings(AppProvider appProvider) async{
-    User user = FirebaseApi().getCurrentUser();
+    User? user = FirebaseApi().getCurrentUser();
     String maxDonationText = _donationController.text;
-    double maxDonation = double.tryParse(maxDonationText);
+    double? maxDonation = double.tryParse(maxDonationText);
 
     if(maxDonation == null && maxDonationText.isNotEmpty){
       Fluttertoast.showToast(msg: 'Max Monthly Donation is badly formatted');
@@ -62,12 +62,12 @@ class _DonationSettingsPageState extends State<DonationSettingsPage> {
         'max_monthly_donation': maxDonation,
       };
 
-      await FirebaseApi().updateUserDocument('${user?.uid}', data);
+      await FirebaseApi().updateUserDocument('${user.uid}', data);
       Fluttertoast.showToast(msg: 'Donation Settings Updated');
       AppActions.getUser(appProvider);
     }
     catch(e){
-      Fluttertoast.showToast(msg: '${e?.message}');
+      Fluttertoast.showToast(msg: 'An Error Occurred');
       print(e);
     }
     setState(() {
@@ -76,11 +76,11 @@ class _DonationSettingsPageState extends State<DonationSettingsPage> {
   }
 
   void updateContent(AppProvider appProvider){
-    AppUser user = appProvider.appUser;
+    AppUser? user = appProvider.appUser;
     if(user != null){
-      _monthlyAddOn = user?.settings?.monthlyAddOn;
-      _roundUpAmount = user?.settings?.roundUpAmount;
-      double maxMonthlyDonation = user?.settings?.maxMonthlyDonation;
+      _monthlyAddOn = user.settings.monthlyAddOn;
+      _roundUpAmount = user.settings.roundUpAmount;
+      double? maxMonthlyDonation = user.settings.maxMonthlyDonation;
       if(maxMonthlyDonation != null){
         _donationController.text = '$maxMonthlyDonation';
       }
@@ -126,16 +126,16 @@ class _DonationSettingsPageState extends State<DonationSettingsPage> {
                     itemCount: _roundUpOptions.length,
                     separatorBuilder: (context, index) => SizedBox(height: 15),
                     itemBuilder: (context, index) {
-                      double value = _roundUpOptions[index];
-                      return AppRadioTile<double>(
-                        getTitle: (double value) {
+                      double? value = _roundUpOptions[index];
+                      return AppRadioTile<double?>(
+                        getTitle: (double? value) {
                           if (value != null) {
                             return '\$$value';
                           } else {
                             return 'Off';
                           }
                         },
-                        onPressed: (double value) {
+                        onPressed: (double? value) {
                           setState(() {
                             _roundUpAmount = value;
                           });
@@ -155,16 +155,16 @@ class _DonationSettingsPageState extends State<DonationSettingsPage> {
                     itemCount: _addOnOptions.length,
                     separatorBuilder: (context, index) => SizedBox(height: 15),
                     itemBuilder: (context, index) {
-                      double value = _addOnOptions[index];
-                      return AppRadioTile<double>(
-                        getTitle: (double value) {
+                      double? value = _addOnOptions[index];
+                      return AppRadioTile<double?>(
+                        getTitle: (double? value) {
                           if (value != null) {
                             return '\$$value';
                           } else {
                             return 'Off';
                           }
                         },
-                        onPressed: (double value) {
+                        onPressed: (double? value) {
                           setState(() {
                             _monthlyAddOn = value;
                           });
@@ -199,10 +199,10 @@ class AppRadioTile<T> extends StatelessWidget {
   final Function(T) onPressed;
 
   AppRadioTile({
-    @required this.getTitle,
-    @required this.value,
-    @required this.groupValue,
-    @required this.onPressed,
+    required this.getTitle,
+    required this.value,
+    required this.groupValue,
+    required this.onPressed,
   });
 
   @override

@@ -5,6 +5,7 @@ import 'package:green_apple_pay/Utility/Misc/data.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:math';
+import 'package:green_apple_pay/Utility/Misc/extension.dart';
 
 class AppFunctions {
   static void navigate(BuildContext context, Widget page){
@@ -46,8 +47,4 @@ class AppFunctions {
       'user_id': userId,
     };
   }
-}
-
-extension Ex on double {
-  double toPrecision(int n) => double.parse(toStringAsFixed(n));
 }

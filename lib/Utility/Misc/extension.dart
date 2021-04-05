@@ -4,3 +4,7 @@ extension DateOnlyCompare on DateTime {
         && this.day == other.day;
   }
 }
+
+extension Ex on double {
+  double toPrecision(int n) => double.parse(toStringAsFixed(n));
+}

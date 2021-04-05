@@ -5,28 +5,26 @@ import 'package:green_apple_pay/Utility/Classes/user.dart';
 import 'package:green_apple_pay/Utility/Misc/extension.dart';
 
 class AppProvider extends ChangeNotifier{
-  AppUser appUser;
-  List<AppOrganization> organizationList = [];
+  AppUser? appUser;
+
+  List<AppOrganization> organizationList = []; // null;
   List<AppDonation> donationList = [];
   List<AppManagedOrganization> managedOrganizationList = [];
 
   List<DateTime> get dateList {
     List<DateTime> dateList = [];
-    if(donationList != null){
-      for(AppDonation donation in donationList){
-        if(dateList.isEmpty){
+    for(AppDonation donation in donationList){
+      if(dateList.isEmpty){
+        dateList.add(donation.dateCreated);
+      }
+      else{
+        List<DateTime> newList = dateList.where((element) => element.isSameDate(donation.dateCreated)).toList();
+        if(newList.isEmpty){
           dateList.add(donation.dateCreated);
         }
-        else{
-          List<DateTime> newList = dateList.where((element) => element.isSameDate(donation.dateCreated)).toList();
-          if(newList.isEmpty){
-            dateList.add(donation.dateCreated);
-          }
-        }
       }
-      return dateList;
     }
-    else return [];
+    return dateList;
   }
 
   double get totalDonation {

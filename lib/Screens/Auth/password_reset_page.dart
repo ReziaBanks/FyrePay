@@ -41,7 +41,7 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
     }
     catch(e){
       print(e);
-      Fluttertoast.showToast(msg: '${e?.message}', toastLength: Toast.LENGTH_LONG);
+      Fluttertoast.showToast(msg: 'An Error Occurred', toastLength: Toast.LENGTH_LONG);
     }
   }
   

@@ -62,7 +62,7 @@ class _CreateAccountState extends State<CreateAccount> {
         return;
       }
 
-      User user = await FirebaseApi().signUpWithEmailAndPassword(
+      User? user = await FirebaseApi().signUpWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -76,7 +76,7 @@ class _CreateAccountState extends State<CreateAccount> {
 
     } catch (e) {
       print(e);
-        Fluttertoast.showToast(msg: '${e?.message}', toastLength: Toast.LENGTH_LONG);
+        Fluttertoast.showToast(msg: 'An Error Occurred', toastLength: Toast.LENGTH_LONG);
     }
   }
 
@@ -87,7 +87,7 @@ class _CreateAccountState extends State<CreateAccount> {
       progressIndicator: AppProgressIndicator(),
       child: GestureDetector(
         onTap: () {
-          // AppFunctions.unFocusPage(context);
+          AppFunctions.unFocusPage(context);
         },
         child: Scaffold(
           resizeToAvoidBottomInset: false,
