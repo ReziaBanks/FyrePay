@@ -60,8 +60,13 @@ class _OrganizationPageState extends State<OrganizationPage> {
     double imageHeight = phoneWidth * (3 / 4);
     return Consumer<AppProvider>(
       builder: (context, appProvider, child) {
-        List<AppManagedOrganization> managedOrgList = appProvider.managedOrganizationList;
-        List<AppManagedOrganization> newList = managedOrgList.where((element) => element.organization.uid == widget.organization.uid).toList();
+        List<AppManagedOrganization>? managedOrgList = appProvider.managedOrganizationList;
+        List<AppManagedOrganization> newList = [];
+        if(managedOrgList != null) {
+          newList =
+              managedOrgList.where((element) => element.organization.uid ==
+                  widget.organization.uid).toList();
+        }
         return ModalProgressHUD(
           progressIndicator: AppProgressIndicator(),
           inAsyncCall: _showSpinner,

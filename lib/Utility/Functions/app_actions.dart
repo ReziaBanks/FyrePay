@@ -85,7 +85,11 @@ class AppActions {
   static Future<void> getManagedOrganizations(AppProvider appProvider) async{
     List<AppManagedOrganization> managedOrganizationList = [];
     await getOrganizations(appProvider);
-    List<AppOrganization> organizationList = appProvider.organizationList;
+    List<AppOrganization>? organizationList = appProvider.organizationList;
+    if(organizationList == null){
+      print('An Error Occurred');
+      return;
+    }
     User? user = FirebaseApi().getCurrentUser();
     if(user == null){
       print('User is empty');

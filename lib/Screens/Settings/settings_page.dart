@@ -1,7 +1,8 @@
 import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Screens/Auth/login_to_account_page.dart';
@@ -46,10 +47,15 @@ class _SettingsPageState extends State<SettingsPage> {
   
   void generateDonations(AppProvider appProvider) async{
     User? user = FirebaseApi().getCurrentUser();
-    List<AppOrganization> orgList = appProvider.organizationList;
+    List<AppOrganization>? orgList = appProvider.organizationList;
 
     if(user == null){
       print('Empty User');
+      return;
+    }
+
+    if(orgList == null){
+      Fluttertoast.showToast(msg: 'An Error Occurred');
       return;
     }
 
@@ -165,11 +171,22 @@ class _SettingsPageState extends State<SettingsPage> {
                   },
                 ),
                 SizedBox(height: 15),
-                AppContentTile(
-                  title: 'Generate Donations',
-                  onPressed: () {
-                    generateDonations(appProvider);
-                  },
+                Slidable(
+                  actionPane: SlidableDrawerActionPane(),
+                  actionExtentRatio: 0.2,
+                  secondaryActions: <Widget>[
+                    IconSlideAction(
+                      caption: 'Add',
+                      color: Colors.black45,
+                      icon: Icons.add,
+                      onTap: (){
+                        generateDonations(appProvider);
+                      },
+                    ),
+                  ],
+                  child: AppContentTile(
+                    title: 'Generate Donations',
+                  ),
                 ),
                 SizedBox(height: 15),
                 AppContentTile(

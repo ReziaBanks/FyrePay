@@ -18,8 +18,6 @@ class ManageOrganizationPage extends StatefulWidget {
 }
 
 class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
-  // List<AppManagedOrganization> _activeManagedOrganizationList = [];
-  // List<AppManagedOrganization> _inActiveManagedOrganizationList = [];
   List<AppManagedOrganization> _managedOrgList = [];
   bool _showSpinner = false;
 
@@ -53,17 +51,22 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
     });
     try {
       String userId = user.uid;
-      List<AppManagedOrganization> managedOrganizationList = appProvider.managedOrganizationList;
+      List<AppManagedOrganization>? managedOrganizationList = appProvider.managedOrganizationList;
       List<Map<String, dynamic>> dataList = [];
 
-      for (AppManagedOrganization value in _managedOrgList) {dataList.add(value.toMap());
+      for (AppManagedOrganization value in _managedOrgList) {
+        dataList.add(value.toMap());
       }
 
-      await FirebaseApi().updateUserManagedOrganization(
-          userId, managedOrganizationList, dataList);
-      // Update AppProvider
-      AppActions.getManagedOrganizations(appProvider);
-      Fluttertoast.showToast(msg: 'Update Successful');
+      if(managedOrganizationList != null) {
+        await FirebaseApi().updateUserManagedOrganization(
+            userId, managedOrganizationList, dataList);
+        AppActions.getManagedOrganizations(appProvider);
+        Fluttertoast.showToast(msg: 'Update Successful');
+      }
+      else{
+        Fluttertoast.showToast(msg: 'An Error Occurred');
+      }
     } catch (e) {
       print(e);
     }
@@ -73,12 +76,14 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
   }
 
   void updateContent(AppProvider appProvider) {
-    List<AppManagedOrganization> managedOrganizationList =
+    List<AppManagedOrganization>? managedOrganizationList =
         appProvider.managedOrganizationList;
 
-    setState(() {
-      _managedOrgList = [...managedOrganizationList];
-    });
+    if(managedOrganizationList != null) {
+      setState(() {
+        _managedOrgList = [...managedOrganizationList];
+      });
+    }
   }
 
   double getActivePercentTotal() {
@@ -113,7 +118,6 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
   Widget build(BuildContext context) {
     return Consumer<AppProvider>(
       builder: (context, appProvider, child) {
-        List<AppManagedOrganization> managedOrganizationList = appProvider.managedOrganizationList;
         List<AppManagedOrganization> activeManagedOrgList = _managedOrgList.where((element) => element.status).toList();
         List<AppManagedOrganization> inActiveManagedOrgList = _managedOrgList.where((element) => !element.status).toList();
         return ModalProgressHUD(
@@ -136,7 +140,7 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
                 ),
               ],
             ),
-            body: managedOrganizationList.isNotEmpty
+            body: _managedOrgList.isNotEmpty
                 ? ListView(
                     padding: EdgeInsets.only(top: 25, bottom: 50),
                     children: [
@@ -243,7 +247,7 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
                       ),
                     ],
                   )
-                : Center(child: Text('No Added Organization')),
+                : Center(child: Text('No Managed Organization')),
           ),
         );
       },
