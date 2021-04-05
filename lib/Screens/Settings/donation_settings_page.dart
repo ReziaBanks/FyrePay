@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
 import 'package:green_apple_pay/Utility/Classes/user.dart';
@@ -7,9 +8,8 @@ import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-import 'package:toast/toast.dart';
 
 class DonationSettingsPage extends StatefulWidget {
   @override
@@ -42,12 +42,12 @@ class _DonationSettingsPageState extends State<DonationSettingsPage> {
     double maxDonation = double.tryParse(maxDonationText);
 
     if(maxDonation == null && maxDonationText.isNotEmpty){
-      Toast.show('Max Monthly Donation is badly formatted', context);
+      Fluttertoast.showToast(msg: 'Max Monthly Donation is badly formatted');
       return;
     }
 
     if(user == null){
-      Toast.show('User does not exist', context);
+      Fluttertoast.showToast(msg: 'User does not exist');
       return;
     }
 
@@ -63,11 +63,11 @@ class _DonationSettingsPageState extends State<DonationSettingsPage> {
       };
 
       await FirebaseApi().updateUserDocument('${user?.uid}', data);
-      Toast.show('Donation Settings Updated', context);
+      Fluttertoast.showToast(msg: 'Donation Settings Updated');
       AppActions.getUser(appProvider);
     }
     catch(e){
-      Toast.show('${e?.message}', context);
+      Fluttertoast.showToast(msg: '${e?.message}');
       print(e);
     }
     setState(() {

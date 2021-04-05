@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Components/Organization/organization_component.dart';
 import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
@@ -8,9 +9,8 @@ import 'package:green_apple_pay/Utility/Classes/user.dart';
 import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-import 'package:toast/toast.dart';
 
 class ManageOrganizationPage extends StatefulWidget {
   @override
@@ -35,7 +35,7 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
     User user = FirebaseApi().getCurrentUser();
 
     if(_activeManagedOrganizationList.isEmpty && _inActiveManagedOrganizationList.isEmpty){
-      Toast.show('Add An Organization', context);
+      Fluttertoast.showToast(msg: 'Add An Organization');
       return;
     }
 
@@ -44,7 +44,7 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
       return;
     }
     if(!factor){
-      Toast.show('Percentage Error', context);
+      Fluttertoast.showToast(msg: 'Percentage Error');
       return;
     }
     setState(() {
@@ -66,7 +66,7 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
       await FirebaseApi().updateUserManagedOrganization(userId, managedOrganizationList, dataList);
       // Update AppProvider
       AppActions.getManagedOrganizations(appProvider);
-      Toast.show('Update Successful', context);
+      Fluttertoast.showToast(msg: 'Update Successful');
     }
     catch(e){
       print(e);

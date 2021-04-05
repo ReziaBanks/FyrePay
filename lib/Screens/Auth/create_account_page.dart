@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Screens/Auth/login_to_account_page.dart';
 import 'package:green_apple_pay/Screens/Connection/connect_bank_account_page.dart';
@@ -9,8 +10,7 @@ import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/data.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:toast/toast.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class CreateAccount extends StatefulWidget {
   @override
@@ -21,9 +21,7 @@ class _CreateAccountState extends State<CreateAccount> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _repeatPasswordController = TextEditingController();
-
   bool _showSpinner = false;
-  bool _hasAgreed = false;
 
   void launchUrl(String url) {
     try {
@@ -50,17 +48,17 @@ class _CreateAccountState extends State<CreateAccount> {
       String repeatPassword = _repeatPasswordController.text;
 
       if(email.isEmpty){
-        Toast.show('Email is Empty', context);
+        Fluttertoast.showToast(msg: 'Email is Empty');
         return;
       }
 
       if(password.isEmpty){
-        Toast.show('Empty Password Field', context);
+        Fluttertoast.showToast(msg: 'Empty Password Field');
         return;
       }
 
       if(repeatPassword != password){
-        Toast.show('Repeat Password not equals to Password', context, duration: Toast.LENGTH_LONG);
+        Fluttertoast.showToast(msg: 'Repeat Password not equals to Password', toastLength: Toast.LENGTH_LONG);
         return;
       }
 
@@ -73,12 +71,12 @@ class _CreateAccountState extends State<CreateAccount> {
         AppFunctions.navigateAndRemove(context, ConnectBankAccountPage());
       }
       else{
-        Toast.show('Error Creating An Account', context, duration: Toast.LENGTH_LONG);
+        Fluttertoast.showToast(msg: 'Error Creating An Account', toastLength: Toast.LENGTH_LONG);
       }
 
     } catch (e) {
       print(e);
-      Toast.show('${e?.message}', context, duration: Toast.LENGTH_LONG);
+        Fluttertoast.showToast(msg: '${e?.message}', toastLength: Toast.LENGTH_LONG);
     }
   }
 

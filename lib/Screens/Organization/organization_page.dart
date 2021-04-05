@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
 import 'package:green_apple_pay/Utility/Classes/user.dart';
@@ -8,9 +9,8 @@ import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-import 'package:toast/toast.dart';
 
 class OrganizationPage extends StatefulWidget {
   final AppOrganization organization;
@@ -47,7 +47,7 @@ class _OrganizationPageState extends State<OrganizationPage> {
     }
     catch(e){
       print(e);
-      Toast.show('Error Occurred', context);
+      Fluttertoast.showToast(msg: 'Error Occurred', );
     }
     setState(() {
       _showSpinner = false;

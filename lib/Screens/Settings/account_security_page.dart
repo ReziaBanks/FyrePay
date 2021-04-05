@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:toast/toast.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class AccountSecurityPage extends StatefulWidget {
   @override
@@ -24,12 +24,12 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
     String repeatNewPassword = _repeatPasswordController.text;
 
     if(currentPassword.isEmpty && newPassword.isEmpty && repeatNewPassword.isEmpty){
-      Toast.show('Text Field Is Empty', context);
+      Fluttertoast.showToast(msg: 'Text Field Is Empty');
       return;
     }
 
     if(repeatNewPassword != newPassword){
-      Toast.show('New password does not match repeat password', context);
+      Fluttertoast.showToast(msg: 'New password does not match repeat password');
       return;
     }
 
@@ -43,19 +43,19 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
           email: '${user.email}', password: currentPassword,);
         if (newUser != null) {
           await FirebaseApi().updatePassword(newPassword);
-          Toast.show('Password Updated', context);
+          Fluttertoast.showToast(msg: 'Password Updated');
           _currentPasswordController.clear();
           _repeatPasswordController.clear();
           _newPasswordController.clear();
         }
         else {
-          Toast.show('An error occurred, password is incorrect', context);
+          Fluttertoast.showToast(msg: 'An error occurred, password is incorrect');
         }
       }
     }
     catch(e){
       print(e);
-      Toast.show('An error occurred', context);
+      Fluttertoast.showToast(msg: 'An error occurred');
     }
     setState(() {
       _showSpinner = false;

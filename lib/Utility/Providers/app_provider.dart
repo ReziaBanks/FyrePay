@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Utility/Classes/donation.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 import 'package:green_apple_pay/Utility/Classes/user.dart';
+import 'package:green_apple_pay/Utility/Misc/extension.dart';
 
 class AppProvider extends ChangeNotifier{
   AppUser appUser;
@@ -58,9 +59,3 @@ class AppProvider extends ChangeNotifier{
 }
 
 
-extension DateOnlyCompare on DateTime {
-  bool isSameDate(DateTime other) {
-    return this.year == other.year && this.month == other.month
-        && this.day == other.day;
-  }
-}

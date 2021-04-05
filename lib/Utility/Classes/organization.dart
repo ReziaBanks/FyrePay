@@ -8,12 +8,6 @@ class AppOrganization {
   final String website;
   final String address;
   final String imageURL;
-  String city;
-  String province;
-  String postalCode;
-  int allocation;
-  bool isActive;
-  double lifeTimeDonation;
 
   AppOrganization({
     @required this.uid,
@@ -23,11 +17,5 @@ class AppOrganization {
     @required this.website,
     @required this.address,
     @required this.imageURL,
-    this.city,
-    this.province,
-    this.postalCode,
-    this.allocation,
-    this.isActive,
-    this.lifeTimeDonation,
   });
 }

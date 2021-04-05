@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:green_apple_pay/Screens/Organization/organization_page.dart';
 import 'package:green_apple_pay/Utility/Classes/donation.dart';
-import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 
 class AppDonationTile extends StatelessWidget {
@@ -13,10 +11,6 @@ class AppDonationTile extends StatelessWidget {
     return Material(
       color: kWhiteColor,
       child: InkWell(
-        // onTap: (){
-        //   if(donation?.organization != null)
-        //     AppFunctions.navigate(context, OrganizationPage(organization: donation.organization));
-        // },
         child: Container(
           decoration: BoxDecoration(
               border: Border.symmetric(

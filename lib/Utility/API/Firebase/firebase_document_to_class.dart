@@ -78,7 +78,6 @@ class FirebaseDocumentToClass {
     Map<String, dynamic> donationMap = donationSnapshot.data();
 
     String userId = donationMap['user_id'];
-    String organizationId = donationMap['organization_id'];
     double cost = donationMap['cost']?.toDouble();
     double roundUp = donationMap['round_up']?.toDouble();
     String description = donationMap['description'];
@@ -92,7 +91,6 @@ class FirebaseDocumentToClass {
     AppDonation donation = AppDonation(
       uid: uid,
       userId: userId,
-      organizationId: organizationId,
       cost: cost,
       organization: organization,
       roundUp: roundUp,

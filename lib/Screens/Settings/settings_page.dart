@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Screens/Auth/login_to_account_page.dart';
 import 'package:green_apple_pay/Screens/Settings/account_details_page.dart';
@@ -15,9 +16,8 @@ import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/data.dart';
 import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-import 'package:toast/toast.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -54,7 +54,7 @@ class _SettingsPageState extends State<SettingsPage> {
     }
 
     if(orgList.isEmpty){
-      Toast.show('No Available Organization', context);
+      Fluttertoast.showToast(msg: 'No Available Organization');
       return;
     }
 
@@ -71,11 +71,11 @@ class _SettingsPageState extends State<SettingsPage> {
         count -= 1;
       }
       AppActions.getDonations(appProvider);
-      Toast.show('Donation Added', context);
+      Fluttertoast.showToast(msg: 'Donation Added');
     }
     catch(e){
       print(e);
-      Toast.show('An Error Occurred', context);
+      Fluttertoast.showToast(msg: 'An Error Occurred');
     }
     setState(() {
       _showSpinner = false;

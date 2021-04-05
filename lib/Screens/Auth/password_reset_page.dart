@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/data.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:toast/toast.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class PasswordResetPage extends StatefulWidget {
   @override
@@ -31,17 +31,17 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
       String email = _emailController.text;
 
       if (email.isEmpty) {
-        Toast.show('Email Field Is Empty', context);
+        Fluttertoast.showToast(msg: 'Email Field Is Empty');
         return;
       }
 
       await FirebaseApi().sendResetEmail(email);
       Navigator.pop(context);
-      Toast.show('Password Reset Email Sent', context);
+      Fluttertoast.showToast(msg: 'Password Reset Email Sent');
     }
     catch(e){
       print(e);
-      Toast.show('${e?.message}', context, duration: Toast.LENGTH_LONG);
+      Fluttertoast.showToast(msg: '${e?.message}', toastLength: Toast.LENGTH_LONG);
     }
   }
   

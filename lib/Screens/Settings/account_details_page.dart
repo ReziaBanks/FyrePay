@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
-import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
-import 'package:toast/toast.dart';
 
 class AccountDetailsPage extends StatefulWidget {
   @override
@@ -69,16 +68,16 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                       _currentEmail = FirebaseApi().getCurrentUser().email;
                     });
 
-                    Toast.show("Successfully updated email", context);
+                    Fluttertoast.showToast(msg: "Successfully updated email");
                   }
                   else {
-                    Toast.show("Toast plugin app", context);
+                    Fluttertoast.showToast(msg: 'Error occurred');
                   }
                   // Send email change request
                   await _firebaseApi.updateEmail(_newEmailController.value.text);
                 } catch (e) {
                   print(e);
-                  Toast.show('${e.message}', context, duration: Toast.LENGTH_LONG, );
+                  Fluttertoast.showToast(msg: '${e.message}', toastLength: Toast.LENGTH_LONG);
                 }
 
               })

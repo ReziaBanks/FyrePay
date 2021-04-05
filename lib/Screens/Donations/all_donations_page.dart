@@ -5,6 +5,7 @@ import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:green_apple_pay/Utility/Misc/extension.dart';
 
 class AllDonationsPage extends StatefulWidget {
   @override

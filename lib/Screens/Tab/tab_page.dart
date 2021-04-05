@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:green_apple_pay/Screens/Home/home_page.dart';
-import 'package:green_apple_pay/Screens/Home/organization_list_page.dart';
-import 'package:green_apple_pay/Screens/Home/settings_page.dart';
+import 'package:green_apple_pay/Screens/Donations/home_page.dart';
+import 'package:green_apple_pay/Screens/Organization/organization_list_page.dart';
+import 'package:green_apple_pay/Screens/Settings/settings_page.dart';
 import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Providers/app_provider.dart';

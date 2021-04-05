@@ -1,13 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:green_apple_pay/Screens/Organization/organization_page.dart';
-import 'package:green_apple_pay/Utility/Classes/donation.dart';
 import 'package:green_apple_pay/Utility/Classes/user.dart';
-import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/enum.dart';
-import 'package:green_apple_pay/Utility/Classes/organization.dart';
 
 class AppTextField extends StatelessWidget {
   final String hintText;
@@ -157,28 +153,6 @@ class AppProgressIndicator extends StatelessWidget {
   }
 }
 
-class AppCheckBox extends StatelessWidget {
-  final bool value;
-  final Function(bool) onChanged;
-
-  AppCheckBox({
-    @required this.value,
-    @required this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onChanged(!value),
-      child: Icon(
-        value ? CupertinoIcons.checkmark_square_fill : CupertinoIcons.square,
-        color: value ? kPrimaryColor : kGray85Color,
-        size: 22,
-      ),
-    );
-  }
-}
-
 class AppBarTextButton extends StatelessWidget {
   final Function onPressed;
   final String title;
@@ -202,126 +176,6 @@ class AppBarTextButton extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class AppMiniOrganizationCard extends StatelessWidget {
-  final AppOrganizationDonation organizationDonation;
-
-  AppMiniOrganizationCard({
-    @required this.organizationDonation,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    AppOrganization organization = organizationDonation?.organization;
-    return InkWell(
-      onTap: () {
-        AppFunctions.navigate(
-            context, OrganizationPage(organization: organization));
-      },
-      child: Row(
-        children: [
-          Container(
-            width: 120,
-            height: 100,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              image: NetworkImage('${organization?.imageURL}'),
-              fit: BoxFit.cover,
-            )),
-          ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.only(left: 12),
-              color: kLightGrayECColor,
-              height: 100,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${organization?.name}',
-                    style: TextStyle(
-                      fontSize: 17,
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    'Total Donations: \$${organizationDonation?.totalDonation}',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class AppOrganizationCard extends StatelessWidget {
-  final AppOrganization organization;
-  AppOrganizationCard({@required this.organization});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        AppFunctions.navigate(
-            context, OrganizationPage(organization: organization));
-      },
-      child: Column(
-        children: [
-          Container(
-            height: 250,
-            // width: 364,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(5),
-                  topRight: Radius.circular(5),
-                ),
-                image: DecorationImage(
-                  image: NetworkImage('${organization.imageURL}'),
-                  fit: BoxFit.cover,
-                )),
-          ),
-          Container(
-            padding: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-                color: kLightGrayECColor,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(5),
-                  bottomRight: Radius.circular(5),
-                )),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '${organization?.name}',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: kGray4DColor,
-                  ),
-                ),
-                Text(
-                  'View',
-                  style: TextStyle(
-                    color: kPrimaryColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

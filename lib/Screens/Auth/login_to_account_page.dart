@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Screens/Auth/password_reset_page.dart';
-import 'package:green_apple_pay/Screens/Home/tab_page.dart';
+import 'package:green_apple_pay/Screens/Tab/tab_page.dart';
 import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
-import 'package:toast/toast.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import 'create_account_page.dart';
 
@@ -38,12 +38,12 @@ class _LoginToAccountState extends State<LoginToAccount> {
       String password = _passwordController.text;
 
       if(email.isEmpty){
-        Toast.show('Email Field Empty', context);
+        Fluttertoast.showToast(msg: 'Email Field Empty');
         return;
       }
 
       if(password.isEmpty){
-        Toast.show('Password Field Empty', context);
+        Fluttertoast.showToast(msg: 'Password Field Empty');
         return;
       }
 
@@ -53,12 +53,12 @@ class _LoginToAccountState extends State<LoginToAccount> {
         AppFunctions.navigateAndRemove(context, TabPage());
       }
       else {
-        Toast.show("Toast plugin app", context);
+        Fluttertoast.showToast(msg: 'Error Occurred');
       }
     }
     catch(e){
       print(e);
-      Toast.show('${e.message}', context, duration: Toast.LENGTH_LONG, );
+      Fluttertoast.showToast(msg: '${e.message}', toastLength: Toast.LENGTH_LONG);
     }
   }
 
