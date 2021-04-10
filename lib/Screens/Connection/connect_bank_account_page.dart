@@ -5,6 +5,7 @@ import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/data.dart';
 
+
 class ConnectBankAccountPage extends StatefulWidget {
   @override
   _ConnectBankAccountPageState createState() => _ConnectBankAccountPageState();

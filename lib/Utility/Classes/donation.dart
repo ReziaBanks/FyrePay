@@ -1,6 +1,11 @@
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 
+
+/// AppDonation Class
+///
+/// This class holds data for all donations gotten from Firebase
 class AppDonation {
+  /// AppDonation ID to differentiate objects
   final String uid;
   final String userId;
   final AppOrganization organization;
@@ -19,6 +24,8 @@ class AppDonation {
     required this.organization,
   });
 }
+
+/// AppOrganizationDonation
 
 class AppOrganizationDonation {
   final AppOrganization organization;

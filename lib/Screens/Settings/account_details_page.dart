@@ -29,12 +29,16 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
           AppContentTile(
             title: 'Current Email',
             height: 55,
-            trailingWidget: Text(
-              _currentEmail!,
-              style: TextStyle(
-                fontSize: 15,
-                color: kGray85Color,
-                fontWeight: FontWeight.w300,
+            trailingWidget: Expanded(
+              child: Text(
+                _currentEmail != null ? _currentEmail! : '...',
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.right,
+                style: TextStyle(
+                  fontSize: 15,
+                  color: kGray85Color,
+                  fontWeight: FontWeight.w300,
+                ),
               ),
             ),
           ),

@@ -8,14 +8,25 @@ import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
 import 'package:provider/provider.dart';
 
+/// Tab.dart
+///
+/// The tab page ats as a navigate controller for:
+/// 1. Home Page
+/// 2. Organization List Page
+/// 3. Settings Page
+
 class TabPage extends StatefulWidget {
   @override
   _TabPageState createState() => _TabPageState();
 }
 
 class _TabPageState extends State<TabPage> {
+  int _pageIndex = 0;
 
   void didChangeDependencies() {
+    /// GET Request
+    ///
+    /// The following functions retrieve data from Firebase
     AppProvider appProvider = Provider.of<AppProvider>(context, listen: false);
     AppActions.getUser(appProvider);
     AppActions.getOrganizations(appProvider);
@@ -24,9 +35,8 @@ class _TabPageState extends State<TabPage> {
     super.didChangeDependencies();
   }
 
+  /// Widgets controlled by the Tab Page (tab_page.dart)
   List<Widget> tabPages = [HomePage(), OrganizationListPage(), SettingsPage()];
-
-  int _pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
