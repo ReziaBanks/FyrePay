@@ -22,6 +22,12 @@ import 'package:provider/provider.dart';
 /// Settings Page 
 /// This dart class is the main settings page that handles the user preferences. 
 /// There are many other pages to navigate through
+/// 1. Change Email
+/// 2. Security (Change Password)
+/// 3. Bank Account Info
+/// 4. Donation Settings
+/// 5. Privacy Policy
+/// 6. Terms of Service
 class SettingsPage extends StatefulWidget {
   @override
   _SettingsPageState createState() => _SettingsPageState();
