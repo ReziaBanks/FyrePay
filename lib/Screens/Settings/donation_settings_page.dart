@@ -11,13 +11,19 @@ import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
+/// Donation Settings Page
+///
+/// This dart class deals with updating the the round up amount, monthly add on, and max monthly donation 
+
 class DonationSettingsPage extends StatefulWidget {
   @override
   _DonationSettingsPageState createState() => _DonationSettingsPageState();
 }
 
 class _DonationSettingsPageState extends State<DonationSettingsPage> {
+  // Handles the max donation text field
   TextEditingController _donationController = TextEditingController();
+  // Sets up the values for the radio buttons (Round up & Monthly Add on)
   List<double?> _roundUpOptions = [null, 1, 2, 5, 10, 25];
   List<double?> _addOnOptions = [null, 10, 20, 30, 40, 50];
   bool _showSpinner = false;
@@ -37,10 +43,14 @@ class _DonationSettingsPageState extends State<DonationSettingsPage> {
   }
 
   void updateDonationSettings(AppProvider appProvider) async{
+    /// Checks if user exist and stores it in the user variable
     User? user = FirebaseApi().getCurrentUser();
+    // Stores the max donation user input value into maxDonationText
     String maxDonationText = _donationController.text;
+    // Converts the maxDonationText into type Double
     double? maxDonation = double.tryParse(maxDonationText);
 
+    // Error handling messages
     if(maxDonation == null && maxDonationText.isNotEmpty){
       Fluttertoast.showToast(msg: 'Max Monthly Donation is badly formatted');
       return;
@@ -55,6 +65,7 @@ class _DonationSettingsPageState extends State<DonationSettingsPage> {
       _showSpinner = true;
     });
 
+    // Update the user's preferences with Firebase
     try {
       Map<String, dynamic> data = {
         'round_up_amount': _roundUpAmount,

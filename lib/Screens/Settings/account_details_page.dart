@@ -5,14 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 
+/// Account Details Page
+/// 
+/// This dart class allows the user to chnage their email address using firebase authentication
+
 class AccountDetailsPage extends StatefulWidget {
   @override
   _AccountDetailsPageState createState() => _AccountDetailsPageState();
 }
 
 class _AccountDetailsPageState extends State<AccountDetailsPage> {
+  /// Checks if user exist and stores the user current email in the current email text field 
   String? _currentEmail = FirebaseApi().getCurrentUser()!.email;
+
+  // Handles the new email text field
   TextEditingController _newEmailController = TextEditingController();
+  // Handles the password text field
   TextEditingController _passwordController = TextEditingController();
 
   @override

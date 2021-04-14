@@ -19,6 +19,9 @@ import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
+/// Settings Page 
+/// This dart class is the main settings page that handles the user preferences. 
+/// There are many other pages to navigate through
 class SettingsPage extends StatefulWidget {
   @override
   _SettingsPageState createState() => _SettingsPageState();
