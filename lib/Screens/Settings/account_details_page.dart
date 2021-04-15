@@ -56,6 +56,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
           AppTextField(
             hintText: 'Enter Current Password',
             controller: _passwordController,
+            obscureText: true,
             textInputAction: TextInputAction.next,
           ),
           SizedBox(height: 15),
