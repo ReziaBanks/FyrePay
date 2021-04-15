@@ -12,6 +12,11 @@ import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/data.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+/// Represents a page that allows the user to register using an email address and password
+/// Additionally directs user to privacy policy and terms of condition upon request
+///
+/// User is able to login through this page if they already have an account
+
 class CreateAccount extends StatefulWidget {
   @override
   _CreateAccountState createState() => _CreateAccountState();
@@ -23,6 +28,7 @@ class _CreateAccountState extends State<CreateAccount> {
   TextEditingController _repeatPasswordController = TextEditingController();
   bool _showSpinner = false;
 
+  // Called when the user wants to view the privacy policy or terms of condition
   void launchUrl(String url) {
     try {
       AppFunctions.launchUrl(url);
@@ -31,6 +37,7 @@ class _CreateAccountState extends State<CreateAccount> {
     }
   }
 
+  // Displays animation while processing the creation of an account
   void spinnerUpdate() async{
     setState(() {
       _showSpinner = true;

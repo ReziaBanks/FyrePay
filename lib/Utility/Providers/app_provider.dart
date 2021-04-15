@@ -38,7 +38,7 @@ class AppProvider extends ChangeNotifier{
       for (AppDonation donation in donationList!) {
         total += donation.roundUp;
       }
-      return total;
+      return total.toPrecision(2);
     }
     else return total;
   }

@@ -8,6 +8,10 @@ import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
 import 'package:provider/provider.dart';
 import 'manage_organization_page.dart';
 
+/// Displays cards for all organizations defined in the database
+///
+/// User is able to click a card to view detailed information about the organization
+
 class OrganizationListPage extends StatefulWidget {
   @override
   _OrganizationListPageState createState() => _OrganizationListPageState();

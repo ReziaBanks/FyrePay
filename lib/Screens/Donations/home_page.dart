@@ -8,6 +8,11 @@ import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
 import 'package:provider/provider.dart';
 import 'all_donations_page.dart';
 
+/// A page that displays all organizations with their respective total donation amount
+/// the user has contributed to.
+///
+/// Displays life-time donations across all organizations
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -33,6 +38,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
+          // If a donation is made to an organization(s), display list of organizations with their respective
+            // total donation amount
+          // If no donations to any organization was made, display `No Available Donation`
           body: orgDonationList != null
               ? orgDonationList.isNotEmpty
                   ? ListView(

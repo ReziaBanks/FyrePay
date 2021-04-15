@@ -12,6 +12,14 @@ import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
+/// A page that displays active and inactive donations with their respective donation percentage distribution
+///
+/// Allows the user to set organizations to active or inactive
+/// Allows the user to delete organizations off their donation list
+///
+/// Indicates to the user if their percentage distribution adds up to 100% or not
+///   Does not allow users to set donation disruptions that do not add up to 100%
+
 class ManageOrganizationPage extends StatefulWidget {
   @override
   _ManageOrganizationPageState createState() => _ManageOrganizationPageState();
@@ -21,6 +29,7 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
   List<AppManagedOrganization> _managedOrgList = [];
   bool _showSpinner = false;
 
+  // Populates the organization list
   @override
   void didChangeDependencies() {
     AppProvider appProvider = Provider.of<AppProvider>(context, listen: false);
@@ -28,6 +37,7 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
     super.didChangeDependencies();
   }
 
+  // Makes requests to update the distribution(s) in the backend
   void submitChanges(AppProvider appProvider) async {
     double activeTotal = getActivePercentTotal();
     bool factor = activeTotal == 100 || activeTotal == 0;
@@ -75,6 +85,7 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
     });
   }
 
+  // Populates the organization list
   void updateContent(AppProvider appProvider) {
     List<AppManagedOrganization>? managedOrganizationList =
         appProvider.managedOrganizationList;
@@ -86,6 +97,7 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
     }
   }
 
+  //Sums up all active organization percentages
   double getActivePercentTotal() {
     double total = 0;
     List<AppManagedOrganization> activeManagedOrgList =  _managedOrgList.where((element) => element.status).toList();
@@ -95,6 +107,7 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
     return total;
   }
 
+  //Opens the dialog box for the user to input a percentage for an organization
   void showDialogBox(AppManagedOrganization managedOrganization) {
     TextEditingController percentController = TextEditingController();
     percentController.text = '${managedOrganization.percent}';

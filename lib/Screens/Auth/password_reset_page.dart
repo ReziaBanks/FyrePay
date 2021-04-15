@@ -7,6 +7,9 @@ import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/data.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+/// Represents a page that allows the user to reset their password given a valid email
+/// Sends a password reset email to the specified email if that email exists
+
 class PasswordResetPage extends StatefulWidget {
   @override
   _PasswordResetPageState createState() => _PasswordResetPageState();
@@ -16,6 +19,7 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
   TextEditingController _emailController = TextEditingController();
   bool _showSpinner = false;
 
+  // Displays animation while processing the creation of an account
   void spinnerUpdate() async{
     setState(() {
       _showSpinner = true;

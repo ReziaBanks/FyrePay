@@ -1,4 +1,5 @@
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
+import 'package:green_apple_pay/Utility/Misc/extension.dart';
 
 
 /// AppDonation Class
@@ -36,7 +37,7 @@ class AppOrganizationDonation {
     for(AppDonation donation in donations){
       total = total + donation.roundUp;
     }
-    return total;
+    return total.toPrecision(2);
   }
 
   AppOrganizationDonation({
