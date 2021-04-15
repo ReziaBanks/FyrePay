@@ -78,7 +78,7 @@ class _SettingsPageState extends State<SettingsPage> {
     });
     try{
       String userId = user.uid;
-      int count = Random().nextInt(3);
+      int count = Random().nextInt(3) + 1;
       while(count > 0){
         String orgId = (orgList..shuffle()).first.uid;
         Map<String, dynamic> data = AppFunctions.generateRandomDonation(orgId, userId);
