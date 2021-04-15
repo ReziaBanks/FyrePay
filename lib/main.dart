@@ -7,7 +7,7 @@ import 'Utility/Providers/app_provider.dart';
 
 /// Main.dart
 ///
-/// This class is the starting block of the entire project
+/// This class is used when the app first starts
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

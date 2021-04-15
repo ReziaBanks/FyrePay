@@ -8,8 +8,11 @@ import 'package:green_apple_pay/Utility/Classes/user.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
 
+/// Defines methodology to get data from the backend to apply it to the pages
+
 class AppActions {
 
+  // Gets all donations from the current user and updates the global donation variable
   static Future<void> getDonations(AppProvider appProvider) async{
     List<AppDonation> donationList = [];
     User? user = FirebaseApi().getCurrentUser();
@@ -42,6 +45,7 @@ class AppActions {
     appProvider.updateDonationList(donationList);
   }
 
+  // Updates the current user's information
   static Future<void> getUser(AppProvider appProvider) async{
     AppUser? appUser;
     User? user = FirebaseApi().getCurrentUser();
@@ -64,6 +68,7 @@ class AppActions {
     }
   }
 
+  // Updates the organization list data
   static Future<void> getOrganizations(AppProvider appProvider) async{
     List<AppOrganization> organizationList = [];
     List<DocumentSnapshot> organizationDocSnapshot = await FirebaseApi().getCollectionByID(kOrganizationId);
@@ -82,6 +87,7 @@ class AppActions {
     appProvider.updateOrganizationList(organizationList);
   }
 
+  // Updates the percentage-based listings in the Managed Organization page
   static Future<void> getManagedOrganizations(AppProvider appProvider) async{
     List<AppManagedOrganization> managedOrganizationList = [];
     await getOrganizations(appProvider);

@@ -1,3 +1,5 @@
+///Defines a class that represents everything about an organization
+
 class AppOrganization {
   final String uid;
   final String name;

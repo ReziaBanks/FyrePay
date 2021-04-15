@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// All of the global constants
+
 // Color
 const kPrimaryColor = Color(0xFF19A495);
 const kDarkPrimaryColor = Color(0xFF0a423c);

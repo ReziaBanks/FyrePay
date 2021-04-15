@@ -4,13 +4,16 @@ import 'package:green_apple_pay/Utility/Classes/organization.dart';
 import 'package:green_apple_pay/Utility/Classes/user.dart';
 import 'package:green_apple_pay/Utility/Misc/extension.dart';
 
+/// All global variables that are used commonly throughout the app
+
 class AppProvider extends ChangeNotifier{
-  AppUser? appUser;
+  AppUser? appUser; //The logged-in user
 
-  List<AppOrganization>? organizationList; // null;
-  List<AppDonation>? donationList;
-  List<AppManagedOrganization>? managedOrganizationList;
+  List<AppOrganization>? organizationList; //List of organizations from db
+  List<AppDonation>? donationList; //List of donations from db
+  List<AppManagedOrganization>? managedOrganizationList; //List of managed-organizations
 
+  //Gets the different dates from a full donation list
   List<DateTime> get dateList {
     List<DateTime> dateList = [];
 
@@ -32,6 +35,7 @@ class AppProvider extends ChangeNotifier{
     else return [];
   }
 
+  //Gets the total donation amount made to all organizations.
   double get totalDonation {
     double total = 0;
     if(donationList != null) {
@@ -43,6 +47,7 @@ class AppProvider extends ChangeNotifier{
     else return total;
   }
 
+  //Separates all donations filtered by organization
   List<AppOrganizationDonation>? get organizationDonationList{
     List<AppOrganizationDonation> organizationDonationList = [];
     if(donationList == null || organizationList == null){
@@ -70,6 +75,8 @@ class AppProvider extends ChangeNotifier{
       }
     return organizationDonationList;
   }
+
+  ///Functions to updates global variables
 
   void updateAppUser(AppUser user){
     appUser = user;
