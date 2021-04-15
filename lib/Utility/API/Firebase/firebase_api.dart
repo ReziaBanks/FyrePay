@@ -174,7 +174,7 @@ class FirebaseApi {
     QuerySnapshot snapshot = await _firebaseFirestore.collection('$kUserId')
         .doc('$userId')
         .collection('$kManagedOrganizationId')
-        .where('organization', isEqualTo: orgId)
+        .where('organization_id', isEqualTo: orgId)
         .get();
     List<DocumentSnapshot> documentList = snapshot.docs;
     if(documentList.isEmpty){
@@ -194,10 +194,10 @@ class FirebaseApi {
       // Remove All Data
       for(DocumentSnapshot doc in documentList){
         await _firebaseFirestore.collection('$kUserId')
-            .doc('$userId')
-            .collection('$kManagedOrganizationId')
-            .doc('${doc.id}')
-            .delete();
+          .doc('$userId')
+          .collection('$kManagedOrganizationId')
+          .doc('${doc.id}')
+          .delete();
       }
     }
   }
