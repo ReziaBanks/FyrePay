@@ -1,5 +1,7 @@
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 
+/// Sample data to display throughout app for prototyping
+
 class AppData {
   static String defaultUrl = 'https://www.greenapplepay.com/terms-of-use/';
   static String bankConnectionText =
@@ -40,6 +42,7 @@ class AppData {
   );
 
   static List<AppOrganization> orgs = [org1, org2];
+  //List of descriptions to be generated
   static List<String> descrList = [
     'Uber Eats',
     'Amazon',

@@ -4,8 +4,11 @@ import 'package:green_apple_pay/Utility/Classes/donation.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 import 'package:green_apple_pay/Utility/Classes/user.dart';
 
+/// A class that represents methods to connect the database data to instanced objects
+
 class FirebaseDocumentToClass {
 
+  // Creates an organization object with its name, email, about, website, address, and email
   AppOrganization? getOrganization(DocumentSnapshot organizationSnapshot) {
     String uid = organizationSnapshot.id;
     Map<String, dynamic>? organizationMap = organizationSnapshot.data();
@@ -32,6 +35,7 @@ class FirebaseDocumentToClass {
     else return null;
   }
 
+  // Gets a user donation
   AppDonation? getDonation(DocumentSnapshot donationSnapshot, DocumentSnapshot organizationSnapshot){
     String uid = donationSnapshot.id;
     Map<String, dynamic>? donationMap = donationSnapshot.data();
@@ -64,6 +68,7 @@ class FirebaseDocumentToClass {
     else return null;
   }
 
+  // Gets the user information, including their settings
   AppUser? getUser(DocumentSnapshot userSnapshot){
     String uid = userSnapshot.id;
     Map<String, dynamic>? userMap = userSnapshot.data();
@@ -90,6 +95,7 @@ class FirebaseDocumentToClass {
     else return null;
   }
 
+  // Gets the organization, organization percentage, and whether its active or not
   AppManagedOrganization? getManagedOrganization(DocumentSnapshot managedOrganizationSnapshot, List<AppOrganization> organizationList){
     String uid = managedOrganizationSnapshot.id;
     Map<String, dynamic>? managedOrganizationMap = managedOrganizationSnapshot.data();

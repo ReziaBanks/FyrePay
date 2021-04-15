@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 
 /// Donation Settings Page
 ///
-/// This dart class deals with updating the the round up amount, monthly add on, and max monthly donation 
+/// This dart class deals with updating the round up amount, monthly add on, and max monthly donation
 
 class DonationSettingsPage extends StatefulWidget {
   @override

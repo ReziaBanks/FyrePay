@@ -5,6 +5,12 @@ import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/data.dart';
 
+/// A page that represents the design of the process of the user connecting their bank account
+/// with GreenApplePay services.
+///
+/// Page is filled with Lorem ipsum text from Misc -> data.dart variables
+///
+/// Theoretically connects bank account with card information.
 
 class ConnectBankAccountPage extends StatefulWidget {
   @override

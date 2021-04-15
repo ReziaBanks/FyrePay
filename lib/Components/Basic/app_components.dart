@@ -5,6 +5,8 @@ import 'package:green_apple_pay/Utility/Classes/user.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/enum.dart';
 
+///This class is used to represent all textfields throughout the app
+///A textfield must have text and a controller, however nothing else is required
 class AppTextField extends StatelessWidget {
   final String hintText;
   final FocusNode? node;
@@ -56,11 +58,14 @@ class AppTextField extends StatelessWidget {
   }
 }
 
+///This class is used to represent all text-buttons throughout the app
+///A button must have text, however nothing else is required.
+///This button is using AppButtonType.Light for its general theme
 class AppButton extends StatelessWidget {
-  final String title;
+  final String title; //Body text of the button
   final Function? onPressed;
   final AppButtonType buttonType;
-  final Color color;
+  final Color color; //Background-color
 
   AppButton({
     required this.title,
@@ -101,6 +106,10 @@ class AppButton extends StatelessWidget {
   }
 }
 
+///Represents a ListTile that has a leading widget and a trailing widget, which represents an
+///forward chevron icon by default
+///
+/// This class requires a title, everything else is optional.
 class AppContentTile extends StatelessWidget {
   final String title;
   final Function? onPressed;
@@ -143,16 +152,16 @@ class AppContentTile extends StatelessWidget {
   }
 }
 
+/// Represents an animation that spins when something is loading
 class AppProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoActivityIndicator(
-        // color: Colors.grey,
-        // size: 40.0,
-        );
+    return CupertinoActivityIndicator();
   }
 }
 
+/// Represents a text-button that is indicated on the AppBar
+/// A title and onPressed event is required
 class AppBarTextButton extends StatelessWidget {
   final Function onPressed;
   final String title;
@@ -181,6 +190,9 @@ class AppBarTextButton extends StatelessWidget {
   }
 }
 
+/// Represents a component that has an icon followed by text.
+///
+/// The icon and text are required, everything else is optional.
 class AppListTile extends StatelessWidget {
   final String text;
   final IconData iconData;
@@ -216,6 +228,7 @@ class AppListTile extends StatelessWidget {
   }
 }
 
+/// A precise class that represents a dialog that pops up when the user modifies an organization percentage
 class AppDialogBox extends StatelessWidget {
   final AppManagedOrganization managedOrganization;
   final TextEditingController textEditingController;
@@ -246,6 +259,7 @@ class AppDialogBox extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+            // Label representing the organization name
             Text(
               '${managedOrganization.organization.name}',
               textAlign: TextAlign.center,
@@ -254,6 +268,7 @@ class AppDialogBox extends StatelessWidget {
             SizedBox(
               height: 5,
             ),
+            // User enters a percentage amount for this organization
             Center(
               child: TextField(
                 textAlign: TextAlign.center,
@@ -266,6 +281,7 @@ class AppDialogBox extends StatelessWidget {
               ),
             ),
             SizedBox(height: 5),
+            // Update button to apply percentage data
             Material(
               borderRadius: BorderRadius.circular(12.25),
               color: kPrimaryColor,

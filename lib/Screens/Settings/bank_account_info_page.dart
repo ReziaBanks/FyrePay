@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
-// Bank Account Info Page
-// Users will be able to connect their bank account using a credit or debit card
 
+/// Bank Account Info Page
+/// Users will be able to connect their bank account using a credit or debit card
+/// Does not apply any functionality
 
 class BankAccountInfoPage extends StatefulWidget {
   @override

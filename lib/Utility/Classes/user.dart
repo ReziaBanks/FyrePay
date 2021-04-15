@@ -1,5 +1,6 @@
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 
+///Defines a class that represents everything about a user and their settings
 class AppUser {
   final String uid;
   final String? email;
@@ -12,6 +13,7 @@ class AppUser {
   });
 }
 
+///Defines a class that represents a user's settings
 class AppUserSettings {
   final double? roundUpAmount;
   final double? monthlyAddOn;
@@ -24,6 +26,7 @@ class AppUserSettings {
   });
 }
 
+///Defines a class that represents a percentage of a organization that the user wants to donate to
 class AppManagedOrganization{
   final String uid;
   final AppOrganization organization;

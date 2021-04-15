@@ -12,6 +12,11 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import 'create_account_page.dart';
 
+/// Represents a page that allows the user to login using an email address and password
+/// User is able to reset their password through this page.
+///
+/// User is able to register through this page if they don't already have an account
+
 class LoginToAccount extends StatefulWidget {
   @override
   _LoginToAccountState createState() => _LoginToAccountState();
@@ -22,6 +27,7 @@ class _LoginToAccountState extends State<LoginToAccount> {
   TextEditingController _passwordController = TextEditingController();
   bool _showSpinner = false;
 
+  // Displays animation while processing the creation of an account
   void spinnerCall() async{
     setState(() {
       _showSpinner = true;

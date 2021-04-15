@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 
-/// Account Details Page
-/// 
-/// This dart class allows the user to chnage their email address using firebase authentication
+/// Represents the Account Details page, where a logged-in user can change their email given a new email input
+/// and their current password.
+///
+/// If inputs are valid, asynchronously will make an API request to update their email and refresh their session.
+/// Updates the Current Email label upon successfully changing their email.
 
 class AccountDetailsPage extends StatefulWidget {
   @override
@@ -70,7 +72,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
             onPressed: () async {
               try {
                 FirebaseApi _firebaseApi = FirebaseApi();
-
+                // Refreshes the user to ensure that the session is still valid
                 User? user = await _firebaseApi.signInWithEmailAndPassword(
                     email: _firebaseApi.getCurrentUser()!.email!,
                     password: _passwordController.value.text);

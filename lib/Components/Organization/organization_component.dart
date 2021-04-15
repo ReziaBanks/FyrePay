@@ -7,6 +7,11 @@ import 'package:green_apple_pay/Utility/Classes/user.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 
+/// Components that relate to organizations
+
+///A listing that displays information for a specific organization percentage, including:
+/// 1. Charity name
+/// 2. Percentage
 class AppOrganizationManagementTile extends StatelessWidget {
   final AppManagedOrganization managedOrganization;
   final Function() onPressed;
@@ -74,6 +79,9 @@ class AppOrganizationManagementTile extends StatelessWidget {
   }
 }
 
+/// A listing that displays basic information for a specific organization, including:
+/// 1. Organization name
+/// 2. Total donation for this organization
 class AppMiniOrganizationCard extends StatelessWidget {
   final AppOrganizationDonation organizationDonation;
 
@@ -133,6 +141,9 @@ class AppMiniOrganizationCard extends StatelessWidget {
   }
 }
 
+/// A class that represents a card that displays the organization name
+/// This card is meant to act like a button where the user presses on it and it
+  /// navigates to the respective organization details page
 class AppOrganizationCard extends StatelessWidget {
   final AppOrganization organization;
   AppOrganizationCard({required this.organization});

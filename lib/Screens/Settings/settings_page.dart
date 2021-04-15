@@ -28,6 +28,7 @@ import 'package:provider/provider.dart';
 /// 4. Donation Settings
 /// 5. Privacy Policy
 /// 6. Terms of Service
+
 class SettingsPage extends StatefulWidget {
   @override
   _SettingsPageState createState() => _SettingsPageState();

@@ -1,3 +1,6 @@
+/// Extends functionality of functions created by Flutter
+
+//Displays only the date-based information; excludes time
 extension DateOnlyCompare on DateTime {
   bool isSameDate(DateTime other) {
     return this.year == other.year && this.month == other.month
@@ -5,6 +8,7 @@ extension DateOnlyCompare on DateTime {
   }
 }
 
+//Changes the precision of double to a given decimal place
 extension Ex on double {
   double toPrecision(int n) => double.parse(toStringAsFixed(n));
 }

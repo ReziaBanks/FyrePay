@@ -12,6 +12,13 @@ import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
+/// Displays a page listing detailed information about an organization
+/// Displays Name, Website, Email, About Us, Address
+///
+/// User is able to add the organization into their active organizations
+///
+/// User is able to click a card to view detailed information about the organization
+
 class OrganizationPage extends StatefulWidget {
   final AppOrganization organization;
   OrganizationPage({required this.organization});
@@ -27,6 +34,8 @@ class _OrganizationPageState extends State<OrganizationPage> {
   );
   bool _showSpinner = false;
 
+  // If the organization is already added, this function will remove the listing
+  // Otherwise, if any new organizations are added, then update the view with the new organization(s)
   void toggleAction(AppProvider appProvider) async{
     User? user = FirebaseApi().getCurrentUser();
     AppOrganization organization = widget.organization;
