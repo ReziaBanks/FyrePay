@@ -82,6 +82,7 @@ class _AccountSecurityPageState extends State<AccountSecurityPage> {
       progressIndicator: AppProgressIndicator(),
       child: Scaffold(
         appBar: AppBar(
+          leading: AppBackIconButton(),
           title: Text('Account Security', style: kAppBarLightTextStyle),
         ),
         body: ListView(

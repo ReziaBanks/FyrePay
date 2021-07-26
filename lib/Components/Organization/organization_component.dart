@@ -38,22 +38,24 @@ class AppOrganizationManagementTile extends StatelessWidget {
             IconSlideAction(
               caption: managedOrganization.status == true ? 'OFF' : 'ON',
               color: Colors.black45,
-              icon: managedOrganization.status == true ? Icons.toggle_off : Icons.toggle_on,
+              icon: managedOrganization.status == true
+                  ? Icons.toggle_off
+                  : Icons.toggle_on,
               onTap: onStatusToggle,
             ),
             IconSlideAction(
-                caption: 'REMOVE',
-                color: Colors.red,
-                icon: Icons.delete,
-                onTap: onRemove,
-              ),
+              caption: 'REMOVE',
+              color: Colors.red,
+              icon: Icons.delete,
+              onTap: onRemove,
+            ),
           ],
           child: Container(
             decoration: BoxDecoration(
                 border: Border.symmetric(
                     horizontal: BorderSide(
-                      color: Color(0xFFC6C6C8),
-                    ))),
+              color: Color(0xFFC6C6C8),
+            ))),
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,7 +97,7 @@ class AppMiniOrganizationCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         AppFunctions.navigate(
-            context, OrganizationPage(organization: organization));
+            context, OrganizationPage(organization));
       },
       child: Row(
         children: [
@@ -104,9 +106,9 @@ class AppMiniOrganizationCard extends StatelessWidget {
             height: 100,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage('${organization.imageURL}'),
-                  fit: BoxFit.cover,
-                )),
+              image: NetworkImage('${organization.imageURL}'),
+              fit: BoxFit.cover,
+            )),
           ),
           Expanded(
             child: Container(
@@ -143,17 +145,17 @@ class AppMiniOrganizationCard extends StatelessWidget {
 
 /// A class that represents a card that displays the organization name
 /// This card is meant to act like a button where the user presses on it and it
-  /// navigates to the respective organization details page
+/// navigates to the respective organization details page
 class AppOrganizationCard extends StatelessWidget {
   final AppOrganization organization;
-  AppOrganizationCard({required this.organization});
+  AppOrganizationCard(this.organization);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
         AppFunctions.navigate(
-            context, OrganizationPage(organization: organization));
+            context, OrganizationPage(organization));
       },
       child: Column(
         children: [
@@ -166,23 +168,24 @@ class AppOrganizationCard extends StatelessWidget {
                   topRight: Radius.circular(5),
                 ),
                 image: DecorationImage(
-                  image: NetworkImage('${organization.imageURL}'),
+                  image: NetworkImage(organization.imageURL),
                   fit: BoxFit.cover,
                 )),
           ),
           Container(
             padding: EdgeInsets.all(15),
             decoration: BoxDecoration(
-                color: kLightGrayECColor,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(5),
-                  bottomRight: Radius.circular(5),
-                )),
+              color: kLightPrimaryColor,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(5),
+                bottomRight: Radius.circular(5),
+              ),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${organization.name}',
+                  organization.name,
                   style: TextStyle(
                     fontSize: 16,
                     color: kGray4DColor,

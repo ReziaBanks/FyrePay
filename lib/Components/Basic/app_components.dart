@@ -4,6 +4,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:green_apple_pay/Utility/Classes/user.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/enum.dart';
+import 'package:line_icons/line_icons.dart';
 
 ///This class is used to represent all textfields throughout the app
 ///A textfield must have text and a controller, however nothing else is required
@@ -13,7 +14,7 @@ class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final bool obscureText;
   final TextInputAction textInputAction;
-  final Function? onEditingComplete;
+  final Function()? onEditingComplete;
   final TextInputType? keyboardType;
 
   AppTextField({
@@ -29,7 +30,7 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: kLightGrayECColor,
+      color: kLightPrimaryColor,
       height: 55,
       padding: EdgeInsets.only(left: 15),
       child: TextField(
@@ -43,10 +44,10 @@ class AppTextField extends StatelessWidget {
         cursorColor: Color(0xFF19A495),
         obscureText: obscureText,
         focusNode: node,
-        onEditingComplete: onEditingComplete as void Function()?,
+        onEditingComplete: onEditingComplete,
         controller: controller,
         decoration: InputDecoration(
-          hintText: '$hintText',
+          hintText: hintText,
           hintStyle: TextStyle(
             color: kGray85Color,
             fontSize: 16,
@@ -112,7 +113,7 @@ class AppButton extends StatelessWidget {
 /// This class requires a title, everything else is optional.
 class AppContentTile extends StatelessWidget {
   final String title;
-  final Function? onPressed;
+  final Function()? onPressed;
   final Color titleColor;
   final double height;
   final Widget trailingWidget;
@@ -123,16 +124,16 @@ class AppContentTile extends StatelessWidget {
     this.titleColor = const Color(0xFF4D4D4D),
     this.height = 63,
     this.trailingWidget =
-        const Icon(Ionicons.chevron_forward, color: Color(0xFF4D4D4D)),
+        const Icon(LineIcons.angleRight, size: 20, color: Color(0xFF4D4D4D)),
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onPressed as void Function()?,
+      onTap: onPressed,
       child: Container(
         height: height,
-        color: kLightGrayECColor,
+        color: kLightPrimaryColor,
         padding: EdgeInsets.symmetric(horizontal: 15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -306,6 +307,62 @@ class AppDialogBox extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class AppBackIconButton extends StatelessWidget {
+  final Color color;
+  AppBackIconButton({this.color = kBlackColor});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        Navigator.maybePop(context);
+      },
+      icon: Icon(
+        LineIcons.angleLeft,
+        size: 24,
+        color: color,
+      ),
+    );
+  }
+}
+
+class AppBoxCard extends StatelessWidget {
+  final String title;
+  final Function()? onPressed;
+
+  AppBoxCard({
+    required this.title,
+    this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: kLightPrimaryColor,
+      borderRadius: BorderRadius.circular(7),
+      child: InkWell(
+        onTap: onPressed,
+        borderRadius: BorderRadius.circular(7),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Color(0xFFDFE5E8),
+            ),
+            borderRadius: BorderRadius.circular(7),
+          ),
+          child: Center(
+            child: Text(title, style: TextStyle(
+              fontSize: 17,
+              color: kGray4DColor,
+            ),),
+          ),
         ),
       ),
     );

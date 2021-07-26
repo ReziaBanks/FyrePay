@@ -1,3 +1,4 @@
+import 'package:green_apple_pay/Utility/Classes/Table/table_class.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 
 /// Sample data to display throughout app for prototyping
@@ -54,4 +55,58 @@ class AppData {
     'Fiverr',
     'Upwork'
   ];
+
+  static String userInfoText = 'Manage your personal details - this information will be displayed to the Organizations that you decide to support.';
+
+  static List<AppRowData> rowDataList = [
+    AppRowData(
+      columnDataList: [
+        AppColumnData<DateTime>(
+            id: 'asksmaklsm',
+            title: 'Date',
+            value: DateTime.now(),
+            valueAsString: 'July 1st 2021',
+        ),
+        AppColumnData<double>(
+            id: 'asksmaklsmsasasa',
+            title: 'Amount', value: 20.00, valueAsString: '\$20.00'),
+        AppColumnData(
+            id: 'asksmaklsmasasasxzzxzxzx',
+            title: 'Receipt',
+            value: 'View',
+            valueAsString: 'View',
+            clickEvent: () {
+              print('me');
+            }),
+      ],
+      primaryColumnData: AppColumnData<DateTime>(
+          id: 'asksmaklsm',
+          title: 'Date', value: DateTime.now(), valueAsString: 'July 1st 2021'),
+    ),
+    AppRowData(
+      columnDataList: [
+        AppColumnData<DateTime>(
+            id: 'asksmaklasac1sm',
+            title: 'Date',
+            value: DateTime.now(),
+            valueAsString: 'June 1st 2021'),
+        AppColumnData<double>(
+            id: 'asksmakl11m',
+            title: 'Amount', value: 24.50, valueAsString: '\$24.50'),
+        AppColumnData(
+            id: 'asksmakls12',
+            title: 'Receipt',
+            value: 'View',
+            valueAsString: 'View',
+            clickEvent: () {
+              print('me');
+            }),
+      ],
+      primaryColumnData: AppColumnData<DateTime>(
+          id: 'asksmaklasac1sm',
+          title: 'Date', value: DateTime.now(), valueAsString: 'June 1st 2021'),
+    ),
+  ];
+
+  static String aboutUsS1 = 'Pencils of Promise, also known as PoP for short, is a non-profit organization that builds schools and increases educational opportunities in the developing world. Pencils of Promise was founded by Adam Braun in October 2008. It is a 501 organization with education programs in Laos, Guatemala and Ghana.';
 }

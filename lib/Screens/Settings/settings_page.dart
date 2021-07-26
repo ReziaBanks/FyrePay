@@ -5,10 +5,9 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Screens/Auth/login_to_account_page.dart';
-import 'package:green_apple_pay/Screens/Settings/account_details_page.dart';
+import 'package:green_apple_pay/Screens/Settings/account_email_page.dart';
 import 'package:green_apple_pay/Screens/Settings/account_security_page.dart';
-import 'package:green_apple_pay/Screens/Settings/bank_account_info_page.dart';
-import 'package:green_apple_pay/Screens/Settings/donation_settings_page.dart';
+import 'package:green_apple_pay/Screens/Settings/my_profile_page.dart';
 import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
@@ -107,7 +106,7 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Scaffold(
             appBar: AppBar(
               title: Text('Settings', style: kAppBarHeavyTextStyle),
-              centerTitle: false,
+              centerTitle: true,
             ),
             body: ListView(
               padding: kAppPadding,
@@ -118,11 +117,17 @@ class _SettingsPageState extends State<SettingsPage> {
                   style: _basicStyle,
                 ),
                 SizedBox(height: 15),
-
+                AppContentTile(
+                  title: 'My Profile',
+                  onPressed: (){
+                    AppFunctions.navigate(context, MyProfilePage());
+                  },
+                ),
+                SizedBox(height: 15),
                 AppContentTile(
                   title: 'Change Email',
                   onPressed: () {
-                    AppFunctions.navigate(context, AccountDetailsPage());
+                    AppFunctions.navigate(context, AccountEmailPage());
                   },
                 ),
 
@@ -134,34 +139,11 @@ class _SettingsPageState extends State<SettingsPage> {
                     AppFunctions.navigate(context, AccountSecurityPage());
                   },
                 ),
-                SizedBox(height: 35),
 
-                //Connection
-                Text(
-                  'Connection',
-                  style: _basicStyle,
-                ),
-                SizedBox(height: 15),
-
-                AppContentTile(
-                  title: 'Bank Account Info',
-                  onPressed: () {
-                    AppFunctions.navigate(context, BankAccountInfoPage());
-                  },
-                ),
-
-                SizedBox(height: 15),
-
-                AppContentTile(
-                  title: 'Donation Settings',
-                  onPressed: () {
-                    AppFunctions.navigate(context, DonationSettingsPage());
-                  },
-                ),
                 //About
                 SizedBox(height: 35),
                 Text(
-                  'About Green Apple Pay',
+                  'About Green Apple',
                   style: _basicStyle,
                 ),
                 SizedBox(height: 15),

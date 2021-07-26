@@ -5,7 +5,6 @@ import 'package:green_apple_pay/Screens/Auth/create_account_page.dart';
 import 'package:green_apple_pay/Screens/Tab/tab_page.dart';
 import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
-import 'package:green_apple_pay/Utility/Misc/constants.dart';
 
 /// AppSplashScreen
 ///
@@ -75,28 +74,11 @@ class _AppSplashScreenState extends State<AppSplashScreen> {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
-        body: Stack(
-          children: [
-            Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 35),
-                child: Image.asset('assets/logo.png'),
-              ),
-            ),
-            Positioned(
-              bottom: 50,
-              right: 0,
-              left: 0,
-              child: Text(
-                'By Mohawk Devs',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: kBlackColor,
-                ),
-              ),
-            ),
-          ],
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 35),
+            child: Image.asset('assets/logo.png'),
+          ),
         ),
       ),
     );

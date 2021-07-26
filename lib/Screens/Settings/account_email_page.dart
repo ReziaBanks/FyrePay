@@ -11,12 +11,12 @@ import 'package:green_apple_pay/Utility/Misc/constants.dart';
 /// If inputs are valid, asynchronously will make an API request to update their email and refresh their session.
 /// Updates the Current Email label upon successfully changing their email.
 
-class AccountDetailsPage extends StatefulWidget {
+class AccountEmailPage extends StatefulWidget {
   @override
-  _AccountDetailsPageState createState() => _AccountDetailsPageState();
+  _AccountEmailPageState createState() => _AccountEmailPageState();
 }
 
-class _AccountDetailsPageState extends State<AccountDetailsPage> {
+class _AccountEmailPageState extends State<AccountEmailPage> {
   /// Checks if user exist and stores the user current email in the current email text field 
   String? _currentEmail = FirebaseApi().getCurrentUser()!.email;
 
@@ -29,7 +29,8 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account Details', style: kAppBarLightTextStyle),
+        leading: AppBackIconButton(),
+        title: Text('Account Email', style: kAppBarLightTextStyle),
       ),
       body: ListView(
         physics: ClampingScrollPhysics(),

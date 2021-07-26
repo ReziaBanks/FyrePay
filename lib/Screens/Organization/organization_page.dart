@@ -21,7 +21,7 @@ import 'package:provider/provider.dart';
 
 class OrganizationPage extends StatefulWidget {
   final AppOrganization organization;
-  OrganizationPage({required this.organization});
+  OrganizationPage(this.organization);
 
   @override
   _OrganizationPageState createState() => _OrganizationPageState();
@@ -81,8 +81,9 @@ class _OrganizationPageState extends State<OrganizationPage> {
           inAsyncCall: _showSpinner,
           child: Scaffold(
             appBar: AppBar(
+              leading: AppBackIconButton(),
               title: Text(
-                '${widget.organization.name}',
+                widget.organization.name,
                 style: kAppBarLightTextStyle,
               ),
             ),

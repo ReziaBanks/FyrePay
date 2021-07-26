@@ -8,12 +8,9 @@ import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
-
-/// Donation Settings Page
-///
-/// This dart class deals with updating the round up amount, monthly add on, and max monthly donation
 
 class DonationSettingsPage extends StatefulWidget {
   @override
@@ -111,13 +108,14 @@ class _DonationSettingsPageState extends State<DonationSettingsPage> {
             },
             child: Scaffold(
               appBar: AppBar(
+                leading: AppBackIconButton(),
                 title: Text(
                   'Donation Settings',
                   style: kAppBarLightTextStyle,
                 ),
                 actions: [
                   IconButton(
-                    icon: Icon(Icons.check),
+                    icon: Icon(LineIcons.check),
                     onPressed: () {
                       updateDonationSettings(appProvider);
                     },
@@ -219,7 +217,7 @@ class AppRadioTile<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: kLightGrayECColor,
+      color: kLightPrimaryColor,
       child: InkWell(
         onTap: (){
           onPressed(value);
@@ -231,7 +229,7 @@ class AppRadioTile<T> extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '${getTitle(value)}',
+                getTitle(value),
                 style: TextStyle(
                   fontSize: 16,
                   color: kGray4DColor,

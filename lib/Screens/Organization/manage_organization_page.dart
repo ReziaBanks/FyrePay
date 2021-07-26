@@ -9,6 +9,7 @@ import 'package:green_apple_pay/Utility/Classes/user.dart';
 import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
@@ -139,13 +140,14 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
           child: Scaffold(
             backgroundColor: Color(0xFFF3F5F5),
             appBar: AppBar(
+              leading: AppBackIconButton(),
               title: Text(
                 'Manage Organization',
                 style: kAppBarLightTextStyle,
               ),
               actions: [
                 IconButton(
-                  icon: Icon(Icons.check),
+                  icon: Icon(LineIcons.check),
                   color: kPrimaryColor,
                   onPressed: () {
                     submitChanges(appProvider);

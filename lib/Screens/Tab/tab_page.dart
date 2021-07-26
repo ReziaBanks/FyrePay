@@ -1,19 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:green_apple_pay/Screens/Donations/home_page.dart';
+import 'package:green_apple_pay/Screens/Banking/banking_page.dart';
+import 'package:green_apple_pay/Screens/Home/new_home_page.dart';
 import 'package:green_apple_pay/Screens/Organization/organization_list_page.dart';
+import 'package:green_apple_pay/Screens/Report/report_page.dart';
 import 'package:green_apple_pay/Screens/Settings/settings_page.dart';
 import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
-
-/// Tab.dart
-///
-/// The tab page ats as a navigate controller for:
-/// 1. Home Page
-/// 2. Organization List Page
-/// 3. Settings Page
 
 class TabPage extends StatefulWidget {
   @override
@@ -24,9 +20,6 @@ class _TabPageState extends State<TabPage> {
   int _pageIndex = 0;
 
   void didChangeDependencies() {
-    /// GET Request
-    ///
-    /// The following functions retrieve data from Firebase
     AppProvider appProvider = Provider.of<AppProvider>(context, listen: false);
     AppActions.getUser(appProvider);
     AppActions.getOrganizations(appProvider);
@@ -35,8 +28,13 @@ class _TabPageState extends State<TabPage> {
     super.didChangeDependencies();
   }
 
-  /// Widgets controlled by the Tab Page (tab_page.dart)
-  List<Widget> tabPages = [HomePage(), OrganizationListPage(), SettingsPage()];
+  List<Widget> tabPages = [
+    NewHomePage(),
+    OrganizationListPage(),
+    BankingPage(),
+    ReportPage(),
+    SettingsPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -62,16 +60,24 @@ class _TabPageState extends State<TabPage> {
           },
           items: [
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.home),
+              icon: Icon(LineIcons.home),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.briefcase),
-              label: 'Organization List',
+              icon: Icon(LineIcons.building),
+              label: 'Organizations',
             ),
             BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.settings_solid),
-              label: 'Settings',
+              icon: Icon(LineIcons.piggyBank),
+              label: 'Banking',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(LineIcons.fileAlt),
+              label: 'Reports',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(LineIcons.userCircle),
+              label: 'Account',
             ),
           ],
         ),
