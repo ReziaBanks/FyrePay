@@ -11,7 +11,7 @@ class FirebaseDocumentToClass {
   // Creates an organization object with its name, email, about, website, address, and email
   AppOrganization? getOrganization(DocumentSnapshot organizationSnapshot) {
     String uid = organizationSnapshot.id;
-    Map<String, dynamic>? organizationMap = organizationSnapshot.data();
+    Map<String, dynamic>? organizationMap = organizationSnapshot.data()  as Map<String, dynamic>?;
 
     if(organizationMap != null) {
       String name = organizationMap['name'];
@@ -38,7 +38,7 @@ class FirebaseDocumentToClass {
   // Gets a user donation
   AppDonation? getDonation(DocumentSnapshot donationSnapshot, DocumentSnapshot organizationSnapshot){
     String uid = donationSnapshot.id;
-    Map<String, dynamic>? donationMap = donationSnapshot.data();
+    Map<String, dynamic>? donationMap = donationSnapshot.data() as Map<String, dynamic>?;
 
     if(donationMap != null) {
       String userId = donationMap['user_id'];
@@ -71,7 +71,7 @@ class FirebaseDocumentToClass {
   // Gets the user information, including their settings
   AppUser? getUser(DocumentSnapshot userSnapshot){
     String uid = userSnapshot.id;
-    Map<String, dynamic>? userMap = userSnapshot.data();
+    Map<String, dynamic>? userMap = userSnapshot.data() as Map<String, dynamic>?;
 
     if(userMap != null) {
       String? email = userMap['email'];
@@ -98,7 +98,7 @@ class FirebaseDocumentToClass {
   // Gets the organization, organization percentage, and whether its active or not
   AppManagedOrganization? getManagedOrganization(DocumentSnapshot managedOrganizationSnapshot, List<AppOrganization> organizationList){
     String uid = managedOrganizationSnapshot.id;
-    Map<String, dynamic>? managedOrganizationMap = managedOrganizationSnapshot.data();
+    Map<String, dynamic>? managedOrganizationMap = managedOrganizationSnapshot.data() as Map<String, dynamic>?;
 
     if(managedOrganizationMap != null) {
       bool status = managedOrganizationMap['status'];

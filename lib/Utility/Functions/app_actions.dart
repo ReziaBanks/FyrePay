@@ -26,7 +26,7 @@ class AppActions {
 
     for(DocumentSnapshot snapshot in donationDocSnapshot){
       try {
-        Map<String, dynamic>? donationMap = snapshot.data();
+        Map<String, dynamic>? donationMap = snapshot.data()  as Map<String, dynamic>?;
         if(donationMap == null){
           print('Null Donation Map');
           break;
