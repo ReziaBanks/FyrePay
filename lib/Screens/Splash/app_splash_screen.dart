@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:green_apple_pay/Screens/Auth/create_account_page.dart';
-import 'package:green_apple_pay/Screens/Tab/tab_page.dart';
+import 'package:green_apple_pay/Screens/Tab/tab_page_new.dart';
 import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 
@@ -46,7 +46,7 @@ class _AppSplashScreenState extends State<AppSplashScreen> {
       User? currentUser = FirebaseApi().getCurrentUser();
       if (currentUser != null) {
         /// Updates the default navigation route
-        nextPage = TabPage();
+        nextPage = NewTabPage();
       }
     } catch (e) {
       print(e);
