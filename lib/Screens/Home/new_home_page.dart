@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Screens/Banking/banking_setup_page.dart';
 import 'package:green_apple_pay/Screens/Donations/all_donations_page.dart';
 import 'package:green_apple_pay/Screens/Settings/donation_settings_page.dart';
@@ -14,22 +15,25 @@ class NewHomePage extends StatefulWidget {
 }
 
 class _NewHomePageState extends State<NewHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kBackgroundColor,
       appBar: AppBar(
         title: Text(
           'Green Apple',
           style: kAppBarHeavyTextStyle,
         ),
+        centerTitle: true,
+        bottom: AppBasic.appBarBorder(),
         actions: [
           IconButton(
-            icon: Icon(LineIcons. receipt),
+            icon: Icon(LineIcons.receipt),
             onPressed: () {
               AppFunctions.navigate(context, AllDonationsPage());
             },
           ),
+          IconButton(onPressed: (){}, icon: Icon(Icons.settings),),
         ],
       ),
       body: ListView(
@@ -215,3 +219,4 @@ class AppCard extends StatelessWidget {
     );
   }
 }
+
