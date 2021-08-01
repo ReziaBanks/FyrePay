@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Screens/Explore/explore_page.dart';
 import 'package:green_apple_pay/Screens/Home/new_home_page.dart';
 import 'package:green_apple_pay/Screens/Organization/organization_list_page.dart';
-import 'package:green_apple_pay/Screens/Settings/settings_page.dart';
 import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 
 class TabPage extends StatefulWidget {

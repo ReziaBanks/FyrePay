@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
-import 'package:green_apple_pay/Screens/Banking/banking_setup_page.dart';
-import 'package:green_apple_pay/Screens/Banking/payment_method_page.dart';
+import 'package:green_apple_pay/Screens/Explore/Banking/payment_method_page.dart';
 import 'package:green_apple_pay/Screens/Settings/donation_settings_page.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
+
+import 'banking_setup_page.dart';
 
 class BankingPage extends StatefulWidget {
   @override

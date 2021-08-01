@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
-import 'package:green_apple_pay/Screens/Report/donation_history_page.dart';
-import 'package:green_apple_pay/Screens/Report/transaction_history_page.dart';
+import 'package:green_apple_pay/Screens/Explore/Report/transaction_history_page.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
+
+import 'donation_history_page.dart';
 
 class ReportPage extends StatefulWidget {
   const ReportPage({Key? key}) : super(key: key);
