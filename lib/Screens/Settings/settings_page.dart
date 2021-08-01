@@ -105,6 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
           progressIndicator: AppProgressIndicator(),
           child: Scaffold(
             appBar: AppBar(
+              leading: AppBackIconButton(),
               title: Text('Settings', style: kAppBarHeavyTextStyle),
               centerTitle: true,
             ),

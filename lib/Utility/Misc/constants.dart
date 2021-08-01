@@ -40,3 +40,6 @@ const kManagedOrganizationId = 'ManagedOrganizations';
 
 // Fonts
 const String kInter = 'Inter';
+
+// Letter Spacing
+const double kLetterSpacing = -0.3;
