@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:green_apple_pay/Utility/Classes/Metric/metric_class.dart';
 import 'package:green_apple_pay/Utility/Classes/Table/table_class.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 
@@ -109,4 +111,28 @@ class AppData {
   ];
 
   static String aboutUsS1 = 'Pencils of Promise, also known as PoP for short, is a non-profit organization that builds schools and increases educational opportunities in the developing world. Pencils of Promise was founded by Adam Braun in October 2008. It is a 501 organization with education programs in Laos, Guatemala and Ghana.';
+
+  static List<AppMetric> metricList = [
+    AppMetric(
+      title: 'Total Donated',
+      subtitle: 'Your total lifetime donations',
+      cost: 100,
+      color: Color(0xFF837ABF),
+      iconData: Icons.account_balance_wallet,
+    ),
+    AppMetric(
+      title: 'Last Month',
+      subtitle: 'Total donated last month',
+      cost: 25.19,
+      color: Color(0xFF2D85D1),
+      iconData: Icons.today,
+    ),
+    AppMetric(
+      title: 'This Month',
+      subtitle: 'Pending total for this month',
+      cost: 7.83,
+      color: Color(0xFFFE991E),
+      iconData: Icons.star,
+    ),
+  ];
 }

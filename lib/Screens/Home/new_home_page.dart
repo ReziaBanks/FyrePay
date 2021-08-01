@@ -2,11 +2,14 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
-import 'package:green_apple_pay/Screens/Donations/all_donations_page.dart';
+import 'package:green_apple_pay/Components/Metric/metric_components.dart';
 import 'package:green_apple_pay/Screens/Explore/Banking/banking_setup_page.dart';
 import 'package:green_apple_pay/Screens/Settings/donation_settings_page.dart';
+import 'package:green_apple_pay/Screens/Settings/settings_page.dart';
+import 'package:green_apple_pay/Utility/Classes/Metric/metric_class.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
+import 'package:green_apple_pay/Utility/Misc/data.dart';
 import 'package:line_icons/line_icons.dart';
 
 class NewHomePage extends StatefulWidget {
@@ -15,6 +18,8 @@ class NewHomePage extends StatefulWidget {
 }
 
 class _NewHomePageState extends State<NewHomePage> {
+  List<AppMetric> metricList = AppData.metricList;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,42 +33,41 @@ class _NewHomePageState extends State<NewHomePage> {
         bottom: AppBasic.appBarBorder(),
         actions: [
           IconButton(
-            icon: Icon(LineIcons.receipt),
-            onPressed: () {
-              AppFunctions.navigate(context, AllDonationsPage());
-            },
+            icon: Icon(Icons.settings),
+            onPressed: () => AppFunctions.navigate(context, SettingsPage()),
           ),
-          IconButton(onPressed: (){}, icon: Icon(Icons.settings),),
         ],
       ),
       body: ListView(
         padding: kAppPadding,
+        physics: ClampingScrollPhysics(),
         children: [
-          AppCard(
-            title: 'Total Donated',
-          ),
-          SizedBox(height: 15),
-          AppCard(
-            title: 'Last Month',
-          ),
-          SizedBox(height: 15),
-          AppCard(
-            title: 'This Month',
+          ListView.separated(
+            itemCount: metricList.length,
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            physics: NeverScrollableScrollPhysics(),
+            separatorBuilder: (context, index) => SizedBox(height: 17),
+            itemBuilder: (context, index) {
+              AppMetric metric = metricList[index];
+              return AppMetricCard(metric, onPressed: () {});
+            },
           ),
           SizedBox(height: 30),
           Container(
             decoration: BoxDecoration(
               border: Border.all(
                 color: Color(0xFFDFE5E8),
+                width: 0.75,
               ),
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: BorderRadius.circular(3),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  color: kLightPrimaryColor,
+                  color: Color(0xFFF1F3F6),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -71,6 +75,7 @@ class _NewHomePageState extends State<NewHomePage> {
                         'Things To Do',
                         style: TextStyle(
                           fontSize: 15,
+                          letterSpacing: kLetterSpacing,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -78,6 +83,7 @@ class _NewHomePageState extends State<NewHomePage> {
                         '2 Of 4',
                         style: TextStyle(
                           color: kGray4DColor,
+                          letterSpacing: kLetterSpacing,
                           fontSize: 15,
                         ),
                       ),
@@ -85,18 +91,19 @@ class _NewHomePageState extends State<NewHomePage> {
                   ),
                 ),
                 Divider(
-                  height: 1,
-                  thickness: 1,
+                  height: 0.75,
+                  thickness: 0.75,
                   color: Color(0xFFDFE5E8),
                 ),
                 AppCheckListTile(
                   title: 'Select Organizations To Support',
                   isChecked: true,
+                  onPressed: (){},
                 ),
                 Divider(
-                  thickness: 1,
+                  thickness: 0.75,
                   color: Color(0xFFDFE5E8),
-                  height: 1,
+                  height: 0.75,
                 ),
                 AppCheckListTile(
                   title: 'Connect Bank Account',
@@ -106,8 +113,8 @@ class _NewHomePageState extends State<NewHomePage> {
                   },
                 ),
                 Divider(
-                  thickness: 1,
-                  height: 1,
+                  thickness: 0.75,
+                  height: 0.75,
                   color: Color(0xFFDFE5E8),
                 ),
                 AppCheckListTile(
@@ -118,13 +125,14 @@ class _NewHomePageState extends State<NewHomePage> {
                   },
                 ),
                 Divider(
-                  thickness: 1,
-                  height: 1,
+                  thickness: 0.75,
+                  height: 0.75,
                   color: Color(0xFFDFE5E8),
                 ),
                 AppCheckListTile(
                   title: 'Choose Billing Account',
                   isChecked: true,
+                  onPressed: (){},
                 ),
               ],
             ),
@@ -159,6 +167,8 @@ class AppCheckListTile extends StatelessWidget {
               title,
               style: TextStyle(
                 fontSize: 15,
+                letterSpacing: kLetterSpacing,
+                color: isChecked ? kGray4DColor : kBlackColor,
                 decoration: isChecked
                     ? TextDecoration.lineThrough
                     : TextDecoration.none,
@@ -175,48 +185,3 @@ class AppCheckListTile extends StatelessWidget {
     );
   }
 }
-
-class AppCard extends StatelessWidget {
-  final Function()? onPressed;
-  final String title;
-
-  AppCard({
-    required this.title,
-    this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100,
-      padding: EdgeInsets.symmetric(horizontal: 15),
-      decoration: BoxDecoration(
-        color: Color(0xFFF8F9FA),
-        borderRadius: BorderRadius.circular(2),
-        border: Border.all(
-          color: Color(0xFFDFE5E8),
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 15,
-            ),
-          ),
-          Text(
-            '\$40.36',
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w500,
-              color: kPrimaryColor,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
