@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:green_apple_pay/Screens/Banking/banking_page.dart';
+import 'package:green_apple_pay/Screens/Explore/explore_page.dart';
 import 'package:green_apple_pay/Screens/Home/new_home_page.dart';
 import 'package:green_apple_pay/Screens/Organization/organization_list_page.dart';
-import 'package:green_apple_pay/Screens/Report/report_page.dart';
 import 'package:green_apple_pay/Screens/Settings/settings_page.dart';
 import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
@@ -30,10 +29,8 @@ class _TabPageState extends State<TabPage> {
 
   List<Widget> tabPages = [
     NewHomePage(),
+    ExplorePage(),
     OrganizationListPage(),
-    BankingPage(),
-    ReportPage(),
-    SettingsPage(),
   ];
 
   @override
@@ -46,13 +43,13 @@ class _TabPageState extends State<TabPage> {
           canvasColor: kBottomNavBarColor,
         ),
         child: BottomNavigationBar(
-          backgroundColor: kBottomNavBarColor,
+          backgroundColor: kWhiteColor,
           type: BottomNavigationBarType.fixed,
           currentIndex: _pageIndex,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           selectedItemColor: kPrimaryColor,
-          unselectedItemColor: kBlackColor,
+          unselectedItemColor: kGray4DColor,
           onTap: (int index) {
             setState(() {
               _pageIndex = index;
@@ -60,24 +57,19 @@ class _TabPageState extends State<TabPage> {
           },
           items: [
             BottomNavigationBarItem(
-              icon: Icon(LineIcons.home),
+              icon: Icon(Icons.home_outlined),
+              activeIcon: Icon(Icons.home),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(LineIcons.building),
+              icon: Icon(Icons.explore_outlined),
+              activeIcon: Icon(Icons.explore),
+              label: 'Explore',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.corporate_fare_outlined),
+              activeIcon: Icon(Icons.corporate_fare),
               label: 'Organizations',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(LineIcons.piggyBank),
-              label: 'Banking',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(LineIcons.fileAlt),
-              label: 'Reports',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(LineIcons.userCircle),
-              label: 'Account',
             ),
           ],
         ),

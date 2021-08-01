@@ -14,6 +14,7 @@ const kWhiteColor = Color(0xFFFFFFFF);
 const kBlackColor = Color(0xFF000000);
 const kBottomNavBarColor = Color(0xFFF6F6F6);
 const kNotRedColor = Color(0xFFC70039);
+const kBackgroundColor = Color(0xFFfbfcfe);
 
 // TextStyle
 const kAppBarHeavyTextStyle = TextStyle(

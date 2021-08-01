@@ -22,12 +22,14 @@ class _OrganizationListPageState extends State<OrganizationListPage> {
     return Consumer<AppProvider>(builder: (context, appProvider, child) {
       List<AppOrganization>? orgList = appProvider.organizationList;
       return Scaffold(
+        backgroundColor: kBackgroundColor,
         appBar: AppBar(
           title: Text(
             'Organizations',
             style: kAppBarHeavyTextStyle,
           ),
           centerTitle: true,
+          bottom: AppBasic.appBarBorder(),
           actions: [
             IconButton(
               icon: Icon(Icons.account_balance_sharp),
@@ -76,7 +78,7 @@ class OrganizationCardV2 extends StatelessWidget {
               borderRadius: BorderRadius.circular(5),
               border: Border.all(
                 color: Color(0xFFDFE5E8),
-              )),
+              ),),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [

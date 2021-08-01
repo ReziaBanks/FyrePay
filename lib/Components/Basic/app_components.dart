@@ -6,8 +6,20 @@ import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/enum.dart';
 import 'package:line_icons/line_icons.dart';
 
-///This class is used to represent all textfields throughout the app
-///A textfield must have text and a controller, however nothing else is required
+
+class AppBasic {
+  static PreferredSizeWidget appBarBorder(){
+    return PreferredSize(
+      child: Container(
+        color: Color(0xFFDFE5E8),
+        height: 0.75,
+      ),
+      preferredSize: Size.fromHeight(0.75),
+    );
+  }
+}
+
+
 class AppTextField extends StatelessWidget {
   final String hintText;
   final FocusNode? node;
@@ -368,3 +380,4 @@ class AppBoxCard extends StatelessWidget {
     );
   }
 }
+
