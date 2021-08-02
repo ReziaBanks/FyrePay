@@ -67,7 +67,7 @@ class _NewHomePageState extends State<NewHomePage> {
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  color: Color(0xFFF1F3F6),
+                  color: Color(0xFFEFF9F5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -156,30 +156,33 @@ class AppCheckListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 15,
-                letterSpacing: kLetterSpacing,
-                color: isChecked ? kGray4DColor : kBlackColor,
-                decoration: isChecked
-                    ? TextDecoration.lineThrough
-                    : TextDecoration.none,
+    return Material(
+      color: kWhiteColor,
+      child: InkWell(
+        onTap: onPressed,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 15,
+                  letterSpacing: kLetterSpacing,
+                  color: isChecked ? kGray4DColor : kBlackColor,
+                  decoration: isChecked
+                      ? TextDecoration.lineThrough
+                      : TextDecoration.none,
+                ),
               ),
-            ),
-            Icon(
-              isChecked ? LineIcons.check : LineIcons.arrowRight,
-              size: 20,
-              color: isChecked ? Color(0xFF4ABB92) : kPrimaryColor,
-            )
-          ],
+              Icon(
+                isChecked ? LineIcons.check : LineIcons.arrowRight,
+                size: 20,
+                color: isChecked ? Color(0xFF4ABB92) : kPrimaryColor,
+              )
+            ],
+          ),
         ),
       ),
     );
