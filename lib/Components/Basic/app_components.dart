@@ -19,6 +19,19 @@ class AppBasic {
   }
 }
 
+class AppDivider extends StatelessWidget {
+  const AppDivider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      height: 0.75,
+      thickness: 0.75,
+      color: Color(0xFFDFE5E8),
+    );
+  }
+}
+
 
 class AppTextField extends StatelessWidget {
   final String hintText;
