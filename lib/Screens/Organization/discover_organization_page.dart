@@ -15,7 +15,8 @@ import 'manage_organization_page.dart';
 
 class DiscoverOrganizationPage extends StatefulWidget {
   @override
-  _DiscoverOrganizationPageState createState() => _DiscoverOrganizationPageState();
+  _DiscoverOrganizationPageState createState() =>
+      _DiscoverOrganizationPageState();
 }
 
 class _DiscoverOrganizationPageState extends State<DiscoverOrganizationPage> {
@@ -98,7 +99,8 @@ class OrganizationCardV2 extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Share.share('Visit ${organization.website} to learn more about ${organization.name}');
+                      Share.share(
+                          'Visit ${organization.website} to learn more about ${organization.name}');
                     },
                     child: Icon(
                       Ionicons.share_outline,
@@ -137,14 +139,38 @@ class OrganizationCardV2 extends StatelessWidget {
               SizedBox(height: 20),
               AppDivider(),
               SizedBox(height: 15),
-              Text(
-                'Learn More',
-                style: TextStyle(
-                  color: kPrimaryColor,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  letterSpacing: kLetterSpacing,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 30,
+                    width: 65,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF62BB46),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '50%',
+                        style: TextStyle(
+                          letterSpacing: kLetterSpacing,
+                          color: kWhiteColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    'Learn More',
+                    style: TextStyle(
+                      color: kPrimaryColor,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: kLetterSpacing,
+                    ),
+                  ),
+                ],
               )
             ],
           ),
