@@ -34,7 +34,7 @@ class _AppSplashScreenState extends State<AppSplashScreen> {
       print(e);
     }
     int timeTakenInSeconds = _stopwatch.elapsed.inSeconds;
-    int timeLeft = 3 - timeTakenInSeconds;
+    int timeLeft = 2 - timeTakenInSeconds;
 
     if (!timeLeft.isNegative) {
       Future.delayed(Duration(seconds: timeLeft), () {

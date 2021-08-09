@@ -114,7 +114,6 @@ class FirebaseDocumentToClass {
       AppManagedOrganization managedOrganization = AppManagedOrganization(
         uid: uid,
         organization: organization,
-        status: status,
         percent: percent,
       );
       return managedOrganization;

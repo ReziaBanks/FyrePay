@@ -22,8 +22,9 @@ class OrganizationPage extends StatefulWidget {
 
 class _OrganizationPageState extends State<OrganizationPage> {
   TextStyle _basicTextStyle = TextStyle(
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: FontWeight.w500,
+    letterSpacing: kLetterSpacing,
   );
   bool _showSpinner = false;
 
@@ -81,17 +82,10 @@ class _OrganizationPageState extends State<OrganizationPage> {
             body: ListView(
               children: [
                 CachedNetworkImage(
-                  imageUrl: '${widget.organization.imageURL}',
+                  imageUrl: widget.organization.imageURL,
                   fit: BoxFit.cover,
-                  width: phoneWidth,
-                  height: imageHeight,
-                ),
-                AppButton(
-                  title: newList.isNotEmpty ? 'Remove' : 'Add',
-                  color: newList.isNotEmpty ? kNotRedColor : kPrimaryColor,
-                  onPressed: () {
-                    toggleAction(appProvider);
-                  },
+                  width: 100,
+                  height: 100,
                 ),
                 SizedBox(height: 25),
                 Padding(
@@ -104,40 +98,42 @@ class _OrganizationPageState extends State<OrganizationPage> {
                       AppListTile(
                         text: 'Name: ${widget.organization.name}',
                         iconData: Icons.fiber_manual_record,
-                        iconSize: 15,
+                        iconSize: 13,
                       ),
                       SizedBox(height: 15),
                       AppListTile(
                         text: 'Website: ${widget.organization.website}',
                         iconData: Icons.fiber_manual_record,
-                        iconSize: 15,
+                        iconSize: 13,
                       ),
                       SizedBox(height: 15),
                       AppListTile(
                         text: 'Email: ${widget.organization.email}',
                         iconData: Icons.fiber_manual_record,
-                        iconSize: 15,
+                        iconSize: 13,
                       ),
                       SizedBox(height: 25),
                       Text('About Us', style: _basicTextStyle),
                       SizedBox(height: 10),
                       Text(
-                        '${widget.organization.about}',
+                        widget.organization.about,
                         style: TextStyle(
                           fontSize: 16,
                           height: 170 / 100,
                           fontWeight: FontWeight.w300,
+                          letterSpacing: kLetterSpacing,
                         ),
                       ),
                       SizedBox(height: 25),
                       Text('Address', style: _basicTextStyle),
                       SizedBox(height: 10),
                       Text(
-                        '${widget.organization.address}',
+                        widget.organization.address,
                         style: TextStyle(
                           fontSize: 16,
                           height: 170 / 100,
                           fontWeight: FontWeight.w300,
+                          letterSpacing: kLetterSpacing,
                         ),
                       ),
                       SizedBox(height: 50),

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Screens/Organization/organization_page.dart';
@@ -9,14 +10,16 @@ import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'manage_organization_page.dart';
 
-class OrganizationListPage extends StatefulWidget {
+class DiscoverOrganizationPage extends StatefulWidget {
   @override
-  _OrganizationListPageState createState() => _OrganizationListPageState();
+  _DiscoverOrganizationPageState createState() =>
+      _DiscoverOrganizationPageState();
 }
 
-class _OrganizationListPageState extends State<OrganizationListPage> {
+class _DiscoverOrganizationPageState extends State<DiscoverOrganizationPage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppProvider>(builder: (context, appProvider, child) {
@@ -66,7 +69,7 @@ class OrganizationCardV2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Color(0xFFF8F9FA),
+      color: kWhiteColor,
       borderRadius: BorderRadius.circular(5),
       child: InkWell(
         onTap: () {
@@ -75,10 +78,11 @@ class OrganizationCardV2 extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              border: Border.all(
-                color: Color(0xFFDFE5E8),
-              ),),
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(
+              color: kDividerColor,
+            ),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -90,22 +94,23 @@ class OrganizationCardV2 extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
+                      letterSpacing: kLetterSpacing,
                     ),
                   ),
                   GestureDetector(
-                    onTap: (){
-                      Fluttertoast.showToast(msg: 'Link Copied');
+                    onTap: () {
+                      Share.share(
+                          'Visit ${organization.website} to learn more about ${organization.name}');
                     },
-                    child: Icon(LineIcons.share,),
+                    child: Icon(
+                      Ionicons.share_outline,
+                      color: kGray4DColor,
+                    ),
                   ),
                 ],
               ),
               SizedBox(height: 15),
-              Divider(
-                height: 1,
-                thickness: 1,
-                color: Color(0xFFDFE5E8),
-              ),
+              AppDivider(),
               SizedBox(height: 20),
               Row(
                 children: [
@@ -123,27 +128,49 @@ class OrganizationCardV2 extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: kGray4DColor,
-                        height: 1.5,
-                        fontSize: 15,
+                        height: 1.55,
+                        fontSize: 14.5,
+                        letterSpacing: kLetterSpacing,
                       ),
                     ),
                   ),
                 ],
               ),
               SizedBox(height: 20),
-              Divider(
-                height: 1,
-                thickness: 1,
-                color: Color(0xFFDFE5E8),
-              ),
+              AppDivider(),
               SizedBox(height: 15),
-              Text(
-                'Learn More',
-                style: TextStyle(
-                  color: kPrimaryColor,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 30,
+                    width: 65,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF62BB46),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '50%',
+                        style: TextStyle(
+                          letterSpacing: kLetterSpacing,
+                          color: kWhiteColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    'Learn More',
+                    style: TextStyle(
+                      color: kPrimaryColor,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: kLetterSpacing,
+                    ),
+                  ),
+                ],
               )
             ],
           ),
