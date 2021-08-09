@@ -13,14 +13,6 @@ import 'package:line_icons/line_icons.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 
-/// A page that displays active and inactive donations with their respective donation percentage distribution
-///
-/// Allows the user to set organizations to active or inactive
-/// Allows the user to delete organizations off their donation list
-///
-/// Indicates to the user if their percentage distribution adds up to 100% or not
-///   Does not allow users to set donation disruptions that do not add up to 100%
-
 class ManageOrganizationPage extends StatefulWidget {
   @override
   _ManageOrganizationPageState createState() => _ManageOrganizationPageState();
@@ -30,7 +22,6 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
   List<AppManagedOrganization> _managedOrgList = [];
   bool _showSpinner = false;
 
-  // Populates the organization list
   @override
   void didChangeDependencies() {
     AppProvider appProvider = Provider.of<AppProvider>(context, listen: false);
@@ -38,7 +29,6 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
     super.didChangeDependencies();
   }
 
-  // Makes requests to update the distribution(s) in the backend
   void submitChanges(AppProvider appProvider) async {
     double activeTotal = getActivePercentTotal();
     bool factor = activeTotal == 100 || activeTotal == 0;
@@ -62,20 +52,20 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
     });
     try {
       String userId = user.uid;
-      List<AppManagedOrganization>? managedOrganizationList = appProvider.managedOrganizationList;
+      List<AppManagedOrganization>? managedOrganizationList =
+          appProvider.managedOrganizationList;
       List<Map<String, dynamic>> dataList = [];
 
       for (AppManagedOrganization value in _managedOrgList) {
         dataList.add(value.toMap());
       }
 
-      if(managedOrganizationList != null) {
+      if (managedOrganizationList != null) {
         await FirebaseApi().updateUserManagedOrganization(
             userId, managedOrganizationList, dataList);
         AppActions.getManagedOrganizations(appProvider);
         Fluttertoast.showToast(msg: 'Update Successful');
-      }
-      else{
+      } else {
         Fluttertoast.showToast(msg: 'An Error Occurred');
       }
     } catch (e) {
@@ -86,34 +76,31 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
     });
   }
 
-  // Populates the organization list
   void updateContent(AppProvider appProvider) {
     List<AppManagedOrganization>? managedOrganizationList =
         appProvider.managedOrganizationList;
 
-    if(managedOrganizationList != null) {
+    if (managedOrganizationList != null) {
       setState(() {
         _managedOrgList = [...managedOrganizationList];
       });
     }
   }
 
-  //Sums up all active organization percentages
   double getActivePercentTotal() {
     double total = 0;
-    List<AppManagedOrganization> activeManagedOrgList =  _managedOrgList.where((element) => element.status).toList();
-    for (AppManagedOrganization managedOrganization in activeManagedOrgList) {
+    for (AppManagedOrganization managedOrganization in _managedOrgList) {
       total = total + managedOrganization.percent;
     }
     return total;
   }
 
-  //Opens the dialog box for the user to input a percentage for an organization
   void showDialogBox(AppManagedOrganization managedOrganization) {
     TextEditingController percentController = TextEditingController();
     percentController.text = '${managedOrganization.percent}';
     showCupertinoDialog(
       context: context,
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return AppDialogBox(
           managedOrganization: managedOrganization,
@@ -132,25 +119,23 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
   Widget build(BuildContext context) {
     return Consumer<AppProvider>(
       builder: (context, appProvider, child) {
-        List<AppManagedOrganization> activeManagedOrgList = _managedOrgList.where((element) => element.status).toList();
-        List<AppManagedOrganization> inActiveManagedOrgList = _managedOrgList.where((element) => !element.status).toList();
         return ModalProgressHUD(
           progressIndicator: AppProgressIndicator(),
           inAsyncCall: _showSpinner,
           child: Scaffold(
-            backgroundColor: Color(0xFFF3F5F5),
+            backgroundColor: kBackgroundColor,
             appBar: AppBar(
               leading: AppBackIconButton(),
+              bottom: AppBasic.appBarBorder(),
               title: Text(
                 'Manage Organization',
                 style: kAppBarLightTextStyle,
               ),
               actions: [
                 IconButton(
-                  icon: Icon(LineIcons.check),
+                  icon: Icon(LineIcons.plus),
                   color: kPrimaryColor,
                   onPressed: () {
-                    submitChanges(appProvider);
                   },
                 ),
               ],
@@ -190,13 +175,15 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
                             ),
                           ),
                           SizedBox(height: 15),
+                          AppDivider(),
                           ListView.builder(
                             shrinkWrap: true,
                             padding: EdgeInsets.zero,
                             physics: NeverScrollableScrollPhysics(),
-                            itemCount: activeManagedOrgList.length,
+                            itemCount: _managedOrgList.length,
                             itemBuilder: (context, index) {
-                              AppManagedOrganization managedOrganization = activeManagedOrgList[index];
+                              AppManagedOrganization managedOrganization =
+                                  _managedOrgList[index];
                               return AppOrganizationManagementTile(
                                 managedOrganization: managedOrganization,
                                 onRemove: () {
@@ -204,65 +191,26 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
                                     _managedOrgList.remove(managedOrganization);
                                   });
                                 },
-                                onStatusToggle: () {
-                                  setState(() {
-                                    managedOrganization.updateStatus(!managedOrganization.status);
-                                  });
-                                },
-                                onPressed: () {
-                                  showDialogBox(managedOrganization);
-                                },
+                                onPressed: () =>
+                                    showDialogBox(managedOrganization),
                               );
                             },
                           ),
                         ],
                       ),
-                      SizedBox(height: 25),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 25),
-                            child: Text(
-                              'INACTIVE',
-                              style: TextStyle(
-                                fontSize: 13.5,
-                                fontWeight: FontWeight.w600,
-                                color: kGray4DColor,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: 15),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.zero,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: inActiveManagedOrgList.length,
-                            itemBuilder: (context, index) {
-                              AppManagedOrganization managedOrganization = inActiveManagedOrgList[index];
-                              return AppOrganizationManagementTile(
-                                managedOrganization: managedOrganization,
-                                onPressed: () {
-                                  showDialogBox(managedOrganization);
-                                },
-                                onRemove: () {
-                                  setState(() {
-                                    _managedOrgList.remove(managedOrganization);
-                                  });
-                                },
-                                onStatusToggle: () {
-                                  setState(() {
-                                    managedOrganization.updateStatus(!managedOrganization.status);
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                        ],
+                      SizedBox(height: 30),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: AppButton(
+                          title: 'Update Donation Distribution',
+                          onPressed: () => submitChanges(appProvider),
+                        ),
                       ),
                     ],
                   )
-                : Center(child: Text('No Managed Organization')),
+                : Center(
+                    child: Text('No Managed Organization'),
+                  ),
           ),
         );
       },

@@ -67,7 +67,7 @@ class _NewHomePageState extends State<NewHomePage> {
               children: [
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  color: Color(0xFFEFF9F5),
+                  color: Color(0xFFf4f8fc),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

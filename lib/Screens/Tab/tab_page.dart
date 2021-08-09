@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Screens/Explore/explore_page.dart';
 import 'package:green_apple_pay/Screens/Home/new_home_page.dart';
-import 'package:green_apple_pay/Screens/Organization/organization_list_page.dart';
+import 'package:green_apple_pay/Screens/Organization/discover_organization_page.dart';
 import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Providers/app_provider.dart';
@@ -28,7 +28,7 @@ class _TabPageState extends State<TabPage> {
   List<Widget> tabPages = [
     NewHomePage(),
     ExplorePage(),
-    OrganizationListPage(),
+    DiscoverOrganizationPage(),
   ];
 
   @override

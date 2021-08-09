@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// All of the global constants
-
 // Color
 const kPrimaryColor = Color(0xFF2470BD);
 const kDarkPrimaryColor = Color(0xFF2166AC);
@@ -15,12 +13,14 @@ const kBlackColor = Color(0xFF000000);
 const kBottomNavBarColor = Color(0xFFF6F6F6);
 const kNotRedColor = Color(0xFFC70039);
 const kBackgroundColor = Color(0xFFfbfcfe);
+const kDividerColor  = Color(0xFFDFE5E8);
 
 // TextStyle
 const kAppBarHeavyTextStyle = TextStyle(
   color: kBlackColor,
   fontSize: 20,
   fontWeight: FontWeight.w600,
+  letterSpacing: kLetterSpacing,
 );
 
 const kAppBarLightTextStyle = TextStyle(

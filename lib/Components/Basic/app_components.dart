@@ -20,14 +20,13 @@ class AppBasic {
 }
 
 class AppDivider extends StatelessWidget {
-  const AppDivider({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Divider(
       height: 0.75,
       thickness: 0.75,
-      color: Color(0xFFDFE5E8),
+      color: kDividerColor,
     );
   }
 }
@@ -84,9 +83,6 @@ class AppTextField extends StatelessWidget {
   }
 }
 
-///This class is used to represent all text-buttons throughout the app
-///A button must have text, however nothing else is required.
-///This button is using AppButtonType.Light for its general theme
 class AppButton extends StatelessWidget {
   final String title; //Body text of the button
   final Function? onPressed;
@@ -132,10 +128,6 @@ class AppButton extends StatelessWidget {
   }
 }
 
-///Represents a ListTile that has a leading widget and a trailing widget, which represents an
-///forward chevron icon by default
-///
-/// This class requires a title, everything else is optional.
 class AppContentTile extends StatelessWidget {
   final String title;
   final Function()? onPressed;
@@ -178,7 +170,6 @@ class AppContentTile extends StatelessWidget {
   }
 }
 
-/// Represents an animation that spins when something is loading
 class AppProgressIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -186,24 +177,24 @@ class AppProgressIndicator extends StatelessWidget {
   }
 }
 
-/// Represents a text-button that is indicated on the AppBar
-/// A title and onPressed event is required
 class AppBarTextButton extends StatelessWidget {
-  final Function onPressed;
   final String title;
+  final Function()? onPressed;
+
   AppBarTextButton({
     required this.title,
-    required this.onPressed,
+    this.onPressed,
   });
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(right: 25.0),
       child: Center(
         child: GestureDetector(
-          onTap: onPressed as void Function()?,
+          onTap: onPressed,
           child: Text(
-            '$title',
+            title,
             style: TextStyle(
               color: kPrimaryColor,
               fontWeight: FontWeight.w600,
@@ -240,12 +231,13 @@ class AppListTile extends StatelessWidget {
         SizedBox(width: 8),
         Expanded(
           child: Text(
-            '$text',
+            text,
             style: TextStyle(
               color: textColor,
               fontSize: 16,
               height: 150 / 100,
               fontWeight: FontWeight.w300,
+              letterSpacing: kLetterSpacing,
             ),
           ),
         )
@@ -254,7 +246,6 @@ class AppListTile extends StatelessWidget {
   }
 }
 
-/// A precise class that represents a dialog that pops up when the user modifies an organization percentage
 class AppDialogBox extends StatelessWidget {
   final AppManagedOrganization managedOrganization;
   final TextEditingController textEditingController;
