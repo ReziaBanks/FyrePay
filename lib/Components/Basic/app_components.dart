@@ -6,7 +6,6 @@ import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/enum.dart';
 import 'package:line_icons/line_icons.dart';
 
-
 class AppBasic {
   static PreferredSizeWidget appBarBorder(){
     return PreferredSize(
@@ -30,7 +29,6 @@ class AppDivider extends StatelessWidget {
     );
   }
 }
-
 
 class AppTextField extends StatelessWidget {
   final String hintText;
@@ -84,10 +82,10 @@ class AppTextField extends StatelessWidget {
 }
 
 class AppButton extends StatelessWidget {
-  final String title; //Body text of the button
+  final String title;
   final Function? onPressed;
   final AppButtonType buttonType;
-  final Color color; //Background-color
+  final Color color;
 
   AppButton({
     required this.title,
@@ -207,9 +205,6 @@ class AppBarTextButton extends StatelessWidget {
   }
 }
 
-/// Represents a component that has an icon followed by text.
-///
-/// The icon and text are required, everything else is optional.
 class AppListTile extends StatelessWidget {
   final String text;
   final IconData iconData;
@@ -227,8 +222,8 @@ class AppListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(iconData, color: kPrimaryColor, size: iconSize),
-        SizedBox(width: 8),
+        // Icon(iconData, color: kPrimaryColor, size: iconSize),
+        // SizedBox(width: 8),
         Expanded(
           child: Text(
             text,
@@ -276,16 +271,14 @@ class AppDialogBox extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            // Label representing the organization name
             Text(
-              '${managedOrganization.organization.name}',
+              managedOrganization.organization.name,
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
             ),
             SizedBox(
               height: 5,
             ),
-            // User enters a percentage amount for this organization
             Center(
               child: TextField(
                 textAlign: TextAlign.center,
@@ -298,7 +291,6 @@ class AppDialogBox extends StatelessWidget {
               ),
             ),
             SizedBox(height: 5),
-            // Update button to apply percentage data
             Material(
               borderRadius: BorderRadius.circular(12.25),
               color: kPrimaryColor,
@@ -384,4 +376,3 @@ class AppBoxCard extends StatelessWidget {
     );
   }
 }
-

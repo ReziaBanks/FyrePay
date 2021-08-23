@@ -17,49 +17,54 @@ class ExplorePage extends StatefulWidget {
 }
 
 class _ExplorePageState extends State<ExplorePage> {
+  List<AppExploreTileClass> exploreTabs = [
+    AppExploreTileClass(
+      title: 'Bank Setup',
+      page: BankingSetupPage(),
+      iconData: Icons.account_balance_wallet,
+    ),
+    AppExploreTileClass(
+      title: 'Donation Settings',
+      page: DonationSettingsPage(),
+      iconData: Icons.volunteer_activism,
+    ),
+    AppExploreTileClass(
+      title: 'Payment Method',
+      page: PaymentMethodPage(),
+      iconData: Icons.credit_card,
+    ),
+    AppExploreTileClass(
+      title: 'Transaction History',
+      page: TransactionHistoryPage(),
+      iconData: Icons.receipt_long,
+    ),
+    AppExploreTileClass(
+      title: 'Donation History',
+      page: DonationHistoryPage(),
+      iconData: Icons.history,
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
-        title: Text('Explore', style: kAppBarHeavyTextStyle,),
+        title: Text(
+          'Explore',
+          style: kAppBarHeavyTextStyle,
+        ),
         centerTitle: true,
         bottom: AppBasic.appBarBorder(),
       ),
-      body: ListView(
-        physics: ClampingScrollPhysics(),
-        children: [
-          AppExploreTile(
-            title: 'Bank Setup',
-            subTitle: 'It is a long established fact',
-            onPressed: ()=> AppFunctions.navigate(context, BankingSetupPage()),
-          ),
-          AppDivider(),
-          AppExploreTile(
-            title: 'Donation Settings',
-            subTitle: 'There are many variations',
-            onPressed: ()=> AppFunctions.navigate(context, DonationSettingsPage()),
-          ),
-          AppDivider(),
-          AppExploreTile(
-            title: 'Payment Method',
-            subTitle: 'Lorem Ipsum is not simply random text.',
-            onPressed: ()=> AppFunctions.navigate(context, PaymentMethodPage()),
-          ),
-          AppDivider(),
-          AppExploreTile(
-            title: 'Transaction History',
-            subTitle: 'All the Lorem Ipsum generators',
-            onPressed: ()=> AppFunctions.navigate(context, TransactionHistoryPage()),
-          ),
-          AppDivider(),
-          AppExploreTile(
-            title: 'Donation History',
-            subTitle: 'The standard chunk of Lorem Ipsum',
-            onPressed: ()=> AppFunctions.navigate(context, DonationHistoryPage()),
-          ),
-          AppDivider(),
-        ],
+      body: ListView.separated(
+        padding: kAppPadding,
+        itemCount: exploreTabs.length,
+        separatorBuilder: (context, index) => SizedBox(height: 15),
+        itemBuilder: (context, index) {
+          AppExploreTileClass tileClass = exploreTabs[index];
+          return AppExploreCard(tileClass);
+        },
       ),
     );
   }
@@ -114,4 +119,70 @@ class AppExploreTile extends StatelessWidget {
       ),
     );
   }
+}
+
+class AppExploreCard extends StatelessWidget {
+  final AppExploreTileClass tileClass;
+
+  AppExploreCard(this.tileClass);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => AppFunctions.navigate(context, tileClass.page),
+      child: Container(
+        height: 90,
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        decoration: BoxDecoration(
+          color: kWhiteColor,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: kPrimaryColor.withOpacity(0.0275),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              tileClass.title,
+              style: TextStyle(
+                fontSize: 16,
+                color: kGray4DColor,
+                letterSpacing: kLetterSpacing,
+              ),
+            ),
+            Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                color: kLightPrimaryColor,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: Icon(
+                tileClass.iconData,
+                color: kGray4DColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AppExploreTileClass {
+  final String title;
+  final Widget page;
+  final IconData iconData;
+
+  AppExploreTileClass({
+    required this.title,
+    required this.page,
+    required this.iconData,
+  });
 }

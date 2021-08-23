@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Components/Metric/metric_components.dart';
 import 'package:green_apple_pay/Screens/Explore/Banking/banking_setup_page.dart';
+import 'package:green_apple_pay/Screens/Explore/Banking/payment_method_page.dart';
+import 'package:green_apple_pay/Screens/Organization/manage_organization_page.dart';
 import 'package:green_apple_pay/Screens/Settings/donation_settings_page.dart';
 import 'package:green_apple_pay/Screens/Settings/settings_page.dart';
 import 'package:green_apple_pay/Utility/Classes/Metric/metric_class.dart';
@@ -90,49 +92,30 @@ class _NewHomePageState extends State<NewHomePage> {
                     ],
                   ),
                 ),
-                Divider(
-                  height: 0.75,
-                  thickness: 0.75,
-                  color: Color(0xFFDFE5E8),
-                ),
+                AppDivider(),
                 AppCheckListTile(
                   title: 'Select Organizations To Support',
                   isChecked: true,
-                  onPressed: (){},
+                  onPressed: () => AppFunctions.navigate(context, ManageOrganizationPage()),
                 ),
-                Divider(
-                  thickness: 0.75,
-                  color: Color(0xFFDFE5E8),
-                  height: 0.75,
-                ),
+                AppDivider(),
                 AppCheckListTile(
                   title: 'Connect Bank Account',
                   isChecked: false,
-                  onPressed: () {
-                    AppFunctions.navigate(context, BankingSetupPage());
-                  },
+                  onPressed: () => AppFunctions.navigate(context, BankingSetupPage()),
                 ),
-                Divider(
-                  thickness: 0.75,
-                  height: 0.75,
-                  color: Color(0xFFDFE5E8),
-                ),
+                AppDivider(),
                 AppCheckListTile(
                   title: 'Set Up Donations',
                   isChecked: false,
-                  onPressed: () {
-                    AppFunctions.navigate(context, DonationSettingsPage());
-                  },
+                  onPressed: () =>
+                    AppFunctions.navigate(context, DonationSettingsPage()),
                 ),
-                Divider(
-                  thickness: 0.75,
-                  height: 0.75,
-                  color: Color(0xFFDFE5E8),
-                ),
+                AppDivider(),
                 AppCheckListTile(
                   title: 'Choose Billing Account',
                   isChecked: true,
-                  onPressed: (){},
+                  onPressed: () => AppFunctions.navigate(context, PaymentMethodPage()),
                 ),
               ],
             ),

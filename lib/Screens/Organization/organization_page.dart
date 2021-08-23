@@ -80,65 +80,68 @@ class _OrganizationPageState extends State<OrganizationPage> {
               ),
             ),
             body: ListView(
+              padding: kAppPadding.copyWith(top: 15),
               children: [
-                CachedNetworkImage(
-                  imageUrl: widget.organization.imageURL,
-                  fit: BoxFit.cover,
-                  width: 100,
-                  height: 100,
+                Row(
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: widget.organization.imageURL,
+                      alignment: Alignment.centerLeft,
+                      fit: BoxFit.cover,
+                      width: 90,
+                      height: 90,
+                    ),
+                  ],
                 ),
                 SizedBox(height: 25),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Organization Details', style: _basicTextStyle),
-                      SizedBox(height: 15),
-                      AppListTile(
-                        text: 'Name: ${widget.organization.name}',
-                        iconData: Icons.fiber_manual_record,
-                        iconSize: 13,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Organization Details', style: _basicTextStyle),
+                    SizedBox(height: 15),
+                    AppListTile(
+                      text: 'Name: ${widget.organization.name}',
+                      iconData: Icons.fiber_manual_record,
+                      iconSize: 13,
+                    ),
+                    SizedBox(height: 15),
+                    AppListTile(
+                      text: 'Website: ${widget.organization.website}',
+                      iconData: Icons.fiber_manual_record,
+                      iconSize: 13,
+                    ),
+                    SizedBox(height: 15),
+                    AppListTile(
+                      text: 'Email: ${widget.organization.email}',
+                      iconData: Icons.fiber_manual_record,
+                      iconSize: 13,
+                    ),
+                    SizedBox(height: 25),
+                    Text('About Us', style: _basicTextStyle),
+                    SizedBox(height: 10),
+                    Text(
+                      widget.organization.about,
+                      style: TextStyle(
+                        fontSize: 16,
+                        height: 170 / 100,
+                        fontWeight: FontWeight.w300,
+                        letterSpacing: kLetterSpacing,
                       ),
-                      SizedBox(height: 15),
-                      AppListTile(
-                        text: 'Website: ${widget.organization.website}',
-                        iconData: Icons.fiber_manual_record,
-                        iconSize: 13,
+                    ),
+                    SizedBox(height: 25),
+                    Text('Address', style: _basicTextStyle),
+                    SizedBox(height: 10),
+                    Text(
+                      widget.organization.address,
+                      style: TextStyle(
+                        fontSize: 16,
+                        height: 170 / 100,
+                        fontWeight: FontWeight.w300,
+                        letterSpacing: kLetterSpacing,
                       ),
-                      SizedBox(height: 15),
-                      AppListTile(
-                        text: 'Email: ${widget.organization.email}',
-                        iconData: Icons.fiber_manual_record,
-                        iconSize: 13,
-                      ),
-                      SizedBox(height: 25),
-                      Text('About Us', style: _basicTextStyle),
-                      SizedBox(height: 10),
-                      Text(
-                        widget.organization.about,
-                        style: TextStyle(
-                          fontSize: 16,
-                          height: 170 / 100,
-                          fontWeight: FontWeight.w300,
-                          letterSpacing: kLetterSpacing,
-                        ),
-                      ),
-                      SizedBox(height: 25),
-                      Text('Address', style: _basicTextStyle),
-                      SizedBox(height: 10),
-                      Text(
-                        widget.organization.address,
-                        style: TextStyle(
-                          fontSize: 16,
-                          height: 170 / 100,
-                          fontWeight: FontWeight.w300,
-                          letterSpacing: kLetterSpacing,
-                        ),
-                      ),
-                      SizedBox(height: 50),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 50),
+                  ],
                 ),
               ],
             ),
