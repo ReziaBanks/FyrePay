@@ -21,28 +21,19 @@ class _DonationHistoryPageState extends State<DonationHistoryPage> {
       appBar: AppBar(
         leading: AppBackIconButton(),
         title: Text('Donation History', style: kAppBarLightTextStyle),
+        bottom: AppBasic.appBarBorder(),
         elevation: 0,
-        backgroundColor: Color(0xFFF8F9FA),
       ),
       body: ListView(
         physics: ClampingScrollPhysics(),
-        padding: EdgeInsets.symmetric(vertical: 25),
+        padding: EdgeInsets.only(bottom: 25),
         children: [
-          Divider(
-            thickness: 1,
-            color: Colors.black.withOpacity(0.075),
-            height: 1,
-          ),
           ListView.separated(
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             physics: NeverScrollableScrollPhysics(),
             itemCount: rowDataList.length,
-            separatorBuilder: (context, index) => Divider(
-              thickness: 1,
-              color: Colors.black.withOpacity(0.075),
-              height: 1,
-            ),
+            separatorBuilder: (context, index) => AppDivider(),
             itemBuilder: (context, index) {
               AppRowData rowData = rowDataList[index];
               return AppTableRow(
@@ -61,11 +52,7 @@ class _DonationHistoryPageState extends State<DonationHistoryPage> {
               );
             },
           ),
-          Divider(
-            thickness: 1,
-            color: Colors.black.withOpacity(0.075),
-            height: 1,
-          ),
+          AppDivider()
         ],
       ),
     );

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Components/Organization/organization_component.dart';
+import 'package:green_apple_pay/Screens/Organization/organization_selector.dart';
 import 'package:green_apple_pay/Utility/API/Firebase/firebase_api.dart';
+import 'package:green_apple_pay/Utility/Classes/organization.dart';
 import 'package:green_apple_pay/Utility/Classes/user.dart';
 import 'package:green_apple_pay/Utility/Functions/app_actions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
@@ -135,7 +137,16 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
                 IconButton(
                   icon: Icon(LineIcons.plus),
                   color: kPrimaryColor,
-                  onPressed: () {
+                  onPressed: () async {
+                    AppOrganization? organization =
+                        await Navigator.push<AppOrganization?>(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AppOrganizationSelector()));
+                    if (organization != null) {
+                      Fluttertoast.showToast(msg: '${organization.name} Added');
+                    }
                   },
                 ),
               ],
@@ -144,73 +155,76 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
                 ? ListView(
                     padding: EdgeInsets.only(top: 25, bottom: 50),
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 25),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'ACTIVE',
-                                  style: TextStyle(
-                                    fontSize: 13.5,
-                                    fontWeight: FontWeight.w600,
-                                    color: kGray4DColor,
-                                  ),
-                                ),
-                                Text(
-                                  '${getActivePercentTotal()}%',
-                                  textAlign: TextAlign.end,
-                                  style: TextStyle(
-                                    fontSize: 13.5,
-                                    fontWeight: FontWeight.w600,
-                                    color: getActivePercentTotal() == 100
-                                        ? Colors.blue
-                                        : Colors.red,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 15),
-                          AppDivider(),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.zero,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: _managedOrgList.length,
-                            itemBuilder: (context, index) {
-                              AppManagedOrganization managedOrganization =
-                                  _managedOrgList[index];
-                              return AppOrganizationManagementTile(
-                                managedOrganization: managedOrganization,
-                                onRemove: () {
-                                  setState(() {
-                                    _managedOrgList.remove(managedOrganization);
-                                  });
-                                },
-                                onPressed: () =>
-                                    showDialogBox(managedOrganization),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 30),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: AppButton(
-                          title: 'Update Donation Distribution',
-                          onPressed: () => submitChanges(appProvider),
+                        padding: EdgeInsets.symmetric(horizontal: 25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'ACTIVE',
+                              style: TextStyle(
+                                fontSize: 13.5,
+                                fontWeight: FontWeight.w600,
+                                color: kGray4DColor,
+                              ),
+                            ),
+                            Text(
+                              '${getActivePercentTotal()}%',
+                              textAlign: TextAlign.end,
+                              style: TextStyle(
+                                fontSize: 13.5,
+                                fontWeight: FontWeight.w600,
+                                color: getActivePercentTotal() == 100
+                                    ? Colors.blue
+                                    : Colors.red,
+                              ),
+                            ),
+                          ],
                         ),
+                      ),
+                      SizedBox(height: 15),
+                      AppDivider(),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: _managedOrgList.length,
+                        itemBuilder: (context, index) {
+                          AppManagedOrganization managedOrganization =
+                              _managedOrgList[index];
+                          return AppOrganizationManagementTile(
+                            managedOrganization: managedOrganization,
+                            onRemove: () {
+                              setState(() {
+                                _managedOrgList.remove(managedOrganization);
+                              });
+                            },
+                            onPressed: () =>
+                                showDialogBox(managedOrganization),
+                          );
+                        },
                       ),
                     ],
                   )
                 : Center(
                     child: Text('No Managed Organization'),
                   ),
+            bottomSheet: Container(
+              padding: EdgeInsets.fromLTRB(20, 12.5, 20, 10 + MediaQuery.of(context).padding.bottom),
+              decoration: BoxDecoration(
+                color: kWhiteColor,
+                border: Border(
+                  top: BorderSide(
+                    color: kDividerColor,
+                    width: 0.75,
+                  )
+                )
+              ),
+              child: AppButton(
+                title: 'Update Donation Distribution',
+                //onPressed: () => submitChanges(appProvider),
+              ),
+            ),
           ),
         );
       },

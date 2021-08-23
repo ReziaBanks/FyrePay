@@ -1,11 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:green_apple_pay/Components/Basic/app_components.dart';
 import 'package:green_apple_pay/Screens/Organization/organization_page.dart';
 import 'package:green_apple_pay/Utility/Classes/donation.dart';
 import 'package:green_apple_pay/Utility/Classes/organization.dart';
 import 'package:green_apple_pay/Utility/Classes/user.dart';
 import 'package:green_apple_pay/Utility/Functions/app_functions.dart';
 import 'package:green_apple_pay/Utility/Misc/constants.dart';
+import 'package:share_plus/share_plus.dart';
 
 class AppOrganizationManagementTile extends StatelessWidget {
   final AppManagedOrganization managedOrganization;
@@ -183,6 +187,130 @@ class AppOrganizationCard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class OrganizationCardV2 extends StatelessWidget {
+  final AppOrganization organization;
+  final Function()? onPressed;
+
+  OrganizationCardV2(
+    this.organization, {
+    this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: kWhiteColor,
+      borderRadius: BorderRadius.circular(5),
+      child: InkWell(
+        onTap: onPressed != null
+            ? onPressed
+            : () =>
+                AppFunctions.navigate(context, OrganizationPage(organization)),
+        child: Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(
+              color: kDividerColor,
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    organization.name,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: kLetterSpacing,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Share.share(
+                          'Visit ${organization.website} to learn more about ${organization.name}');
+                    },
+                    child: Icon(
+                      Ionicons.share_outline,
+                      color: kGray4DColor,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 15),
+              AppDivider(),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  CachedNetworkImage(
+                    imageUrl: organization.imageURL,
+                    width: 75,
+                    height: 75,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(width: 15),
+                  Expanded(
+                    child: Text(
+                      organization.about,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: kGray4DColor,
+                        height: 1.55,
+                        fontSize: 14.5,
+                        letterSpacing: kLetterSpacing,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              AppDivider(),
+              SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 30,
+                    width: 65,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF62BB46),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '50%',
+                        style: TextStyle(
+                          letterSpacing: kLetterSpacing,
+                          color: kWhiteColor,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    'Learn More',
+                    style: TextStyle(
+                      color: kPrimaryColor,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: kLetterSpacing,
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -26,7 +26,8 @@ const kAppBarHeavyTextStyle = TextStyle(
 const kAppBarLightTextStyle = TextStyle(
   color: kBlackColor,
   fontSize: 18,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.w500,
+  letterSpacing: kLetterSpacing,
 );
 
 // EdgeInsets
