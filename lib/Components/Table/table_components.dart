@@ -16,7 +16,7 @@ class AppTableRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(25),
+      padding: EdgeInsets.symmetric(horizontal: kHorizontalPaddingValue, vertical: 25),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

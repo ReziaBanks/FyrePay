@@ -156,7 +156,7 @@ class _ManageOrganizationPageState extends State<ManageOrganizationPage> {
                     padding: EdgeInsets.only(top: 25, bottom: 50),
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 25),
+                        padding: EdgeInsets.symmetric(horizontal: kHorizontalPaddingValue),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

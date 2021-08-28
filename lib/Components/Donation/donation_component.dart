@@ -25,7 +25,7 @@ class AppDonationTile extends StatelessWidget {
                   )
               )
           ),
-          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+          padding: EdgeInsets.symmetric(horizontal: kHorizontalPaddingValue, vertical: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

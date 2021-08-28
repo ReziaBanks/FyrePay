@@ -21,7 +21,7 @@ class _ReportPageState extends State<ReportPage> {
         title: Text('Reports', style: kAppBarHeavyTextStyle),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+        padding: EdgeInsets.symmetric(horizontal: kHorizontalPaddingValue, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

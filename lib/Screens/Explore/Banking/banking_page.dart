@@ -20,7 +20,7 @@ class _BankingPageState extends State<BankingPage> {
         title: Text('Banking', style: kAppBarHeavyTextStyle,),
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+        padding: EdgeInsets.symmetric(horizontal: kHorizontalPaddingValue, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

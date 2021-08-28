@@ -107,7 +107,7 @@ class _CreateAccountState extends State<CreateAccount> {
           ),
           body: SafeArea(
             child: Padding(
-              padding: EdgeInsets.all(25),
+              padding: kAppPadding,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

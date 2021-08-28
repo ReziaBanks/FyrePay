@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           appBarTheme: AppBarTheme(
             elevation: 0,
             color: kWhiteColor,
-            titleSpacing: 25,
+            titleSpacing: kHorizontalPaddingValue,
             iconTheme: IconThemeData(
               color: kBlackColor,
             ),
