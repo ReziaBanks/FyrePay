@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AppProvider()),
       ],
       child: MaterialApp(
-        title: 'Green Apple Pay',
+        title: 'FyrePay',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           fontFamily: 'Inter',

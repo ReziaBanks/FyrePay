@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
             appProvider.organizationDonationList;
         return Scaffold(
           appBar: AppBar(
-            title: Text('Green Apple Pay', style: kAppBarHeavyTextStyle),
+            title: Text('FyrePay', style: kAppBarHeavyTextStyle),
             centerTitle: false,
             actions: [
               IconButton(

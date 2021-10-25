@@ -161,7 +161,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 //About
                 SizedBox(height: 35),
                 Text(
-                  'About Green Apple Pay',
+                  'About FyrePay',
                   style: _basicStyle,
                 ),
                 SizedBox(height: 15),

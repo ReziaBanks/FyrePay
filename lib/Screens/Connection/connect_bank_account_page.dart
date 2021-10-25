@@ -6,7 +6,7 @@ import 'package:green_apple_pay/Utility/Misc/constants.dart';
 import 'package:green_apple_pay/Utility/Misc/data.dart';
 
 /// A page that represents the design of the process of the user connecting their bank account
-/// with GreenApplePay services.
+/// with FyrePay services.
 ///
 /// Page is filled with Lorem ipsum text from Misc -> data.dart variables
 ///

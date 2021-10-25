@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "549653962434",
-    "project_id": "green-apple-pay",
-    "storage_bucket": "green-apple-pay.appspot.com"
+    "project_number": "144111573765",
+    "project_id": "software-development-c03f7",
+    "storage_bucket": "software-development-c03f7.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:549653962434:android:352d26d707239f2342655b",
+        "mobilesdk_app_id": "1:144111573765:android:d03e55defdbd911dfa756c",
         "android_client_info": {
-          "package_name": "com.reziamedia.green_apple_pay"
+          "package_name": "com.reziamedia.fyrepay"
         }
       },
       "oauth_client": [
         {
-          "client_id": "549653962434-16pd3rfr5v93cj3e5nkkshvl8kmqn7oh.apps.googleusercontent.com",
+          "client_id": "144111573765-9ti3nfb6utl33l74190ha1t7ntbgffv6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAtR8IhEB9ZXQAsnutrAxhfqB1VGRG3ykQ"
+          "current_key": "AIzaSyDgW-8ZmzNlQnCdN3RTmPrAQo-4ztoWMj4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "549653962434-16pd3rfr5v93cj3e5nkkshvl8kmqn7oh.apps.googleusercontent.com",
+              "client_id": "144111573765-9ti3nfb6utl33l74190ha1t7ntbgffv6.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "549653962434-lqcssq7ll0bk9bf48fvapbuj8265k3mb.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.reziamedia.greenApplePay"
-              }
             }
           ]
         }
